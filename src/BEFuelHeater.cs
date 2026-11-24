@@ -227,7 +227,7 @@ namespace ForgeAndFeast
                 openers.Add(fromPlayer.PlayerUID);
                 SetDoors(true, true);
             }
-            else if (packetid == (int)EnumBlockEntityPacketId.Close || packetid == (int)EnumBlockContainerPacketId.CloseInventory)
+            else if (packetid == (int)EnumBlockEntityPacketId.Close)
             {
                 openers.Remove(fromPlayer.PlayerUID);
                 if (openers.Count == 0) SetDoors(false, true);
