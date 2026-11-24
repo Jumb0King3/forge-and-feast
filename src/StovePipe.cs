@@ -149,7 +149,7 @@ namespace ForgeAndFeast
     /// </summary>
     public class BlockStovePipe : Block, ISmokeEmitter
     {
-        const float R1 = 5f / 16f, R2 = 11f / 16f;
+        const float R1 = 5.5f / 16f, R2 = 10.5f / 16f;
         SimpleParticleProperties smoke;
 
         public override void OnLoaded(ICoreAPI api)

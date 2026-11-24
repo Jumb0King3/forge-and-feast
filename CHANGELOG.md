@@ -1,5 +1,5 @@
-# Forge and Feast 1.4.3
+# Forge and Feast 1.4.4
 
-Fix
+Stovepipe fix
 
-  - Shared stove code fix.
+  - Stovepipe model and joining code adjusted.
