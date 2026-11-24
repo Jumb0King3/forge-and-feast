@@ -109,23 +109,23 @@
 	attributesByType: {
 		"*-copper-fired": {
 			cookingContainerSlots: 4,
+			maxContainerSlotStackSize: 8,
+			maxServingSize: 8,
+			servingCapacity: 8,
+			dirtiedBlockCode: "dirtylargepot-{metal}-cooked",
+		},
+		"*-tinbronze-fired": {
+			cookingContainerSlots: 4,
 			maxContainerSlotStackSize: 10,
 			maxServingSize: 10,
 			servingCapacity: 10,
 			dirtiedBlockCode: "dirtylargepot-{metal}-cooked",
 		},
-		"*-tinbronze-fired": {
-			cookingContainerSlots: 4,
-			maxContainerSlotStackSize: 14,
-			maxServingSize: 14,
-			servingCapacity: 14,
-			dirtiedBlockCode: "dirtylargepot-{metal}-cooked",
-		},
 		"*-iron-fired": {
 			cookingContainerSlots: 4,
-			maxContainerSlotStackSize: 20,
-			maxServingSize: 20,
-			servingCapacity: 20,
+			maxContainerSlotStackSize: 12,
+			maxServingSize: 12,
+			servingCapacity: 12,
 			dirtiedBlockCode: "dirtylargepot-{metal}-cooked",
 		},
 		"*-cooked": {

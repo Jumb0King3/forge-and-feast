@@ -89,9 +89,11 @@ namespace ForgeAndFeast
     public class BERetort : BEFuelHeater
     {
         public const float MinTemp = 250f;
-        const float BatchSeconds = 40f;
+        /// <summary>In-game hours per charcoal made (before the tier speed bonus). A base game charcoal pit takes 18 h.</summary>
+        const float CharcoalHoursEach = 1f;
         public const float CokeTemp = 450f;
-        const float CokeSeconds = 60f;
+        /// <summary>In-game hours per batch of 4 coal, same on every tier. A base game coke oven takes 12 h.</summary>
+        const float CokeHours = 1.5f;
 
         readonly InventoryRetort inventory;
         float progress;
@@ -125,14 +127,14 @@ namespace ForgeAndFeast
         {
             if (stack?.Collectible?.Code == null || stack.Collectible.Code.Domain != "game") return null;
             string path = stack.Collectible.Code.Path;
-            if (path.StartsWith("firewood")) return new Batch { Needed = 3, OutputCode = "game:charcoal", OutputQty = 1, MinTemp = MinTemp, Seconds = BatchSeconds };
-            if (path.StartsWith("log-")) return new Batch { Needed = 3, OutputCode = "game:charcoal", OutputQty = 4, MinTemp = MinTemp, Seconds = BatchSeconds };
+            if (path.StartsWith("firewood")) return new Batch { Needed = 3, OutputCode = "game:charcoal", OutputQty = 1, MinTemp = MinTemp, Seconds = CharcoalHoursEach };
+            if (path.StartsWith("log-")) return new Batch { Needed = 3, OutputCode = "game:charcoal", OutputQty = 4, MinTemp = MinTemp, Seconds = 4 * CharcoalHoursEach };
             // Any coal the game itself can coke (it carries a coke conversion rate): black coal 0.75, brown coal 0.5
             float rate = stack.ItemAttributes?["cokeConversionRate"].AsFloat(0) ?? 0;
             if (rate > 0)
             {
                 int qty = Math.Max(1, (int)Math.Round(4 * rate));
-                return new Batch { Needed = 4, OutputCode = "game:coke", OutputQty = qty, MinTemp = CokeTemp, Seconds = CokeSeconds, Coke = true };
+                return new Batch { Needed = 4, OutputCode = "game:coke", OutputQty = qty, MinTemp = CokeTemp, Seconds = CokeHours, Coke = true };
             }
             return null;
         }
@@ -168,14 +170,14 @@ namespace ForgeAndFeast
         {
             if (!Working)
             {
-                if (progress > 0) progress = Math.Max(0, progress - dt);
+                if (progress > 0) progress = Math.Max(0, progress - GameHours(dt));
                 return;
             }
 
             ItemStack input = inventory.InputSlot.Itemstack;
             Batch batch = BatchFor(input);
             // Coke runs at the same speed on every tier; charcoal gets the tier speed bonus
-            progress += dt * (batch.Coke ? 1f : SpeedMul) * VentMul;
+            progress += GameHours(dt) * (batch.Coke ? 1f : SpeedMul) * VentMul;
             if (progress < batch.Seconds) return;
 
             inventory.InputSlot.TakeOut(batch.Needed);
@@ -188,6 +190,14 @@ namespace ForgeAndFeast
             outSlot.MarkDirty();
             progress = 0;
             MarkDirty(true);
+        }
+
+        /// <summary>In-game hours that pass in dt real seconds (the retort runs on the world clock, like a charcoal pit).</summary>
+        float GameHours(float dt)
+        {
+            IGameCalendar cal = Api?.World?.Calendar;
+            if (cal == null) return dt / 120f;
+            return dt * cal.SpeedOfTime * cal.CalendarSpeedMul / 3600f;
         }
 
         protected override string DisplayKey()

@@ -117,7 +117,7 @@
   "ingredients": {
    "P": {
     "type": "item",
-    "code": "game:metalplate-*",
+    "code": "game:metalplate-*bronze",
     "name": "metal",
     "allowedVariants": [
      "tinbronze",
@@ -127,7 +127,7 @@
    },
    "I": {
     "type": "item",
-    "code": "game:ingot-*",
+    "code": "game:ingot-*bronze",
     "name": "metal2",
     "allowedVariants": [
      "tinbronze",
