@@ -116,8 +116,8 @@ namespace ForgeAndFeast
         {
             if (stack?.Collectible?.Code == null || stack.Collectible.Code.Domain != "game") return null;
             string path = stack.Collectible.Code.Path;
-            if (path.StartsWith("firewood")) return new Batch { Needed = 2, OutputCode = "game:charcoal", OutputQty = 1, MinTemp = MinTemp, Seconds = BatchSeconds };
-            if (path.StartsWith("log-")) return new Batch { Needed = 1, OutputCode = "game:charcoal", OutputQty = 1, MinTemp = MinTemp, Seconds = BatchSeconds };
+            if (path.StartsWith("firewood")) return new Batch { Needed = 3, OutputCode = "game:charcoal", OutputQty = 1, MinTemp = MinTemp, Seconds = BatchSeconds };
+            if (path.StartsWith("log-")) return new Batch { Needed = 3, OutputCode = "game:charcoal", OutputQty = 4, MinTemp = MinTemp, Seconds = BatchSeconds };
             if (path == "ore-bituminouscoal") return new Batch { Needed = 4, OutputCode = "game:coke", OutputQty = 3, MinTemp = CokeTemp, Seconds = CokeSeconds };
             if (path == "ore-lignite") return new Batch { Needed = 2, OutputCode = "game:coke", OutputQty = 1, MinTemp = CokeTemp, Seconds = CokeSeconds };
             return null;
