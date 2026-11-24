@@ -221,6 +221,8 @@ namespace ForgeAndFeast
             {
                 if (IsFireable(inventory.FiringSlot(i).Itemstack)) return true;
                 if (inventory.HasCrucible(i) && CrucibleHasIngredients(i)) return true;
+                ItemStack st = inventory.FiringSlot(i).Itemstack;
+                if (st?.Collectible is BlockSmeltedContainer && (lastGlow[i] != 0 || GlowLevel(i) != 0)) return true;
             }
             return false;
         }
@@ -234,8 +236,19 @@ namespace ForgeAndFeast
                 if (stack?.Collectible is BlockSmeltingContainer)
                 {
                     ProcessCrucible(i, dt);
+                    UpdateGlow(i);
                     continue;
                 }
+                if (stack?.Collectible is BlockSmeltedContainer)
+                {
+                    // Molten metal sitting in the kiln stays hot as long as the kiln is
+                    float t = stack.Collectible.GetTemperature(Api.World, stack);
+                    float nt = ChangeTemperature(t, temperature, dt * 2f);
+                    if (Math.Abs(nt - t) > 0.05f) stack.Collectible.SetTemperature(Api.World, stack, nt);
+                    UpdateGlow(i);
+                    continue;
+                }
+                if (lastGlow[i] != 0) UpdateGlow(i);
                 string code = stack?.Collectible?.Code?.ToString();
                 if (code != lastCode[i])
                 {
@@ -273,6 +286,27 @@ namespace ForgeAndFeast
             }
         }
 
+
+        void UpdateGlow(int i)
+        {
+            int g = GlowLevel(i);
+            if (g == lastGlow[i]) return;
+            lastGlow[i] = g;
+            MarkDirty(true);
+        }
+
+        readonly int[] lastGlow = new int[InventoryKiln.MaxFiringSlots];
+
+        /// <summary>0-255 glow for the crucible in firing slot i: bright once its metal is molten, dim while it is melting.</summary>
+        int GlowLevel(int i)
+        {
+            ItemStack st = inventory.FiringSlot(i).Itemstack;
+            if (st == null) return 0;
+            if (st.Collectible is BlockSmeltedContainer)
+                return st.Collectible.GetTemperature(Api.World, st) > 600 ? 255 : 0;
+            if (st.Collectible is BlockSmeltingContainer && progress[i] > 0) return 140;
+            return 0;
+        }
 
         bool CrucibleHasIngredients(int i)
         {
@@ -413,6 +447,17 @@ namespace ForgeAndFeast
                 }
 
                 mesh = mesh.Clone();
+                int glow = GlowLevel(i);
+                if (glow > 0 && mesh.Flags != null && mesh.Rgba != null)
+                {
+                    // Hot metal: full-bright orange so it reads as molten
+                    for (int v = 0; v < mesh.VerticesCount; v++)
+                    {
+                        mesh.Flags[v] |= glow;
+                        mesh.Rgba[v * 4 + 1] = (byte)(mesh.Rgba[v * 4 + 1] * 0.75f);
+                        mesh.Rgba[v * 4 + 2] = (byte)(mesh.Rgba[v * 4 + 2] * 0.35f);
+                    }
+                }
                 if (rot != 0) mesh.Rotate(new Vec3f(0.5f, 0, 0.5f), 0, rot * GameMath.DEG2RAD, 0);
                 mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.3f, 0.3f, 0.3f);
                 mesh.Translate(xr, y, zr);
