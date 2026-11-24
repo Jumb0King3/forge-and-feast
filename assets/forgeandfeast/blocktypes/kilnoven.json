@@ -352,5 +352,10 @@
    "z": 0.5
   },
   "scale": 1.2
- }
+ },
+ "entityBehaviors": [
+  {
+   "name": "ForgeSmokeVent"
+  }
+ ]
 }

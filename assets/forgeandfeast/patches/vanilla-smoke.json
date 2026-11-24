@@ -1,0 +1,22 @@
+[
+ {
+  "op": "add",
+  "path": "/entityBehaviors/-",
+  "value": {
+   "name": "ForgeSmokeVent"
+  },
+  "file": "game:blocktypes/wood/firepit.json",
+  "side": "Universal"
+ },
+ {
+  "op": "add",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "ForgeSmokeVent"
+   }
+  ],
+  "file": "game:blocktypes/clay/oven.json",
+  "side": "Universal"
+ }
+]

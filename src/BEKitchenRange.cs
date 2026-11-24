@@ -133,7 +133,7 @@ namespace ForgeAndFeast
             {
                 mode[b] = 1;
                 float diff = itemTemp / Math.Max(1f, meltingPoint);
-                progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * SpeedMul;
+                progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * SpeedMul * VentMul;
             }
             else
             {
@@ -245,7 +245,7 @@ namespace ForgeAndFeast
 
             mode[b] = 2;
             float diff = itemTemp / browning;
-            progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * 1.2f * SpeedMul / timeToBake;
+            progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * 1.2f * SpeedMul * VentMul / timeToBake;
 
             if (progress[b] <= bake.LevelTo) return;
 

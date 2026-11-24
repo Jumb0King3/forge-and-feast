@@ -36,5 +36,9 @@
  "burner-idle": "Can't cook this",
  "kiln-done": "Done",
  "kiln-needs": "Needs {0}°C",
- "kiln-firing": "Firing {0}%"
+ "kiln-firing": "Firing {0}%",
+ "smoke-choking": "You're choking on smoke! Open the room up or add a chimney.",
+ "vent-chimney": "Chimney: good draft (works 25% faster)",
+ "vent-smoky": "Smoky! No chimney in a closed room (works 40% slower)",
+ "vent-choking": "Room is full of smoke - it will hurt anyone inside!"
 }

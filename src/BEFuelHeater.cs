@@ -31,6 +31,8 @@ namespace ForgeAndFeast
         public float HeatMul = 1f;
         /// <summary>The hottest this station can get, whatever the fuel.</summary>
         public int MaxTemp = 1000;
+        /// <summary>Set by the smoke/ventilation behaviour: 1.25 with a chimney, 0.6 in a smoky room.</summary>
+        public float VentMul = 1f;
 
         float prevTemperature = 20;
 
@@ -87,7 +89,7 @@ namespace ForgeAndFeast
             }
 
             float target = IsBurning ? Math.Min(fuelTemperature, MaxTemp) : EnvironmentTemperature();
-            float rate = IsBurning ? HeatMul : 1f;
+            float rate = IsBurning ? HeatMul * VentMul : 1f;
             temperature = ChangeTemperature(temperature, target, dt * rate);
 
             ProcessContents(dt);
@@ -213,6 +215,7 @@ namespace ForgeAndFeast
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
         {
             dsc.AppendLine(GetFuelText());
+            GetBehavior<BEBehaviorSmokeVent>()?.GetBlockInfo(forPlayer, dsc);
         }
     }
 }

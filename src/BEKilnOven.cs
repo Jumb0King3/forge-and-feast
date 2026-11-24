@@ -160,7 +160,7 @@ namespace ForgeAndFeast
                 }
 
                 float bonus = GameMath.Clamp(temperature / Math.Max(1, props.MeltingPoint), 1f, 2f);
-                progress[i] += dt * SpeedMul * bonus;
+                progress[i] += dt * SpeedMul * VentMul * bonus;
 
                 if (progress[i] >= RequiredTime(props))
                 {
