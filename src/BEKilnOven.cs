@@ -8,21 +8,46 @@ using Vintagestory.GameContent;
 
 namespace ForgeAndFeast
 {
-    /// <summary>Fuel slot plus up to 8 firing slots. Lower tiers use fewer slots.</summary>
+    /// <summary>
+    /// Fuel slot plus up to 8 firing slots. Iron and Steel kilns can also smelt: a fired crucible in a
+    /// firing slot gets four ingredient slots of its own, hidden unless a crucible is there.
+    /// </summary>
     public class InventoryKiln : InventoryBase
     {
         public const int MaxFiringSlots = 8;
+        public const int PerCrucible = 4;
         ItemSlot[] slots;
+        BurnerSlots[] providers;
         public int ActiveSlots = MaxFiringSlots;
+        /// <summary>True on tiers that can smelt metal in crucibles.</summary>
+        public bool Smelting;
+        public BlockPos Pos;
 
         public InventoryKiln(string inventoryID, ICoreAPI api) : base(inventoryID, api)
         {
-            slots = GenEmptySlots(1 + MaxFiringSlots);
+            slots = GenEmptySlots(1 + MaxFiringSlots + MaxFiringSlots * PerCrucible);
+            BuildProviders();
             baseWeight = 4f;
         }
 
+        void BuildProviders()
+        {
+            providers = new BurnerSlots[MaxFiringSlots];
+            for (int i = 0; i < MaxFiringSlots; i++)
+            {
+                int c = CookingSlotId(i, 0);
+                providers[i] = new BurnerSlots(new ItemSlot[] { slots[c], slots[c + 1], slots[c + 2], slots[c + 3] });
+            }
+        }
+
+        public static int CookingSlotId(int firing, int j) => 1 + MaxFiringSlots + firing * PerCrucible + j;
+        /// <summary>Which firing slot an ingredient slot belongs to, or -1 if it isn't one.</summary>
+        public static int FiringOfCook(int slotId) => slotId > MaxFiringSlots ? (slotId - 1 - MaxFiringSlots) / PerCrucible : -1;
+
         public ItemSlot FuelSlot => slots[0];
         public ItemSlot FiringSlot(int i) => slots[1 + i];
+        public BurnerSlots Cook(int i) => providers[i];
+        public bool HasCrucible(int i) => FiringSlot(i).Itemstack?.Collectible is BlockSmeltingContainer;
 
         public override int Count => slots.Length;
 
@@ -49,29 +74,87 @@ namespace ForgeAndFeast
         public override bool CanContain(ItemSlot sinkSlot, ItemSlot sourceSlot)
         {
             int id = GetSlotId(sinkSlot);
+            if (id > MaxFiringSlots)
+            {
+                int f = FiringOfCook(id);
+                if (f >= ActiveSlots || !Smelting || !HasCrucible(f)) return false;
+                return base.CanContain(sinkSlot, sourceSlot);
+            }
             if (id > ActiveSlots) return false;
+            if (id >= 1 && sourceSlot?.Itemstack?.Collectible is BlockSmeltingContainer && !Smelting) return false;
             return base.CanContain(sinkSlot, sourceSlot);
         }
 
         public override float GetSuitability(ItemSlot sourceSlot, ItemSlot targetSlot, bool isMerge)
         {
             int id = GetSlotId(targetSlot);
-            CombustibleProperties props = sourceSlot.Itemstack?.Collectible?.CombustibleProps;
+            ItemStack stack = sourceSlot.Itemstack;
+            CombustibleProperties props = stack?.Collectible?.CombustibleProps;
             if (id == 0)
             {
                 if (props == null || props.BurnTemperature <= 0) return 0;
             }
+            else if (id > MaxFiringSlots)
+            {
+                int f = FiringOfCook(id);
+                if (f >= ActiveSlots || !Smelting || !HasCrucible(f)) return 0;
+                if (props == null || props.SmeltedStack == null) return 0;
+                return 2.2f;
+            }
             else
             {
                 if (id > ActiveSlots) return 0;
+                if (stack?.Collectible is BlockSmeltingContainer) return Smelting ? 2.4f : 0;
                 if (props != null && props.SmeltingType == EnumSmeltType.Fire) return 2.2f;
             }
             return base.GetSuitability(sourceSlot, targetSlot, isMerge);
         }
 
+        public override void LateInitialize(string inventoryID, ICoreAPI api)
+        {
+            base.LateInitialize(inventoryID, api);
+            for (int i = 0; i < MaxFiringSlots; i++) UpdateCookingSlots(i);
+        }
+
+        public override void DidModifyItemSlot(ItemSlot slot, ItemStack extractedStack = null)
+        {
+            base.DidModifyItemSlot(slot, extractedStack);
+            int id = GetSlotId(slot);
+            if (id >= 1 && id <= MaxFiringSlots)
+            {
+                int i = id - 1;
+                if (!HasCrucible(i)) DiscardCookingSlots(i);
+                UpdateCookingSlots(i);
+            }
+        }
+
+        /// <summary>Ingredient slot size follows the crucible, like the vanilla firepit.</summary>
+        public void UpdateCookingSlots(int i)
+        {
+            ItemStack cr = FiringSlot(i).Itemstack;
+            int maxStack = cr?.Collectible is BlockSmeltingContainer ? (cr.ItemAttributes?["maxContainerSlotStackSize"].AsInt(32) ?? 32) : 0;
+            for (int j = 0; j < PerCrucible; j++) slots[CookingSlotId(i, j)].MaxSlotStackSize = maxStack;
+        }
+
+        void DiscardCookingSlots(int i)
+        {
+            if (Api == null || Api.Side != EnumAppSide.Server || Pos == null) return;
+            Vec3d droppos = Pos.ToVec3d().Add(0.5, 1.1, 0.5);
+            for (int j = 0; j < PerCrucible; j++)
+            {
+                ItemSlot s = slots[CookingSlotId(i, j)];
+                if (s.Empty) continue;
+                Api.World.SpawnItemEntity(s.Itemstack, droppos);
+                s.Itemstack = null;
+                s.MarkDirty();
+            }
+        }
+
         public override void FromTreeAttributes(ITreeAttribute tree)
         {
             SlotTreeHelper.ReadSlots(this, tree, slots);
+            BuildProviders();
+            if (Api != null) for (int i = 0; i < MaxFiringSlots; i++) UpdateCookingSlots(i);
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
@@ -88,6 +171,8 @@ namespace ForgeAndFeast
     {
         readonly InventoryKiln inventory;
         public int FiringSlots = 4;
+        /// <summary>True on the Iron and Steel kilns, which can smelt metal in crucibles.</summary>
+        public bool CanSmelt;
         /// <summary>Firing takes this many times the item's own firing duration (before the tier speed bonus).</summary>
         public float DurationMul = 4f;
 
@@ -110,6 +195,9 @@ namespace ForgeAndFeast
             FiringSlots = GameMath.Clamp(Block?.Attributes?["firingSlots"].AsInt(4) ?? 4, 1, InventoryKiln.MaxFiringSlots);
             DurationMul = Block?.Attributes?["firingDurationMul"].AsFloat(4f) ?? 4f;
             inventory.ActiveSlots = FiringSlots;
+            CanSmelt = Block?.Attributes?["smelting"].AsBool(false) ?? false;
+            inventory.Smelting = CanSmelt;
+            inventory.Pos = Pos;
         }
 
         void OnSlotModified(int slotId)
@@ -129,7 +217,11 @@ namespace ForgeAndFeast
 
         protected override bool HasActiveWork()
         {
-            for (int i = 0; i < FiringSlots; i++) if (IsFireable(inventory.FiringSlot(i).Itemstack)) return true;
+            for (int i = 0; i < FiringSlots; i++)
+            {
+                if (IsFireable(inventory.FiringSlot(i).Itemstack)) return true;
+                if (inventory.HasCrucible(i) && CrucibleHasIngredients(i)) return true;
+            }
             return false;
         }
 
@@ -139,6 +231,11 @@ namespace ForgeAndFeast
             {
                 ItemSlot slot = inventory.FiringSlot(i);
                 ItemStack stack = slot.Itemstack;
+                if (stack?.Collectible is BlockSmeltingContainer)
+                {
+                    ProcessCrucible(i, dt);
+                    continue;
+                }
                 string code = stack?.Collectible?.Code?.ToString();
                 if (code != lastCode[i])
                 {
@@ -176,6 +273,65 @@ namespace ForgeAndFeast
             }
         }
 
+
+        bool CrucibleHasIngredients(int i)
+        {
+            ItemSlot[] cs = inventory.Cook(i).Slots;
+            for (int j = 0; j < cs.Length; j++) if (!cs[j].Empty) return true;
+            return false;
+        }
+
+        /// <summary>Heats the crucible's ingredients toward the kiln temperature and smelts them once they are all hot enough.</summary>
+        void ProcessCrucible(int i, float dt)
+        {
+            ItemSlot slot = inventory.FiringSlot(i);
+            BurnerSlots prov = inventory.Cook(i);
+            ItemStack cr = slot.Itemstack;
+
+            float minTemp = float.MaxValue;
+            bool any = false;
+            for (int j = 0; j < prov.Slots.Length; j++)
+            {
+                ItemStack s = prov.Slots[j].Itemstack;
+                if (s == null) continue;
+                any = true;
+                float t = s.Collectible.GetTemperature(Api.World, s);
+                float nt = ChangeTemperature(t, temperature, dt * 2f);
+                if (Math.Abs(nt - t) > 0.05f) s.Collectible.SetTemperature(Api.World, s, nt);
+                minTemp = Math.Min(minTemp, nt);
+            }
+
+            if (!any || !cr.Collectible.CanSmelt(Api.World, prov, cr, null))
+            {
+                progress[i] = 0;
+                return;
+            }
+
+            float meltingPoint = cr.Collectible.GetMeltingPoint(Api.World, prov, slot);
+            float duration = Math.Max(5f, cr.Collectible.GetMeltingDuration(Api.World, prov, slot));
+            crucibleDuration[i] = duration;
+            crucibleMelt[i] = meltingPoint;
+
+            if (minTemp >= meltingPoint) progress[i] += dt * SpeedMul * VentMul;
+            else if (progress[i] > 0) progress[i] = Math.Max(0, progress[i] - dt);
+
+            if (progress[i] >= duration)
+            {
+                // The game puts the molten metal in a new container; put it back into this same firing slot
+                DummySlot result = new DummySlot();
+                cr.Collectible.DoSmelt(Api.World, prov, slot, result);
+                slot.Itemstack = result.Itemstack;
+                slot.MarkDirty();
+                for (int j = 0; j < prov.Slots.Length; j++) prov.Slots[j].MarkDirty();
+                progress[i] = 0;
+                lastCode[i] = slot.Itemstack?.Collectible?.Code?.ToString();
+                MarkDirty(true);
+            }
+        }
+
+        readonly float[] crucibleDuration = new float[InventoryKiln.MaxFiringSlots];
+        readonly float[] crucibleMelt = new float[InventoryKiln.MaxFiringSlots];
+
         float RequiredTime(CombustibleProperties props)
         {
             return Math.Max(5f, props.MeltingDuration * DurationMul);
@@ -186,6 +342,17 @@ namespace ForgeAndFeast
         {
             ItemStack stack = inventory.FiringSlot(i).Itemstack;
             if (stack == null) return "";
+            if (stack.Collectible is BlockSmeltingContainer)
+            {
+                if (!CrucibleHasIngredients(i)) return Lang.Get("forgeandfeast:kiln-crucible-empty");
+                BurnerSlots prov = inventory.Cook(i);
+                if (!stack.Collectible.CanSmelt(Api.World, prov, stack, null)) return Lang.Get("forgeandfeast:kiln-crucible-nomatch");
+                float mp = stack.Collectible.GetMeltingPoint(Api.World, prov, inventory.FiringSlot(i));
+                if (temperature < mp) return Lang.Get("forgeandfeast:kiln-needs", (int)mp);
+                float dur = Math.Max(5f, stack.Collectible.GetMeltingDuration(Api.World, prov, inventory.FiringSlot(i)));
+                return Lang.Get("forgeandfeast:kiln-smelting", (int)GameMath.Clamp(100 * progress[i] / dur, 0, 100));
+            }
+            if (stack.Collectible is BlockSmeltedContainer) return Lang.Get("forgeandfeast:kiln-molten");
             if (!IsFireable(stack)) return Lang.Get("forgeandfeast:kiln-done");
             CombustibleProperties props = stack.Collectible.CombustibleProps;
             if (temperature < props.MeltingPoint) return Lang.Get("forgeandfeast:kiln-needs", (int)props.MeltingPoint);

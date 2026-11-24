@@ -146,11 +146,13 @@ namespace ForgeAndFeast
             int count = be.FiringSlots;
             const double rowH = 56;
             const double top = 75;
-            int rows = (count + 1) / 2;
+            bool smelt = be.CanSmelt;
+            int cols = smelt ? 1 : 2;
+            int rows = (count + cols - 1) / cols;
 
             ElementBounds fuelBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, 30, 1, 1);
             ElementBounds fuelTextBounds = ElementBounds.Fixed(60, 40, 400, 30);
-            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, 440, top + rowH * rows);
+            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, smelt ? 520 : 440, top + rowH * rows);
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -170,13 +172,21 @@ namespace ForgeAndFeast
 
             for (int i = 0; i < count; i++)
             {
-                double x = (i % 2) * 220;
-                double y = top + rowH * (i / 2);
+                double x = (i % cols) * 220;
+                double y = top + rowH * (i / cols);
                 ElementBounds slotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, x, y, 1, 1);
-                ElementBounds textBounds = ElementBounds.Fixed(x + 60, y + 12, 155, 40);
+                ElementBounds textBounds = ElementBounds.Fixed(x + 60, y + 12, smelt ? 175 : 155, 40);
                 composer
                     .AddItemSlotGrid(Inventory, DoSendPacket, 1, new int[] { 1 + i }, slotBounds, "fire" + i)
                     .AddDynamicText("", CairoFont.WhiteDetailText().WithFontSize(13), textBounds, "status" + i);
+                if (smelt)
+                {
+                    // Crucible ingredients: these slots only accept items while a crucible sits in the firing slot beside them
+                    ElementBounds ing = ElementStdBounds.SlotGrid(EnumDialogArea.None, 250, y, 4, 1);
+                    composer.AddItemSlotGrid(Inventory, DoSendPacket, 4,
+                        new int[] { InventoryKiln.CookingSlotId(i, 0), InventoryKiln.CookingSlotId(i, 1), InventoryKiln.CookingSlotId(i, 2), InventoryKiln.CookingSlotId(i, 3) },
+                        ing, "cook" + i);
+                }
             }
 
             SingleComposer = composer.EndChildElements().Compose();
