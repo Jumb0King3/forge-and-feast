@@ -18,5 +18,19 @@
   ],
   "file": "game:blocktypes/clay/oven.json",
   "side": "Universal"
+ },
+ {
+  "op": "addmerge",
+  "path": "/enabled",
+  "value": false,
+  "file": "game:recipes/clayforming/clayoven.json",
+  "side": "Universal"
+ },
+ {
+  "op": "replace",
+  "path": "/creativeinventory",
+  "value": {},
+  "file": "game:blocktypes/clay/oven.json",
+  "side": "Universal"
  }
 ]

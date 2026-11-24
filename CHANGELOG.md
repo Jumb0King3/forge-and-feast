@@ -1,11 +1,6 @@
-# Forge and Feast 2.0.0
+# Forge and Feast 2.0.1
 
-Four tiers, oven slots
+Base-game clay oven removed
 
-  - Kitchen Range now comes in four tiers: Copper, Bronze, Iron, Steel.
-      Burner plates: 1 / 2 / 3 / 4
-      Oven slots:    0 / 1 / 2 / 3
-      Speed:         x1.1 / x1.25 / x1.4 / x1.6
-  - Oven slots bake bread and other bakeables. Burner plates cook as before.
-  - Kiln Oven also has four tiers. Firing slots: 2 / 4 / 6 / 8.
-  - Steel range models, recipes and names added.
+  - With this mod installed the vanilla clay oven can no longer be crafted and
+    is hidden from the creative menu. The campfire is left alone.
