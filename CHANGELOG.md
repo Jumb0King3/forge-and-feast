@@ -1,5 +1,5 @@
-# Forge and Feast 1.4.2
+# Forge and Feast 1.4.3
 
 Fix
 
-  - Shared stove, range and kiln code fixes.
+  - Shared stove code fix.
