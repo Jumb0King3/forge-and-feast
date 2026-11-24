@@ -1,5 +1,5 @@
-# Forge and Feast 1.3.1
+# Forge and Feast 1.4.0
 
-Stovepipe fix
+Kiln Oven update
 
-  - Stovepipe model and code adjusted.
+  - Kiln Oven block settings, models and code changed.

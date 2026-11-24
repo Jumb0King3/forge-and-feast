@@ -193,6 +193,56 @@ namespace ForgeAndFeast
             return Lang.Get("forgeandfeast:kiln-firing", pct);
         }
 
+        /// <summary>Draws the moulds and pots in the firing slots on the shelves behind the front opening.</summary>
+        public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
+        {
+            string side = Block?.Variant?["side"] ?? "north";
+            float rot = 0;
+            switch (side)
+            {
+                case "east": rot = 270; break;
+                case "south": rot = 180; break;
+                case "west": rot = 90; break;
+            }
+
+            for (int i = 0; i < FiringSlots; i++)
+            {
+                ItemStack s = inventory.FiringSlot(i).Itemstack;
+                if (s == null) continue;
+
+                MeshData mesh = null;
+                try
+                {
+                    if (s.Block != null && s.Block.Id != 0) tesselator.TesselateBlock(s.Block, out mesh);
+                    else if (s.Item != null) tesselator.TesselateItem(s.Item, out mesh);
+                }
+                catch (Exception)
+                {
+                    mesh = null;
+                }
+                if (mesh == null) continue;
+
+                int row = i / 4, col = i % 4;
+                float x = (3.125f + 3.25f * col) / 16f - 0.5f;
+                float z = 2.4f / 16f - 0.5f;
+                float y = (row == 0 ? 5.4f : 9.0f) / 16f;
+                float xr = x, zr = z;
+                switch (side)
+                {
+                    case "east": xr = -z; zr = x; break;
+                    case "south": xr = -x; zr = -z; break;
+                    case "west": xr = z; zr = -x; break;
+                }
+
+                mesh = mesh.Clone();
+                if (rot != 0) mesh.Rotate(new Vec3f(0.5f, 0, 0.5f), 0, rot * GameMath.DEG2RAD, 0);
+                mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.3f, 0.3f, 0.3f);
+                mesh.Translate(xr, y, zr);
+                mesher.AddMeshData(mesh);
+            }
+            return false;
+        }
+
         public override bool OnPlayerRightClick(IPlayer byPlayer, BlockSelection blockSel)
         {
             if (Api.Side == EnumAppSide.Client)
