@@ -1,6 +1,8 @@
-# Forge and Feast 2.2.2
+# Forge and Feast 2.3.0
 
-Hollow Charcoal Retort
+Hollow chambers and sideways fire doors on all stoves
 
-  - Opening the Retort shows a hollow interior with the wood you load, or the
-    charcoal once it has burned.
+  - Kitchen Range (all four tiers), Kiln Oven and Charcoal Retort all share
+    the hollow open design: the oven or firing chamber is hollow when the door
+    is open, and the fire door swings sideways.
+  - Items in the oven show inside it when the door is open.

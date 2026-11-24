@@ -476,7 +476,61 @@ namespace ForgeAndFeast
                 mesh.Translate(off.X, 14.35f / 16f, off.Z);
                 mesher.AddMeshData(mesh);
             }
+
+            // With the oven door open you can see what is baking on the rack inside
+            if (DoorsOpen && Ovens > 0) DrawOvenContents(mesher, tesselator);
             return drewBody;
+        }
+
+
+        /// <summary>Draws whatever is baking (or baked) on the oven rack, one spot per oven slot.</summary>
+        void DrawOvenContents(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
+        {
+            string side = Block?.Variant?["side"] ?? "north";
+            float rot = 0;
+            switch (side)
+            {
+                case "east": rot = 270; break;
+                case "south": rot = 180; break;
+                case "west": rot = 90; break;
+            }
+
+            for (int o = 0; o < Ovens; o++)
+            {
+                int unit = InventoryRange.MaxBurners + o;
+                ItemStack s = inventory.InputSlot(unit).Itemstack ?? inventory.OutputSlot(unit).Itemstack;
+                if (s == null) continue;
+
+                MeshData mesh = null;
+                try
+                {
+                    if (s.Block != null && s.Block.Id != 0) tesselator.TesselateBlock(s.Block, out mesh);
+                    else if (s.Item != null) tesselator.TesselateItem(s.Item, out mesh);
+                }
+                catch (Exception)
+                {
+                    mesh = null;
+                }
+                if (mesh == null) continue;
+
+                // Spread the spots across the 7px wide chamber; the rack sits at 6.5px
+                float cx = Ovens == 1 ? 5.5f : (Ovens == 2 ? (o == 0 ? 3.9f : 7.1f) : 3.4f + 2.1f * o);
+                float x = cx / 16f - 0.5f;
+                float z = 3.6f / 16f - 0.5f;
+                float xr = x, zr = z;
+                switch (side)
+                {
+                    case "east": xr = -z; zr = x; break;
+                    case "south": xr = -x; zr = -z; break;
+                    case "west": xr = z; zr = -x; break;
+                }
+
+                MeshData m = mesh.Clone();
+                if (rot != 0) m.Rotate(new Vec3f(0.5f, 0, 0.5f), 0, rot * GameMath.DEG2RAD, 0);
+                m.Scale(new Vec3f(0.5f, 0, 0.5f), 0.45f, 0.45f, 0.45f);
+                m.Translate(xr, 6.5f / 16f, zr);
+                mesher.AddMeshData(m);
+            }
         }
 
         #endregion
