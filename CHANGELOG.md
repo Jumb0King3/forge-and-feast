@@ -1,6 +1,6 @@
-# Forge and Feast 2.2.1
+# Forge and Feast 2.2.2
 
-Retort is a cylinder
+Hollow Charcoal Retort
 
-  - The Charcoal Retort model is now a round drum (octagonal) instead of a
-    square block.
+  - Opening the Retort shows a hollow interior with the wood you load, or the
+    charcoal once it has burned.

@@ -165,16 +165,80 @@ namespace ForgeAndFeast
 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
+            bool drewBody = false;
             if ((StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos) & (1 << BlockFacing.UP.Index)) != 0)
             {
                 MeshData body = GetMeshWithoutStub(tesselator);
                 if (body != null)
                 {
                     mesher.AddMeshData(body);
-                    return true;
+                    drewBody = true;
                 }
             }
-            return false;
+
+            // With the hatch open you can see what is inside: wood waiting at the front, charcoal behind it
+            if (DoorsOpen)
+            {
+                ItemStack wood = inventory.InputSlot.Itemstack;
+                ItemStack coal = inventory.OutputSlot.Itemstack;
+                if (wood != null) DrawPile(mesher, tesselator, wood, Math.Min(10, 2 + wood.StackSize / 3), 3.2f, 7.2f, true);
+                if (coal != null) DrawPile(mesher, tesselator, coal, Math.Min(14, 3 + coal.StackSize / 4), wood != null ? 8.2f : 3.6f, 13.2f, false);
+            }
+            return drewBody;
+        }
+
+        /// <summary>Scatters a few pieces of the stack on the floor of the drum, between zFrom and zTo (in 1/16 blocks).</summary>
+        void DrawPile(ITerrainMeshPool mesher, ITesselatorAPI tesselator, ItemStack stack, int pieces, float zFrom, float zTo, bool logs)
+        {
+            MeshData mesh = null;
+            try
+            {
+                if (stack.Block != null && stack.Block.Id != 0) tesselator.TesselateBlock(stack.Block, out mesh);
+                else if (stack.Item != null) tesselator.TesselateItem(stack.Item, out mesh);
+            }
+            catch (Exception)
+            {
+                mesh = null;
+            }
+            if (mesh == null) return;
+
+            string side = Block?.Variant?["side"] ?? "north";
+            float rot = 0;
+            switch (side)
+            {
+                case "east": rot = 270; break;
+                case "south": rot = 180; break;
+                case "west": rot = 90; break;
+            }
+
+            const float floorY = 5.4f / 16f;
+            float scale = logs ? 0.34f : 0.26f;
+            // Pieces sit in two or three tidy layers, each a little offset so it reads as a heap
+            int perLayer = logs ? 4 : 5;
+            for (int i = 0; i < pieces; i++)
+            {
+                int layer = i / perLayer, n = i % perLayer;
+                float fx = (n + 0.5f) / perLayer;
+                float x = (5.6f + 4.8f * fx + (layer % 2) * 0.5f) / 16f - 0.5f;
+                float zSpan = zTo - zFrom;
+                float z = (zFrom + zSpan * (((n * 7 + layer * 3) % perLayer) + 0.5f) / perLayer) / 16f - 0.5f;
+                float y = floorY + layer * (logs ? 0.045f : 0.04f);
+                float xr = x, zr = z;
+                switch (side)
+                {
+                    case "east": xr = -z; zr = x; break;
+                    case "south": xr = -x; zr = -z; break;
+                    case "west": xr = z; zr = -x; break;
+                }
+
+                MeshData m = mesh.Clone();
+                float spin = ((n * 53 + layer * 37) % 90) * GameMath.DEG2RAD + (logs && layer % 2 == 1 ? GameMath.PIHALF : 0);
+                if (rot != 0) m.Rotate(new Vec3f(0.5f, 0, 0.5f), 0, rot * GameMath.DEG2RAD, 0);
+                m.Rotate(new Vec3f(0.5f, 0, 0.5f), 0, spin, 0);
+                m.Scale(new Vec3f(0.5f, 0, 0.5f), scale, scale, scale);
+                m.Translate(xr, y, zr);
+                mesher.AddMeshData(m);
+            }
         }
 
         public override bool OnPlayerRightClick(IPlayer byPlayer, BlockSelection blockSel)
