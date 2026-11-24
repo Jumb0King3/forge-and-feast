@@ -1,5 +1,5 @@
-# Forge and Feast 1.4.0
+# Forge and Feast 1.4.1
 
-Kiln Oven update
+Fix
 
-  - Kiln Oven block settings, models and code changed.
+  - Shared stove code fix.

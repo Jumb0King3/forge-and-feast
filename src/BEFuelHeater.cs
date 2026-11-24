@@ -49,6 +49,15 @@ namespace ForgeAndFeast
             {
                 RegisterGameTickListener(OnServerTick, 100);
                 RegisterGameTickListener(On500msTick, 500);
+                // Safety net: a lit-looking block that isn't actually burning goes dark again
+                RegisterDelayedCallback(dt =>
+                {
+                    if (Block?.Variant?["burnstate"] == "lit" && !IsBurning)
+                    {
+                        SetBurnState("cold");
+                        MarkDirty(true);
+                    }
+                }, 1000);
             }
         }
 
