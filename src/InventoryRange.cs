@@ -38,6 +38,9 @@ namespace ForgeAndFeast
     public class InventoryRange : InventoryBase
     {
         public const int MaxBurners = 4;
+        public const int MaxOvens = 3;
+        /// <summary>Burners come first, then the oven slots (bake only).</summary>
+        public const int MaxUnits = MaxBurners + MaxOvens;
         public const int PerBurner = 6;
 
         ItemSlot[] slots;
@@ -45,18 +48,28 @@ namespace ForgeAndFeast
 
         public BlockPos Pos;
         public int ActiveBurners = MaxBurners;
+        public int ActiveOvens = MaxOvens;
+
+        public static bool IsOven(int unit) => unit >= MaxBurners;
+        public bool IsActiveUnit(int unit) => unit < MaxBurners ? unit < ActiveBurners : unit - MaxBurners < ActiveOvens;
+        public static bool IsBakeable(ItemStack stack)
+        {
+            if (stack == null) return false;
+            BakingProperties bp = BakingProperties.ReadFrom(stack);
+            return bp != null && bp.ResultCode != null;
+        }
 
         public InventoryRange(string inventoryID, ICoreAPI api) : base(inventoryID, api)
         {
-            slots = GenEmptySlots(1 + MaxBurners * PerBurner);
+            slots = GenEmptySlots(1 + MaxUnits * PerBurner);
             BuildProviders();
             baseWeight = 4f;
         }
 
         void BuildProviders()
         {
-            providers = new BurnerSlots[MaxBurners];
-            for (int b = 0; b < MaxBurners; b++)
+            providers = new BurnerSlots[MaxUnits];
+            for (int b = 0; b < MaxUnits; b++)
             {
                 int c = CookingSlotId(b, 0);
                 providers[b] = new BurnerSlots(new ItemSlot[] { slots[c], slots[c + 1], slots[c + 2], slots[c + 3] });
@@ -110,7 +123,7 @@ namespace ForgeAndFeast
         {
             int id = GetSlotId(sinkSlot);
             int burner = BurnerOf(id);
-            if (burner >= ActiveBurners) return false;
+            if (burner >= 0 && !IsActiveUnit(burner)) return false;
             if (burner >= 0)
             {
                 int rel = (id - 1) % PerBurner;
@@ -124,6 +137,9 @@ namespace ForgeAndFeast
         bool InputAccepts(int burner, ItemStack stack)
         {
             if (stack == null) return true;
+            // The oven slots only take things to bake; the burners take everything else
+            if (IsOven(burner)) return IsBakeable(stack);
+            if (IsBakeable(stack)) return false;
             if (stack.Collectible is BlockSmeltingContainer) return false;
             if (stack.Collectible.CombustibleProps?.RequiresContainer == true) return false;
             if (stack.Collectible is BlockCookingContainer && !OutputSlot(burner).Empty) return false;
@@ -145,6 +161,8 @@ namespace ForgeAndFeast
                 int rel = (id - 1) % PerBurner;
                 if (rel == 1) return 0;
                 if (rel >= 2 && !HasPot(burner)) return 0;
+                if (rel == 0 && IsOven(burner)) return IsBakeable(stack) ? 2.2f : 0;
+                if (rel == 0 && IsBakeable(stack)) return 0;
                 if (rel == 0 && stack?.Collectible is BlockCookingContainer) return 2.2f;
             }
             return base.GetSuitability(sourceSlot, targetSlot, isMerge);
@@ -153,7 +171,7 @@ namespace ForgeAndFeast
         public override void LateInitialize(string inventoryID, ICoreAPI api)
         {
             base.LateInitialize(inventoryID, api);
-            for (int b = 0; b < MaxBurners; b++) UpdateCookingSlots(b);
+            for (int b = 0; b < MaxUnits; b++) UpdateCookingSlots(b);
         }
 
         public override void DidModifyItemSlot(ItemSlot slot, ItemStack extractedStack = null)
@@ -207,7 +225,7 @@ namespace ForgeAndFeast
             BuildProviders();
             if (Api != null)
             {
-                for (int b = 0; b < MaxBurners; b++) UpdateCookingSlots(b);
+                for (int b = 0; b < MaxUnits; b++) UpdateCookingSlots(b);
             }
         }
 

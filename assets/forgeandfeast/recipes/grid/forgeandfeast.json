@@ -67,7 +67,7 @@
   "ingredients": {
    "P": {
     "type": "item",
-    "code": "game:metalplate-*",
+    "code": "game:metalplate-tinbronze",
     "name": "metal",
     "allowedVariants": [
      "tinbronze",
@@ -92,7 +92,7 @@
   "ingredients": {
    "P": {
     "type": "item",
-    "code": "game:metalplate-*",
+    "code": "game:metalplate-tinbronze",
     "name": "metal",
     "allowedVariants": [
      "tinbronze",
@@ -161,6 +161,25 @@
   }
  },
  {
+  "ingredientPattern": "PPP,PRP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "R": {
+    "type": "block",
+    "code": "forgeandfeast:kitchenrange-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kitchenrange-steel-cold-closed-north"
+  }
+ },
+ {
   "ingredientPattern": "PPP,PKP",
   "width": 3,
   "height": 2,
@@ -177,6 +196,25 @@
   "output": {
    "type": "block",
    "code": "forgeandfeast:kilnoven-iron-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PPP,PKP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:kilnoven-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kilnoven-steel-cold-closed-north"
   }
  },
  {

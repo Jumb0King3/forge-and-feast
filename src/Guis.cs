@@ -24,13 +24,14 @@ namespace ForgeAndFeast
         void Compose()
         {
             int burners = be.Burners;
+            int ovens = be.Ovens;
             const double rowH = 64;
             const double top = 75;
 
             ElementBounds fuelBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, 30, 1, 1);
             ElementBounds fuelTextBounds = ElementBounds.Fixed(60, 40, 480, 30);
 
-            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, 560, top + rowH * burners);
+            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, 560, top + rowH * (burners + ovens));
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -65,6 +66,21 @@ namespace ForgeAndFeast
                     .AddDynamicText("", CairoFont.WhiteDetailText().WithFontSize(13), textBounds, "status" + b);
             }
 
+            for (int o = 0; o < ovens; o++)
+            {
+                int u = InventoryRange.MaxBurners + o;
+                double y = top + rowH * (burners + o);
+                ElementBounds inBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, y, 1, 1);
+                ElementBounds outBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 300, y, 1, 1);
+                ElementBounds textBounds = ElementBounds.Fixed(360, y + 2, 200, 50);
+                composer
+                    .AddItemSlotGrid(Inventory, DoSendPacket, 1, new int[] { InventoryRange.InputSlotId(u) }, inBounds, "in" + u)
+                    .AddStaticText(Lang.Get("forgeandfeast:oven-label"), CairoFont.WhiteDetailText(), ElementBounds.Fixed(65, y + 14, 200, 30))
+                    .AddStaticText("→", CairoFont.WhiteMediumText(), ElementBounds.Fixed(272, y + 10, 25, 30))
+                    .AddItemSlotGrid(Inventory, DoSendPacket, 1, new int[] { InventoryRange.OutputSlotId(u) }, outBounds, "out" + u)
+                    .AddDynamicText("", CairoFont.WhiteDetailText().WithFontSize(13), textBounds, "status" + u);
+            }
+
             SingleComposer = composer.EndChildElements().Compose();
             Refresh(0);
         }
@@ -76,6 +92,11 @@ namespace ForgeAndFeast
             for (int b = 0; b < be.Burners; b++)
             {
                 SingleComposer.GetDynamicText("status" + b)?.SetNewText(be.GetBurnerText(b));
+            }
+            for (int o = 0; o < be.Ovens; o++)
+            {
+                int u = InventoryRange.MaxBurners + o;
+                SingleComposer.GetDynamicText("status" + u)?.SetNewText(be.GetBurnerText(u));
             }
         }
 
@@ -97,7 +118,7 @@ namespace ForgeAndFeast
             tickId = 0;
 
             SingleComposer?.GetSlotGrid("fuelslot")?.OnGuiClosed(capi);
-            for (int b = 0; b < InventoryRange.MaxBurners; b++)
+            for (int b = 0; b < InventoryRange.MaxUnits; b++)
             {
                 SingleComposer?.GetSlotGrid("in" + b)?.OnGuiClosed(capi);
                 SingleComposer?.GetSlotGrid("cook" + b)?.OnGuiClosed(capi);

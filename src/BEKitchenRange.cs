@@ -20,13 +20,14 @@ namespace ForgeAndFeast
         readonly InventoryRange inventory;
 
         public int Burners = InventoryRange.MaxBurners;
+        public int Ovens = 0;
 
         // Per burner progress, in seconds of cooking (or baking level for bakeables)
-        readonly float[] progress = new float[InventoryRange.MaxBurners];
-        readonly float[] maxProgress = new float[InventoryRange.MaxBurners];
+        readonly float[] progress = new float[InventoryRange.MaxUnits];
+        readonly float[] maxProgress = new float[InventoryRange.MaxUnits];
         // What the burner is doing: 0 idle, 1 cooking, 2 baking, 3 waiting (needs heat or output space)
-        readonly int[] mode = new int[InventoryRange.MaxBurners];
-        readonly string[] lastInputCode = new string[InventoryRange.MaxBurners];
+        readonly int[] mode = new int[InventoryRange.MaxUnits];
+        readonly string[] lastInputCode = new string[InventoryRange.MaxUnits];
 
         string lastMeshKey = "";
 
@@ -45,13 +46,16 @@ namespace ForgeAndFeast
             inventory.Pos = Pos;
             base.Initialize(api);
             inventory.ActiveBurners = Burners;
+            inventory.ActiveOvens = Ovens;
         }
 
         protected override void ReadTierStats()
         {
             base.ReadTierStats();
             Burners = GameMath.Clamp(Block?.Attributes?["burners"].AsInt(2) ?? 2, 1, InventoryRange.MaxBurners);
+            Ovens = GameMath.Clamp(Block?.Attributes?["ovens"].AsInt(0) ?? 0, 0, InventoryRange.MaxOvens);
             inventory.ActiveBurners = Burners;
+            inventory.ActiveOvens = Ovens;
         }
 
         void OnSlotModified(int slotId)
@@ -62,7 +66,7 @@ namespace ForgeAndFeast
 
         protected override bool HasActiveWork()
         {
-            for (int b = 0; b < Burners; b++) if (!inventory.InputSlot(b).Empty) return true;
+            for (int b = 0; b < InventoryRange.MaxUnits; b++) if (inventory.IsActiveUnit(b) && !inventory.InputSlot(b).Empty) return true;
             return false;
         }
 
@@ -70,9 +74,9 @@ namespace ForgeAndFeast
 
         protected override void ProcessContents(float dt)
         {
-            for (int b = 0; b < Burners; b++)
+            for (int b = 0; b < InventoryRange.MaxUnits; b++)
             {
-                ProcessBurner(b, dt);
+                if (inventory.IsActiveUnit(b)) ProcessBurner(b, dt);
             }
         }
 
@@ -100,9 +104,15 @@ namespace ForgeAndFeast
             }
 
             BakingProperties bake = BakingProperties.ReadFrom(stack);
-            if (bake != null && bake.ResultCode != null && stack.Attributes.GetBool("bakeable", true))
+            if (InventoryRange.IsOven(b))
             {
-                Bake(b, bake, dt);
+                if (bake != null && bake.ResultCode != null && stack.Attributes.GetBool("bakeable", true)) Bake(b, bake, dt);
+                else mode[b] = 0;
+                return;
+            }
+            if (bake != null && bake.ResultCode != null)
+            {
+                mode[b] = 0;
                 return;
             }
 
@@ -361,7 +371,7 @@ namespace ForgeAndFeast
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
-            for (int b = 0; b < InventoryRange.MaxBurners; b++)
+            for (int b = 0; b < InventoryRange.MaxUnits; b++)
             {
                 tree.SetFloat("pkProg" + b, progress[b]);
                 tree.SetFloat("pkMax" + b, maxProgress[b]);
@@ -373,7 +383,7 @@ namespace ForgeAndFeast
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
-            for (int b = 0; b < InventoryRange.MaxBurners; b++)
+            for (int b = 0; b < InventoryRange.MaxUnits; b++)
             {
                 progress[b] = tree.GetFloat("pkProg" + b);
                 maxProgress[b] = tree.GetFloat("pkMax" + b);
@@ -413,7 +423,8 @@ namespace ForgeAndFeast
         {
             float x, z;
             const float d = 3.2f / 16f;
-            if (burners == 2) { x = b == 0 ? -d : d; z = 0; }
+            if (burners == 1) { x = 0; z = 0; }
+            else if (burners == 2) { x = b == 0 ? -d : d; z = 0; }
             else if (burners == 3) { x = b == 2 ? 0 : (b == 0 ? -d : d); z = b == 2 ? d : -d; }
             else { x = (b % 2 == 0) ? -d : d; z = b < 2 ? -d : d; }
 
