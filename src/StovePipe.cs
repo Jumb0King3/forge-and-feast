@@ -57,12 +57,12 @@ namespace ForgeAndFeast
         public static int[] Offset(IBlockAccessor ba, BlockPos pos)
         {
             BlockFacing back = BackShift(ba, pos);
-            if (back != null) return new[] { back.Normali.X * 6, back.Normali.Z * 6 };
+            if (back != null) return new[] { back.Normali.X * 7, back.Normali.Z * 7 };
             int ox = 0, oz = 0;
             bool w = IsWall(ba, pos, BlockFacing.WEST), e = IsWall(ba, pos, BlockFacing.EAST);
             bool n = IsWall(ba, pos, BlockFacing.NORTH), s = IsWall(ba, pos, BlockFacing.SOUTH);
-            if (w && !e) ox = -6; else if (e && !w) ox = 6;
-            if (n && !s) oz = -6; else if (s && !n) oz = 6;
+            if (w && !e) ox = -7; else if (e && !w) ox = 7;
+            if (n && !s) oz = -7; else if (s && !n) oz = 7;
             return new[] { ox, oz };
         }
 
@@ -214,7 +214,7 @@ namespace ForgeAndFeast
     /// </summary>
     public class BlockStovePipe : Block, ISmokeEmitter
     {
-        const float R1 = 5.5f / 16f, R2 = 10.5f / 16f;
+        const float R1 = 6f / 16f, R2 = 10f / 16f;
         SimpleParticleProperties smoke;
 
         public override void OnLoaded(ICoreAPI api)

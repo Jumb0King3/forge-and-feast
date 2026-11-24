@@ -142,9 +142,6 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
-   },
-   "collar": {
-    "base": "game:block/metal/sheet/iron2"
    }
   },
   "*-copper-lit-*": {
@@ -162,9 +159,6 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
-   },
-   "collar": {
-    "base": "game:block/metal/sheet/iron2"
    }
   },
   "*-tinbronze-cold-*": {
@@ -182,9 +176,6 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
-   },
-   "collar": {
-    "base": "game:block/metal/sheet/iron2"
    }
   },
   "*-tinbronze-lit-*": {
@@ -202,9 +193,6 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
-   },
-   "collar": {
-    "base": "game:block/metal/sheet/iron2"
    }
   },
   "*-iron-cold-*": {
@@ -222,9 +210,6 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
-   },
-   "collar": {
-    "base": "game:block/metal/sheet/iron2"
    }
   },
   "*-iron-lit-*": {
@@ -242,9 +227,6 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
-   },
-   "collar": {
-    "base": "game:block/metal/sheet/iron2"
    }
   }
  },

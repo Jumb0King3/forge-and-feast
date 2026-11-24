@@ -1,6 +1,6 @@
-# Forge and Feast 1.6.1
+# Forge and Feast 1.6.2
 
-Model and stove touch-up
+Model and stovepipe touch-up
 
-  - Adjustments to the range and kiln models and block settings, plus shared
-    stove code changes.
+  - Further adjustments to the range, kiln and stovepipe models and block
+    settings.

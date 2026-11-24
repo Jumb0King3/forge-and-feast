@@ -16,6 +16,9 @@
   },
   "collar": {
    "base": "game:block/metal/sheet/iron2"
+  },
+  "black": {
+   "base": "game:block/coal/bituminous"
   }
  },
  "creativeinventory": {
