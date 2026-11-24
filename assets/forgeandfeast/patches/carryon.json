@@ -1,0 +1,60 @@
+[
+ {
+  "op": "add",
+  "path": "/behaviors/-",
+  "value": {
+   "name": "Carryable",
+   "properties": {
+    "translation": [
+     0.0625,
+     0,
+     0
+    ],
+    "rotation": [
+     0,
+     180,
+     0
+    ],
+    "slots": {
+     "Hands": {}
+    }
+   }
+  },
+  "file": "forgeandfeast:blocktypes/kitchenrange.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "carryon"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/behaviors/-",
+  "value": {
+   "name": "Carryable",
+   "properties": {
+    "translation": [
+     0.0625,
+     0,
+     0
+    ],
+    "rotation": [
+     0,
+     180,
+     0
+    ],
+    "slots": {
+     "Hands": {}
+    }
+   }
+  },
+  "file": "forgeandfeast:blocktypes/kilnoven.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "carryon"
+   }
+  ]
+ }
+]

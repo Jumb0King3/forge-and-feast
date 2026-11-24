@@ -5,6 +5,12 @@
  "behaviors": [
   {
    "name": "HorizontalOrientable"
+  },
+  {
+   "name": "WrenchOrientable",
+   "properties": {
+    "baseCode": "kilnoven-{tier}-{burnstate}-{doors}-*"
+   }
   }
  ],
  "variantgroups": [

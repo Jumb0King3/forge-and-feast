@@ -1,6 +1,7 @@
-# Forge and Feast 2.0.2
+# Forge and Feast 2.1.0
 
-Iron and Steel plate clearance fix
+Pick-up and rotate
 
-  - Cooking plates on the Iron and Steel ranges no longer clip into the
-    surrounding body.
+  - Range, Kiln Oven and Retort can be picked up (Carry On support, only if
+    the Carry On mod is installed and its config allows it).
+  - They can be rotated with the wrench, like other rotatable blocks.

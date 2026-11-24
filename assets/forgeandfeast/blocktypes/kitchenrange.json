@@ -5,6 +5,12 @@
  "behaviors": [
   {
    "name": "HorizontalOrientable"
+  },
+  {
+   "name": "WrenchOrientable",
+   "properties": {
+    "baseCode": "kitchenrange-{tier}-{burnstate}-{doors}-*"
+   }
   }
  ],
  "variantgroups": [
