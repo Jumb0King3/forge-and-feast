@@ -197,5 +197,29 @@
    "type": "block",
    "code": "forgeandfeast:largepot-iron-fired"
   }
+ },
+ {
+  "ingredientPattern": "P,P",
+  "width": 1,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-*",
+    "name": "metal",
+    "allowedVariants": [
+     "copper",
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze",
+     "iron"
+    ]
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:stovepipe",
+   "quantity": 6
+  }
  }
 ]

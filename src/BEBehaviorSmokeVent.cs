@@ -13,8 +13,9 @@ namespace ForgeAndFeast
     /// <summary>
     /// Smoke and ventilation for fires: the Kitchen Range, Kiln Oven, vanilla firepit and vanilla clay oven.
     ///
-    /// - Chimney: a Clay Brick Chimney within 8 blocks above (nothing solid in between) gives a draft:
-    ///   the fire works 25% faster.
+    /// - Chimney: a Clay Brick Chimney within 8 blocks above (nothing solid in between), or one reached
+    ///   through a run of stovepipes, gives a draft: the fire works 25% faster.
+    /// - Stovepipes that lead out of the room into open air vent the smoke (no draft bonus).
     /// - Smoky room: burning in a fully enclosed room (the game's own room check - doors shut, no gaps,
     ///   up to about 14 blocks across) with no chimney fills the room with smoke. The fire smoulders
     ///   and works 40% slower.
@@ -94,9 +95,17 @@ namespace ForgeAndFeast
             Room room = null;
             if (IsBurning())
             {
+                room = EnclosedRoom();
                 HasChimney = FindChimney();
-                room = HasChimney ? null : EnclosedRoom();
-                Smoky = room != null;
+                bool ventedOutside = false;
+                if (!HasChimney && StovePipes.IsSource(Blockentity.Block))
+                {
+                    StovePipes.VentResult vent = StovePipes.FollowFromSource(Api.World.BlockAccessor, Pos, room);
+                    HasChimney = vent == StovePipes.VentResult.Chimney;
+                    ventedOutside = vent == StovePipes.VentResult.Outside;
+                }
+                Smoky = room != null && !HasChimney && !ventedOutside;
+                if (!Smoky) room = null;
             }
             else
             {

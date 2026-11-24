@@ -1,0 +1,89 @@
+{
+ "code": "stovepipe",
+ "class": "StovePipeBlock",
+ "entityClass": "StovePipe",
+ "shape": {
+  "base": "forgeandfeast:block/stovepipe",
+  "selectiveElements": [
+   "core",
+   "arm-up",
+   "arm-down"
+  ]
+ },
+ "textures": {
+  "pipe": {
+   "base": "game:block/metal/tarnished/iron"
+  },
+  "collar": {
+   "base": "game:block/metal/sheet/iron2"
+  }
+ },
+ "creativeinventory": {
+  "general": [
+   "*"
+  ],
+  "construction": [
+   "*"
+  ]
+ },
+ "blockmaterial": "Metal",
+ "replaceable": 400,
+ "resistance": 2,
+ "maxStackSize": 64,
+ "lightAbsorption": 0,
+ "sideopaque": {
+  "all": false
+ },
+ "sidesolid": {
+  "all": false
+ },
+ "emitSideAo": {
+  "all": false
+ },
+ "faceCullMode": "NeverCull",
+ "sounds": {
+  "walk": "walk/stone",
+  "place": "block/anvil",
+  "hit": "block/anvil",
+  "break": "block/anvil"
+ },
+ "collisionbox": {
+  "x1": 0.3125,
+  "y1": 0,
+  "z1": 0.3125,
+  "x2": 0.6875,
+  "y2": 1,
+  "z2": 0.6875
+ },
+ "selectionbox": {
+  "x1": 0.3125,
+  "y1": 0,
+  "z1": 0.3125,
+  "x2": 0.6875,
+  "y2": 1,
+  "z2": 0.6875
+ },
+ "guiTransform": {
+  "rotation": {
+   "x": -22.6,
+   "y": -45,
+   "z": 0
+  },
+  "origin": {
+   "x": 0.5,
+   "y": 0.5,
+   "z": 0.5
+  },
+  "scale": 1.4
+ },
+ "attributes": {
+  "handbook": {
+   "extraSections": [
+    {
+     "title": "forgeandfeast:stovepipe-handbook-title",
+     "text": "forgeandfeast:stovepipe-handbook-text"
+    }
+   ]
+  }
+ }
+}

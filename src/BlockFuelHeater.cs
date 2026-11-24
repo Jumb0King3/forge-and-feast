@@ -48,6 +48,12 @@ namespace ForgeAndFeast
             return be.OnPlayerRightClick(byPlayer, blockSel);
         }
 
+        public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos)
+        {
+            base.OnNeighbourBlockChange(world, pos, neibpos);
+            if (world.Side == EnumAppSide.Client) world.BlockAccessor.MarkBlockDirty(pos);
+        }
+
         /// <summary>Lets a vanilla Clay Brick Chimney above this block puff smoke while it's burning.</summary>
         public bool EmitsSmoke(BlockPos pos)
         {

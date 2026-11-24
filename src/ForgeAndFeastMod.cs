@@ -12,6 +12,8 @@ namespace ForgeAndFeast
             api.RegisterBlockEntityClass("KitchenRange", typeof(BEKitchenRange));
             api.RegisterBlockEntityClass("KilnOven", typeof(BEKilnOven));
             api.RegisterBlockEntityBehaviorClass("ForgeSmokeVent", typeof(BEBehaviorSmokeVent));
+            api.RegisterBlockClass("StovePipeBlock", typeof(BlockStovePipe));
+            api.RegisterBlockEntityClass("StovePipe", typeof(BEStovePipe));
         }
     }
 }
