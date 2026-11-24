@@ -128,6 +128,14 @@ namespace ForgeAndFeast
                     && stack.Collectible.CombustibleProps?.RequiresContainer != true;
             }
 
+            // A pot holding just one cookable item (raw meat, say) fries it, like a pan
+            ItemSlot fry = canCook ? null : SingleFryable(b);
+            if (fry != null)
+            {
+                Fry(b, fry, dt);
+                return;
+            }
+
             float itemTemp = HeatBurnerContents(b, dt, canCook ? stack.Collectible.GetMeltingPoint(Api.World, burner, input) : 0);
 
             if (!canCook)
@@ -164,6 +172,62 @@ namespace ForgeAndFeast
                 for (int i = 0; i < 4; i++) burner.Slots[i].MarkDirty();
                 MarkDirty(true);
             }
+        }
+
+        /// <summary>The one ingredient slot of a pot that holds a lone food item with a plain cooked form, or null.</summary>
+        public ItemSlot SingleFryable(int b)
+        {
+            if (!inventory.HasPot(b)) return null;
+            ItemSlot found = null;
+            ItemSlot[] cs = inventory.Burner(b).Slots;
+            for (int i = 0; i < cs.Length; i++)
+            {
+                if (cs[i].Empty) continue;
+                if (found != null) return null;
+                found = cs[i];
+            }
+            if (found == null) return null;
+            CombustibleProperties props = found.Itemstack.Collectible.CombustibleProps;
+            if (props == null || props.SmeltingType != EnumSmeltType.Cook || props.RequiresContainer) return null;
+            if (props.SmeltedStack?.ResolvedItemstack == null) return null;
+            return found;
+        }
+
+        readonly string[] lastFryCode = new string[InventoryRange.MaxUnits];
+
+        void Fry(int b, ItemSlot slot, float dt)
+        {
+            ItemStack food = slot.Itemstack;
+            CombustibleProperties props = food.Collectible.CombustibleProps;
+            string code = food.Collectible.Code?.ToString();
+            if (code != lastFryCode[b]) { progress[b] = 0; lastFryCode[b] = code; }
+
+            float temp = HeatBurnerContents(b, dt, props.MeltingPoint);
+            maxProgress[b] = Math.Max(5f, props.MeltingDuration);
+            if (temp >= props.MeltingPoint)
+            {
+                mode[b] = 4;
+                float diff = temp / Math.Max(1f, props.MeltingPoint);
+                progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * SpeedMul * VentMul;
+            }
+            else
+            {
+                mode[b] = 3;
+                if (progress[b] > 0) progress[b] = Math.Max(0, progress[b] - dt);
+            }
+
+            if (progress[b] < maxProgress[b]) return;
+
+            ItemStack done = props.SmeltedStack.ResolvedItemstack.Clone();
+            int ratio = Math.Max(1, props.SmeltedRatio);
+            done.StackSize = Math.Max(1, food.StackSize / ratio) * props.SmeltedStack.ResolvedItemstack.StackSize;
+            done.Collectible.SetTemperature(Api.World, done, temp);
+            slot.Itemstack = done;
+            slot.MarkDirty();
+            progress[b] = 0;
+            mode[b] = 0;
+            lastFryCode[b] = done.Collectible.Code?.ToString();
+            MarkDirty(true);
         }
 
         /// <summary>
@@ -337,8 +401,17 @@ namespace ForgeAndFeast
             if (pot != null)
             {
                 what = pot.GetOutputText(Api.World, inventory.Burner(b), input);
-                if (what == null) return Lang.Get("forgeandfeast:burner-norecipe");
+                if (what == null)
+                {
+                    ItemSlot fry = SingleFryable(b);
+                    if (fry == null) return Lang.Get("forgeandfeast:burner-norecipe");
+                    what = fry.Itemstack.Collectible.CombustibleProps.SmeltedStack.ResolvedItemstack.GetName();
+                    if (!IsBurning && temperature < 60) return Lang.Get("forgeandfeast:burner-nofuel");
+                    int fp = maxProgress[b] > 0 ? (int)GameMath.Clamp(100 * progress[b] / maxProgress[b], 0, 100) : 0;
+                    return (mode[b] == 3 ? Lang.Get("forgeandfeast:burner-heating") : Lang.Get("forgeandfeast:burner-frying", fp)) + "\n" + what;
+                }
             }
+            if (!IsBurning && temperature < 60 && (mode[b] == 0 || mode[b] == 3)) return Lang.Get("forgeandfeast:burner-nofuel");
 
             int pct = maxProgress[b] > 0 ? (int)GameMath.Clamp(100 * progress[b] / maxProgress[b], 0, 100) : 0;
             string state;

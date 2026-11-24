@@ -192,8 +192,37 @@ namespace ForgeAndFeast
             if (sapi.World.ElapsedMilliseconds - lastWarnMs > 4000) lastWarnMs = sapi.World.ElapsedMilliseconds;
         }
 
+        /// <summary>A thin wisp from the stove's own rear stub, only while no pipe is fitted on top of it.</summary>
+        void StubWisp()
+        {
+            BEFuelHeater heater = Blockentity as BEFuelHeater;
+            if (heater == null || !heater.IsBurning) return;
+            if ((StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos) & (1 << BlockFacing.UP.Index)) != 0) return;
+            if (Api.World.Rand.NextDouble() > 0.5) return;
+
+            double dx = 0, dz = -0.06;   // stub sits just behind the middle on a north-facing stove
+            switch (Blockentity.Block?.Variant?["side"])
+            {
+                case "east": dx = 0.06; dz = 0; break;
+                case "south": dz = 0.06; break;
+                case "west": dx = -0.06; dz = 0; break;
+            }
+            SimpleParticleProperties wisp = new SimpleParticleProperties(1, 1,
+                ColorUtil.ColorFromRgba(110, 110, 110, 150),
+                new Vec3d(Pos.X + 0.5 + dx - 0.02, Pos.Y + 0.95, Pos.Z + 0.5 + dz - 0.02), new Vec3d(Pos.X + 0.5 + dx + 0.02, Pos.Y + 0.97, Pos.Z + 0.5 + dz + 0.02),
+                new Vec3f(-0.02f, 0.12f, -0.02f), new Vec3f(0.02f, 0.2f, 0.02f),
+                5f, 0f, 0.15f, 0.3f, EnumParticleModel.Quad);
+            wisp.SelfPropelled = true;
+            wisp.WindAffected = true;
+            wisp.WindAffectednes = 0.7f;
+            wisp.OpacityEvolve = EvolvingNatFloat.create(EnumTransformFunction.LINEAR, -150);
+            wisp.SizeEvolve = EvolvingNatFloat.create(EnumTransformFunction.LINEAR, 0.6f);
+            Api.World.SpawnParticles(wisp);
+        }
+
         void OnClientTick(float dt)
         {
+            StubWisp();
             if (!Smoky || SmokeSeconds <= 0) return;
 
             float level = GameMath.Clamp(SmokeSeconds / SmokeBuildSeconds, 0.15f, 1.5f);

@@ -42,12 +42,40 @@ namespace ForgeAndFeast
             return null;
         }
 
+        /// <summary>
+        /// A pipe that ends against a roof of one or two solid blocks with a chimney on the other side counts as
+        /// passing through it, so the roof never has to be opened. Returns the chimney position or null.
+        /// </summary>
+        public static BlockPos RoofChimney(IBlockAccessor ba, BlockPos pipe)
+        {
+            BlockPos u = pipe.UpCopy();
+            Block first = ba.GetBlock(u);
+            if (first == null || first.Id == 0 || IsPipe(first) || IsChimney(first) || !first.SideSolid[BlockFacing.DOWN.Index]) return null;
+            for (int k = 0; k < 2; k++)
+            {
+                u.Up();
+                Block b = ba.GetBlock(u);
+                if (IsChimney(b)) return u.Copy();
+                if (b == null || b.Id == 0 || !b.SideSolid[BlockFacing.DOWN.Index]) return null;
+            }
+            return null;
+        }
+
+        /// <summary>A pipe running sideways under a solid roof sits tight against it instead of floating mid-block.</summary>
+        public static bool CeilingLift(IBlockAccessor ba, BlockPos pos, int realMask)
+        {
+            int horizontal = realMask & 15;
+            if (horizontal == 0 || (realMask & ((1 << BlockFacing.UP.Index) | (1 << BlockFacing.DOWN.Index))) != 0) return false;
+            Block above = ba.GetBlock(pos.UpCopy());
+            return above != null && above.Id != 0 && !IsPipe(above) && !IsChimney(above) && above.SideSolid[BlockFacing.DOWN.Index];
+        }
+
         public static bool IsChimney(Block b) => b != null && b.Id != 0 && b.HasBehavior<BlockBehaviorChimney>();
 
         static bool IsWall(IBlockAccessor ba, BlockPos pos, BlockFacing f)
         {
             Block b = ba.GetBlock(pos.AddCopy(f));
-            return b != null && b.Id != 0 && b.SideSolid[f.Opposite.Index];
+            return b != null && b.Id != 0 && !(b is BlockStovePipe) && b.SideSolid[f.Opposite.Index];
         }
 
         /// <summary>
@@ -141,6 +169,7 @@ namespace ForgeAndFeast
             {
                 BlockPos p = queue[head++];
                 bool pipeOutside = enclosedRoom != null && !enclosedRoom.Contains(p);
+                if (RoofChimney(ba, p) != null) return VentResult.Chimney;
                 for (int i = 0; i < 6; i++)
                 {
                     BlockFacing f = BlockFacing.ALLFACES[i];
@@ -232,12 +261,23 @@ namespace ForgeAndFeast
 
         public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
         {
-            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos), StovePipes.Offset(blockAccessor, pos));
+            return LiftedBoxes(blockAccessor, pos);
+        }
+
+        static Cuboidf[] LiftedBoxes(IBlockAccessor ba, BlockPos pos)
+        {
+            int real = StovePipes.ConnectionMask(ba, pos);
+            Cuboidf[] boxes = Boxes(real, StovePipes.Offset(ba, pos));
+            if (StovePipes.CeilingLift(ba, pos, real))
+            {
+                for (int i = 0; i < boxes.Length; i++) boxes[i] = boxes[i].Translate(0, 6f / 16f, 0);
+            }
+            return boxes;
         }
 
         public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
         {
-            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos), StovePipes.Offset(blockAccessor, pos));
+            return LiftedBoxes(blockAccessor, pos);
         }
 
         public static int VisualMask(int mask)
@@ -310,6 +350,12 @@ namespace ForgeAndFeast
                 if (StovePipes.IsChimney(nb) && f != BlockFacing.UP) { feedsChimney = true; chimney = n.Copy(); }
             }
 
+            if (!feedsChimney)
+            {
+                BlockPos roof = StovePipes.RoofChimney(ba, pos);
+                if (roof != null) { feedsChimney = true; chimney = roof; }
+            }
+
             bool openEnd = !feedsChimney && pipeCount <= 1 && (mask & (1 << BlockFacing.UP.Index)) == 0
                 && ba.GetBlock(pos.UpCopy()).Id == 0;
             if (!feedsChimney && !openEnd) return;
@@ -363,6 +409,11 @@ namespace ForgeAndFeast
 
             MeshData mesh = GetMesh(key.ToString(), tesselator, mask, cmask, o, f);
             if (mesh == null) return false;
+            if (StovePipes.CeilingLift(ba, Pos, real))
+            {
+                mesh = mesh.Clone();
+                mesh.Translate(0, 6f / 16f, 0);
+            }
             mesher.AddMeshData(mesh);
             return true;
         }

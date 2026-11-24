@@ -222,12 +222,12 @@ namespace ForgeAndFeast
         public override void OnReceivedClientPacket(IPlayer fromPlayer, int packetid, byte[] data)
         {
             base.OnReceivedClientPacket(fromPlayer, packetid, data);
-            if (packetid == (int)EnumBlockContainerPacketId.OpenInventory)
+            if (packetid == (int)EnumBlockEntityPacketId.Open || packetid == (int)EnumBlockContainerPacketId.OpenInventory)
             {
                 openers.Add(fromPlayer.PlayerUID);
                 SetDoors(true, true);
             }
-            else if (packetid == (int)EnumBlockEntityPacketId.Close)
+            else if (packetid == (int)EnumBlockEntityPacketId.Close || packetid == (int)EnumBlockContainerPacketId.CloseInventory)
             {
                 openers.Remove(fromPlayer.PlayerUID);
                 if (openers.Count == 0) SetDoors(false, true);
@@ -266,7 +266,7 @@ namespace ForgeAndFeast
             MarkDirty(true);
             if (sound)
             {
-                Api.World.PlaySoundAt(new AssetLocation("sounds/block/cokeovendoor-" + (open ? "open" : "close")),
+                Api.World.PlaySoundAt(new AssetLocation("survival:sounds/block/cokeovendoor-" + (open ? "open" : "close")),
                     Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5, null, true, 16f, 0.9f);
             }
         }

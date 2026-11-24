@@ -38,7 +38,7 @@
   "all": false
  },
  "sidesolid": {
-  "all": false
+  "all": true
  },
  "emitSideAo": {
   "all": false
@@ -46,9 +46,9 @@
  "faceCullMode": "NeverCull",
  "sounds": {
   "walk": "walk/stone",
-  "place": "block/anvil",
-  "hit": "block/anvil",
-  "break": "block/anvil"
+  "place": "survival:block/anvil",
+  "hit": "survival:block/anvil",
+  "break": "survival:block/anvil"
  },
  "collisionbox": {
   "x1": 0.3125,

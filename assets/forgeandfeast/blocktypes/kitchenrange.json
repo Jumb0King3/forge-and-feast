@@ -4,9 +4,6 @@
  "entityClass": "KitchenRange",
  "behaviors": [
   {
-   "name": "HorizontalOrientable"
-  },
-  {
    "name": "WrenchOrientable",
    "properties": {
     "baseCode": "kitchenrange-{tier}-{burnstate}-{doors}-*"
@@ -316,6 +313,9 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
+   },
+   "soot": {
+    "base": "game:block/coal/bituminous"
    }
   },
   "*-copper-lit-*": {
@@ -333,6 +333,9 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
+   },
+   "soot": {
+    "base": "game:block/coal/bituminous"
    }
   },
   "*-tinbronze-cold-*": {
@@ -350,6 +353,9 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
+   },
+   "soot": {
+    "base": "game:block/coal/bituminous"
    }
   },
   "*-tinbronze-lit-*": {
@@ -367,6 +373,9 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
+   },
+   "soot": {
+    "base": "game:block/coal/bituminous"
    }
   },
   "*-iron-cold-*": {
@@ -384,6 +393,9 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
+   },
+   "soot": {
+    "base": "game:block/coal/bituminous"
    }
   },
   "*-iron-lit-*": {
@@ -401,6 +413,9 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
+   },
+   "soot": {
+    "base": "game:block/coal/bituminous"
    }
   },
   "*-steel-cold-*": {
@@ -418,6 +433,9 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
+   },
+   "soot": {
+    "base": "game:block/coal/bituminous"
    }
   },
   "*-steel-lit-*": {
@@ -435,6 +453,9 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
+   },
+   "soot": {
+    "base": "game:block/coal/bituminous"
    }
   }
  },
@@ -518,611 +539,9 @@
    12
   ]
  },
- "particlePropertiesByType": {
-  "*-lit-closed-north": [
-   {
-    "hsvaColor": [
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 70,
-      "var": 30
-     },
-     {
-      "avg": 200,
-      "var": 50
-     }
-    ],
-    "opacityEvolve": {
-     "transform": "linear",
-     "factor": -255
-    },
-    "gravityEffect": {
-     "avg": 0,
-     "var": 0
-    },
-    "posOffset": [
-     {
-      "avg": 0,
-      "var": 0.03
-     },
-     {
-      "avg": 0.9,
-      "var": 0
-     },
-     {
-      "avg": 0.44,
-      "var": 0.03
-     }
-    ],
-    "velocity": [
-     {
-      "avg": 0,
-      "var": 0.02
-     },
-     {
-      "avg": 0.15,
-      "var": 0.05
-     },
-     {
-      "avg": 0,
-      "var": 0.02
-     }
-    ],
-    "quantity": {
-     "avg": 0.05
-    },
-    "size": {
-     "avg": 0.25,
-     "var": 0.05
-    },
-    "sizeEvolve": {
-     "transform": "linear",
-     "factor": 1.2
-    },
-    "particleModel": "Quad",
-    "lifeLength": {
-     "avg": 8
-    },
-    "selfPropelled": true,
-    "windAffectednes": 0.7
-   }
-  ],
-  "*-lit-open-north": [
-   {
-    "hsvaColor": [
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 70,
-      "var": 30
-     },
-     {
-      "avg": 200,
-      "var": 50
-     }
-    ],
-    "opacityEvolve": {
-     "transform": "linear",
-     "factor": -255
-    },
-    "gravityEffect": {
-     "avg": 0,
-     "var": 0
-    },
-    "posOffset": [
-     {
-      "avg": 0,
-      "var": 0.03
-     },
-     {
-      "avg": 0.9,
-      "var": 0
-     },
-     {
-      "avg": 0.44,
-      "var": 0.03
-     }
-    ],
-    "velocity": [
-     {
-      "avg": 0,
-      "var": 0.02
-     },
-     {
-      "avg": 0.15,
-      "var": 0.05
-     },
-     {
-      "avg": 0,
-      "var": 0.02
-     }
-    ],
-    "quantity": {
-     "avg": 0.05
-    },
-    "size": {
-     "avg": 0.25,
-     "var": 0.05
-    },
-    "sizeEvolve": {
-     "transform": "linear",
-     "factor": 1.2
-    },
-    "particleModel": "Quad",
-    "lifeLength": {
-     "avg": 8
-    },
-    "selfPropelled": true,
-    "windAffectednes": 0.7
-   }
-  ],
-  "*-lit-closed-east": [
-   {
-    "hsvaColor": [
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 70,
-      "var": 30
-     },
-     {
-      "avg": 200,
-      "var": 50
-     }
-    ],
-    "opacityEvolve": {
-     "transform": "linear",
-     "factor": -255
-    },
-    "gravityEffect": {
-     "avg": 0,
-     "var": 0
-    },
-    "posOffset": [
-     {
-      "avg": -0.44,
-      "var": 0.03
-     },
-     {
-      "avg": 0.9,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0.03
-     }
-    ],
-    "velocity": [
-     {
-      "avg": 0,
-      "var": 0.02
-     },
-     {
-      "avg": 0.15,
-      "var": 0.05
-     },
-     {
-      "avg": 0,
-      "var": 0.02
-     }
-    ],
-    "quantity": {
-     "avg": 0.05
-    },
-    "size": {
-     "avg": 0.25,
-     "var": 0.05
-    },
-    "sizeEvolve": {
-     "transform": "linear",
-     "factor": 1.2
-    },
-    "particleModel": "Quad",
-    "lifeLength": {
-     "avg": 8
-    },
-    "selfPropelled": true,
-    "windAffectednes": 0.7
-   }
-  ],
-  "*-lit-open-east": [
-   {
-    "hsvaColor": [
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 70,
-      "var": 30
-     },
-     {
-      "avg": 200,
-      "var": 50
-     }
-    ],
-    "opacityEvolve": {
-     "transform": "linear",
-     "factor": -255
-    },
-    "gravityEffect": {
-     "avg": 0,
-     "var": 0
-    },
-    "posOffset": [
-     {
-      "avg": -0.44,
-      "var": 0.03
-     },
-     {
-      "avg": 0.9,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0.03
-     }
-    ],
-    "velocity": [
-     {
-      "avg": 0,
-      "var": 0.02
-     },
-     {
-      "avg": 0.15,
-      "var": 0.05
-     },
-     {
-      "avg": 0,
-      "var": 0.02
-     }
-    ],
-    "quantity": {
-     "avg": 0.05
-    },
-    "size": {
-     "avg": 0.25,
-     "var": 0.05
-    },
-    "sizeEvolve": {
-     "transform": "linear",
-     "factor": 1.2
-    },
-    "particleModel": "Quad",
-    "lifeLength": {
-     "avg": 8
-    },
-    "selfPropelled": true,
-    "windAffectednes": 0.7
-   }
-  ],
-  "*-lit-closed-south": [
-   {
-    "hsvaColor": [
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 70,
-      "var": 30
-     },
-     {
-      "avg": 200,
-      "var": 50
-     }
-    ],
-    "opacityEvolve": {
-     "transform": "linear",
-     "factor": -255
-    },
-    "gravityEffect": {
-     "avg": 0,
-     "var": 0
-    },
-    "posOffset": [
-     {
-      "avg": 0,
-      "var": 0.03
-     },
-     {
-      "avg": 0.9,
-      "var": 0
-     },
-     {
-      "avg": -0.44,
-      "var": 0.03
-     }
-    ],
-    "velocity": [
-     {
-      "avg": 0,
-      "var": 0.02
-     },
-     {
-      "avg": 0.15,
-      "var": 0.05
-     },
-     {
-      "avg": 0,
-      "var": 0.02
-     }
-    ],
-    "quantity": {
-     "avg": 0.05
-    },
-    "size": {
-     "avg": 0.25,
-     "var": 0.05
-    },
-    "sizeEvolve": {
-     "transform": "linear",
-     "factor": 1.2
-    },
-    "particleModel": "Quad",
-    "lifeLength": {
-     "avg": 8
-    },
-    "selfPropelled": true,
-    "windAffectednes": 0.7
-   }
-  ],
-  "*-lit-open-south": [
-   {
-    "hsvaColor": [
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 70,
-      "var": 30
-     },
-     {
-      "avg": 200,
-      "var": 50
-     }
-    ],
-    "opacityEvolve": {
-     "transform": "linear",
-     "factor": -255
-    },
-    "gravityEffect": {
-     "avg": 0,
-     "var": 0
-    },
-    "posOffset": [
-     {
-      "avg": 0,
-      "var": 0.03
-     },
-     {
-      "avg": 0.9,
-      "var": 0
-     },
-     {
-      "avg": -0.44,
-      "var": 0.03
-     }
-    ],
-    "velocity": [
-     {
-      "avg": 0,
-      "var": 0.02
-     },
-     {
-      "avg": 0.15,
-      "var": 0.05
-     },
-     {
-      "avg": 0,
-      "var": 0.02
-     }
-    ],
-    "quantity": {
-     "avg": 0.05
-    },
-    "size": {
-     "avg": 0.25,
-     "var": 0.05
-    },
-    "sizeEvolve": {
-     "transform": "linear",
-     "factor": 1.2
-    },
-    "particleModel": "Quad",
-    "lifeLength": {
-     "avg": 8
-    },
-    "selfPropelled": true,
-    "windAffectednes": 0.7
-   }
-  ],
-  "*-lit-closed-west": [
-   {
-    "hsvaColor": [
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 70,
-      "var": 30
-     },
-     {
-      "avg": 200,
-      "var": 50
-     }
-    ],
-    "opacityEvolve": {
-     "transform": "linear",
-     "factor": -255
-    },
-    "gravityEffect": {
-     "avg": 0,
-     "var": 0
-    },
-    "posOffset": [
-     {
-      "avg": 0.44,
-      "var": 0.03
-     },
-     {
-      "avg": 0.9,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0.03
-     }
-    ],
-    "velocity": [
-     {
-      "avg": 0,
-      "var": 0.02
-     },
-     {
-      "avg": 0.15,
-      "var": 0.05
-     },
-     {
-      "avg": 0,
-      "var": 0.02
-     }
-    ],
-    "quantity": {
-     "avg": 0.05
-    },
-    "size": {
-     "avg": 0.25,
-     "var": 0.05
-    },
-    "sizeEvolve": {
-     "transform": "linear",
-     "factor": 1.2
-    },
-    "particleModel": "Quad",
-    "lifeLength": {
-     "avg": 8
-    },
-    "selfPropelled": true,
-    "windAffectednes": 0.7
-   }
-  ],
-  "*-lit-open-west": [
-   {
-    "hsvaColor": [
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0
-     },
-     {
-      "avg": 70,
-      "var": 30
-     },
-     {
-      "avg": 200,
-      "var": 50
-     }
-    ],
-    "opacityEvolve": {
-     "transform": "linear",
-     "factor": -255
-    },
-    "gravityEffect": {
-     "avg": 0,
-     "var": 0
-    },
-    "posOffset": [
-     {
-      "avg": 0.44,
-      "var": 0.03
-     },
-     {
-      "avg": 0.9,
-      "var": 0
-     },
-     {
-      "avg": 0,
-      "var": 0.03
-     }
-    ],
-    "velocity": [
-     {
-      "avg": 0,
-      "var": 0.02
-     },
-     {
-      "avg": 0.15,
-      "var": 0.05
-     },
-     {
-      "avg": 0,
-      "var": 0.02
-     }
-    ],
-    "quantity": {
-     "avg": 0.05
-    },
-    "size": {
-     "avg": 0.25,
-     "var": 0.05
-    },
-    "sizeEvolve": {
-     "transform": "linear",
-     "factor": 1.2
-    },
-    "particleModel": "Quad",
-    "lifeLength": {
-     "avg": 8
-    },
-    "selfPropelled": true,
-    "windAffectednes": 0.7
-   }
-  ]
- },
  "sounds": {
   "walk": "walk/stone",
-  "place": "block/ceramicplace",
+  "place": "survival:block/ceramicplace",
   "byTool": {
    "Pickaxe": {
     "hit": "block/rock-hit-pickaxe",

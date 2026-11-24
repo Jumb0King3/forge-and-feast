@@ -48,6 +48,17 @@ namespace ForgeAndFeast
             return be.OnPlayerRightClick(byPlayer, blockSel);
         }
 
+        /// <summary>The front (doors and firebox) faces the player when placed.</summary>
+        public override bool TryPlaceBlock(IWorldAccessor world, IPlayer byPlayer, ItemStack itemstack, BlockSelection blockSel, ref string failureCode)
+        {
+            if (!CanPlaceBlock(world, byPlayer, blockSel, ref failureCode)) return false;
+            BlockFacing[] hv = SuggestedHVOrientation(byPlayer, blockSel);
+            Block placed = world.GetBlock(CodeWithVariant("side", hv[0].Opposite.Code));
+            if (placed == null) return false;
+            placed.DoPlaceBlock(world, byPlayer, blockSel, itemstack);
+            return true;
+        }
+
         public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos)
         {
             base.OnNeighbourBlockChange(world, pos, neibpos);
