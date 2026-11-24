@@ -62,7 +62,7 @@ namespace ForgeAndFeast
                 for (int i = 0; i < shape.Elements.Length; i++)
                 {
                     string name = shape.Elements[i].Name;
-                    if (name == "pipe" || name == "pipecollar") continue;
+                    if (name == "pipe") continue;
                     names[n++] = name;
                 }
                 string[] keep = new string[n];

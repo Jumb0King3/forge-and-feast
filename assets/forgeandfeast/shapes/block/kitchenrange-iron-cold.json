@@ -440,58 +440,136 @@
   {
    "name": "pipecollar",
    "from": [
-    6.5,
+    5,
     14,
-    13.5
+    11
    ],
    "to": [
-    9.5,
+    11,
     15,
     16
    ],
    "faces": {
     "north": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      6.5,
-      1,
-      9.5,
-      2
+      5,
+      14,
+      11,
+      15
      ]
     },
     "east": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      13.5,
-      1,
+      11,
+      14,
       16,
-      2
+      15
      ]
     },
     "south": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      6.5,
-      1,
-      9.5,
-      2
+      5,
+      14,
+      11,
+      15
      ]
     },
     "west": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      13.5,
-      1,
+      11,
+      14,
       16,
-      2
+      15
      ]
     },
     "up": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      6.5,
-      13.5,
-      9.5,
+      5,
+      11,
+      11,
+      16
+     ]
+    },
+    "down": {
+     "texture": "#collar",
+     "uv": [
+      5,
+      11,
+      11,
+      16
+     ]
+    }
+   }
+  },
+  {
+   "name": "pipelow",
+   "from": [
+    6,
+    15,
+    12
+   ],
+   "to": [
+    10,
+    16,
+    16
+   ],
+   "faces": {
+    "north": {
+     "texture": "#collar",
+     "uv": [
+      6,
+      15,
+      10,
+      16
+     ]
+    },
+    "east": {
+     "texture": "#collar",
+     "uv": [
+      12,
+      15,
+      16,
+      16
+     ]
+    },
+    "south": {
+     "texture": "#collar",
+     "uv": [
+      6,
+      15,
+      10,
+      16
+     ]
+    },
+    "west": {
+     "texture": "#collar",
+     "uv": [
+      12,
+      15,
+      16,
+      16
+     ]
+    },
+    "up": {
+     "texture": "#collar",
+     "uv": [
+      6,
+      12,
+      10,
+      16
+     ]
+    },
+    "down": {
+     "texture": "#collar",
+     "uv": [
+      6,
+      12,
+      10,
       16
      ]
     }
@@ -500,58 +578,67 @@
   {
    "name": "pipe",
    "from": [
-    7,
-    15,
-    14
+    6,
+    16,
+    12
    ],
    "to": [
-    9,
+    10,
     22,
     16
    ],
    "faces": {
     "north": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      7,
-      0,
-      9,
-      1
+      6,
+      16,
+      10,
+      22
      ]
     },
     "east": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      14,
-      0,
+      12,
       16,
-      1
+      16,
+      22
      ]
     },
     "south": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      7,
-      0,
-      9,
-      1
+      6,
+      16,
+      10,
+      22
      ]
     },
     "west": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      14,
-      0,
+      12,
       16,
-      1
+      16,
+      22
      ]
     },
     "up": {
-     "texture": "#black",
+     "texture": "#collar",
      "uv": [
-      7,
-      14,
-      9,
+      6,
+      12,
+      10,
+      16
+     ]
+    },
+    "down": {
+     "texture": "#collar",
+     "uv": [
+      6,
+      12,
+      10,
       16
      ]
     }
