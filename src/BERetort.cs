@@ -82,6 +82,8 @@ namespace ForgeAndFeast
     {
         public const float MinTemp = 250f;
         const float BatchSeconds = 40f;
+        public const float CokeTemp = 450f;
+        const float CokeSeconds = 60f;
 
         readonly InventoryRetort inventory;
         float progress;
@@ -96,34 +98,53 @@ namespace ForgeAndFeast
         public override string InventoryClassName => "charcoalretort";
         public override ItemSlot FuelSlot => inventory.FuelSlot;
 
-        /// <summary>Firewood or logs. Returns how many pieces make one batch via NeededFor.</summary>
-        public static bool IsRetortable(ItemStack stack)
+        /// <summary>What a retort batch does with an input: how much goes in, what and how much comes out.</summary>
+        public class Batch
         {
-            if (stack?.Collectible?.Code == null) return false;
-            if (stack.Collectible.Code.Domain != "game") return false;
+            public int Needed;
+            public string OutputCode;
+            public int OutputQty;
+            public float MinTemp;
+            public float Seconds;
+        }
+
+        /// <summary>
+        /// Firewood and logs make charcoal. Coal makes coke at the base game's coke oven yields:
+        /// black coal 3 coke per 4 coal (0.75), brown coal 1 per 2 (0.5). Coke needs a hotter retort, so Copper can't do it.
+        /// </summary>
+        public static Batch BatchFor(ItemStack stack)
+        {
+            if (stack?.Collectible?.Code == null || stack.Collectible.Code.Domain != "game") return null;
             string path = stack.Collectible.Code.Path;
-            return path.StartsWith("firewood") || path.StartsWith("log-");
+            if (path.StartsWith("firewood")) return new Batch { Needed = 2, OutputCode = "game:charcoal", OutputQty = 1, MinTemp = MinTemp, Seconds = BatchSeconds };
+            if (path.StartsWith("log-")) return new Batch { Needed = 1, OutputCode = "game:charcoal", OutputQty = 1, MinTemp = MinTemp, Seconds = BatchSeconds };
+            if (path == "ore-bituminouscoal") return new Batch { Needed = 4, OutputCode = "game:coke", OutputQty = 3, MinTemp = CokeTemp, Seconds = CokeSeconds };
+            if (path == "ore-lignite") return new Batch { Needed = 2, OutputCode = "game:coke", OutputQty = 1, MinTemp = CokeTemp, Seconds = CokeSeconds };
+            return null;
         }
 
-        static int NeededFor(ItemStack stack)
-        {
-            return stack.Collectible.Code.Path.StartsWith("firewood") ? 2 : 1;
-        }
-
-        Item Charcoal => Api.World.GetItem(new AssetLocation("game:charcoal"));
+        public static bool IsRetortable(ItemStack stack) => BatchFor(stack) != null;
 
         bool CanWork()
         {
             ItemStack input = inventory.InputSlot.Itemstack;
-            if (!IsRetortable(input) || input.StackSize < NeededFor(input)) return false;
-            Item coal = Charcoal;
-            if (coal == null) return false;
+            Batch batch = BatchFor(input);
+            if (batch == null || input.StackSize < batch.Needed) return false;
+            Item product = Api.World.GetItem(new AssetLocation(batch.OutputCode));
+            if (product == null) return false;
             ItemStack outp = inventory.OutputSlot.Itemstack;
             if (outp == null) return true;
-            return outp.Collectible == coal && outp.StackSize < outp.Collectible.MaxStackSize;
+            return outp.Collectible == product && outp.StackSize + batch.OutputQty <= outp.Collectible.MaxStackSize;
         }
 
-        bool Working => IsBurning && temperature >= MinTemp && Api != null && CanWork();
+        bool Working
+        {
+            get
+            {
+                if (!IsBurning || Api == null || !CanWork()) return false;
+                return temperature >= BatchFor(inventory.InputSlot.Itemstack).MinTemp;
+            }
+        }
 
         public override float CurrentSmokeMul => Working ? SmokeMul * 1.5f : SmokeMul;
 
@@ -137,17 +158,18 @@ namespace ForgeAndFeast
                 return;
             }
 
-            progress += dt * SpeedMul * VentMul;
-            if (progress < BatchSeconds) return;
-
             ItemStack input = inventory.InputSlot.Itemstack;
-            int need = NeededFor(input);
-            inventory.InputSlot.TakeOut(need);
+            Batch batch = BatchFor(input);
+            progress += dt * SpeedMul * VentMul;
+            if (progress < batch.Seconds) return;
+
+            inventory.InputSlot.TakeOut(batch.Needed);
             inventory.InputSlot.MarkDirty();
 
+            Item product = Api.World.GetItem(new AssetLocation(batch.OutputCode));
             ItemSlot outSlot = inventory.OutputSlot;
-            if (outSlot.Itemstack == null) outSlot.Itemstack = new ItemStack(Charcoal, 1);
-            else outSlot.Itemstack.StackSize += 1;
+            if (outSlot.Itemstack == null) outSlot.Itemstack = new ItemStack(product, batch.OutputQty);
+            else outSlot.Itemstack.StackSize += batch.OutputQty;
             outSlot.MarkDirty();
             progress = 0;
             MarkDirty(true);
@@ -158,9 +180,14 @@ namespace ForgeAndFeast
             ItemStack input = inventory.InputSlot.Itemstack;
             if (!IsRetortable(input)) return Lang.Get("forgeandfeast:retort-empty");
             if (!CanWork()) return Lang.Get("forgeandfeast:retort-full");
-            if (temperature < MinTemp) return Lang.Get("forgeandfeast:retort-needs", (int)MinTemp);
-            int pct = (int)GameMath.Clamp(100 * progress / BatchSeconds, 0, 100);
-            return Lang.Get("forgeandfeast:retort-working", pct);
+            Batch batch = BatchFor(input);
+            if (temperature < batch.MinTemp)
+            {
+                if (MaxTemp < batch.MinTemp) return Lang.Get("forgeandfeast:retort-toocool", (int)batch.MinTemp);
+                return Lang.Get("forgeandfeast:retort-needs", (int)batch.MinTemp);
+            }
+            int pct = (int)GameMath.Clamp(100 * progress / batch.Seconds, 0, 100);
+            return Lang.Get(batch.OutputCode == "game:coke" ? "forgeandfeast:retort-working-coke" : "forgeandfeast:retort-working", pct);
         }
 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
