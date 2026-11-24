@@ -1,7 +1,5 @@
-# Forge and Feast 1.7.0
+# Forge and Feast 1.7.1
 
-Opening doors
+Fix
 
-  - Range and Kiln get separate closed and open door models. Doors open and
-    close when you open the window.
-  - Recipe changes. Shared stove code updated.
+  - Fuel heater code fix (small change to the shared stove code).
