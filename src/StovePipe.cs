@@ -20,6 +20,28 @@ namespace ForgeAndFeast
 
         public static bool IsPipe(Block b) => b is BlockStovePipe;
 
+        /// <summary>
+        /// A pipe riser standing on a Kitchen Range or Kiln Oven lines up with the stove's rear stub, so it is drawn
+        /// pushed toward the back. Returns that direction, or null when the pipe doesn't stand on one.
+        /// </summary>
+        public static BlockFacing BackShift(IBlockAccessor ba, BlockPos pos)
+        {
+            BlockPos p = pos.Copy();
+            for (int i = 0; i < MaxPipes; i++)
+            {
+                p.Y -= 1;
+                Block b = ba.GetBlock(p);
+                if (b is BlockFuelHeater)
+                {
+                    string side = b.Variant?["side"];
+                    BlockFacing f = side == null ? null : BlockFacing.FromCode(side);
+                    return f?.Opposite;
+                }
+                if (!IsPipe(b)) return null;
+            }
+            return null;
+        }
+
         public static bool IsChimney(Block b) => b != null && b.Id != 0 && b.HasBehavior<BlockBehaviorChimney>();
 
         /// <summary>Fires a stovepipe can connect to. The firepit is left out on purpose.</summary>
@@ -167,12 +189,12 @@ namespace ForgeAndFeast
 
         public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
         {
-            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos));
+            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos), StovePipes.BackShift(blockAccessor, pos));
         }
 
         public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
         {
-            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos));
+            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos), StovePipes.BackShift(blockAccessor, pos));
         }
 
         public static int VisualMask(int mask)
@@ -186,21 +208,33 @@ namespace ForgeAndFeast
             return mask;
         }
 
-        static Cuboidf[] Boxes(int mask)
+        static Cuboidf[] Boxes(int mask, BlockFacing shift)
         {
             mask = VisualMask(mask);
-            Cuboidf[] boxes = new Cuboidf[1 + 6];
-            int n = 0;
-            boxes[n++] = new Cuboidf(R1, R1, R1, R2, R2, R2);
-            if ((mask & (1 << BlockFacing.NORTH.Index)) != 0) boxes[n++] = new Cuboidf(R1, R1, 0, R2, R2, R1);
-            if ((mask & (1 << BlockFacing.SOUTH.Index)) != 0) boxes[n++] = new Cuboidf(R1, R1, R2, R2, R2, 1);
-            if ((mask & (1 << BlockFacing.WEST.Index)) != 0) boxes[n++] = new Cuboidf(0, R1, R1, R1, R2, R2);
-            if ((mask & (1 << BlockFacing.EAST.Index)) != 0) boxes[n++] = new Cuboidf(R2, R1, R1, 1, R2, R2);
-            if ((mask & (1 << BlockFacing.DOWN.Index)) != 0) boxes[n++] = new Cuboidf(R1, 0, R1, R2, R1, R2);
-            if ((mask & (1 << BlockFacing.UP.Index)) != 0) boxes[n++] = new Cuboidf(R1, R2, R1, R2, 1, R2);
-            Cuboidf[] result = new Cuboidf[n];
-            Array.Copy(boxes, result, n);
-            return result;
+            List<Cuboidf> boxes = new List<Cuboidf>();
+            float sx = 0, sz = 0;
+            if (shift != null) { sx = shift.Normali.X * 5.5f / 16f; sz = shift.Normali.Z * 5.5f / 16f; }
+
+            // core and vertical arms follow the shift
+            boxes.Add(new Cuboidf(R1, R1, R1, R2, R2, R2).Translate(sx, 0, sz));
+            if ((mask & (1 << BlockFacing.DOWN.Index)) != 0) boxes.Add(new Cuboidf(R1, 0, R1, R2, R1, R2).Translate(sx, 0, sz));
+            if ((mask & (1 << BlockFacing.UP.Index)) != 0) boxes.Add(new Cuboidf(R1, R2, R1, R2, 1, R2).Translate(sx, 0, sz));
+
+            bool horizontal = false;
+            if ((mask & (1 << BlockFacing.NORTH.Index)) != 0) { boxes.Add(new Cuboidf(R1, R1, 0, R2, R2, R1)); horizontal = true; }
+            if ((mask & (1 << BlockFacing.SOUTH.Index)) != 0) { boxes.Add(new Cuboidf(R1, R1, R2, R2, R2, 1)); horizontal = true; }
+            if ((mask & (1 << BlockFacing.WEST.Index)) != 0) { boxes.Add(new Cuboidf(0, R1, R1, R1, R2, R2)); horizontal = true; }
+            if ((mask & (1 << BlockFacing.EAST.Index)) != 0) { boxes.Add(new Cuboidf(R2, R1, R1, 1, R2, R2)); horizontal = true; }
+
+            if (shift != null && horizontal)
+            {
+                // jog from the shifted riser back to the pipe's centre line
+                if (shift == BlockFacing.NORTH) boxes.Add(new Cuboidf(R1, R1, 0, R2, R2, R2));
+                else if (shift == BlockFacing.SOUTH) boxes.Add(new Cuboidf(R1, R1, R1, R2, R2, 1));
+                else if (shift == BlockFacing.WEST) boxes.Add(new Cuboidf(0, R1, R1, R2, R2, R2));
+                else if (shift == BlockFacing.EAST) boxes.Add(new Cuboidf(R1, R1, R1, 1, R2, R2));
+            }
+            return boxes.ToArray();
         }
 
         public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos)
@@ -284,41 +318,61 @@ namespace ForgeAndFeast
                 np.Set(Pos).Add(BlockFacing.ALLFACES[i]);
                 if (StovePipes.IsChimney(Api.World.BlockAccessor.GetBlock(np))) cmask |= 1 << i;
             }
-            MeshData mesh = GetMesh(mask | (cmask << 6), tesselator);
+            BlockFacing shift = StovePipes.BackShift(Api.World.BlockAccessor, Pos);
+            int sidx = shift == null ? 0 : shift.Index + 1;
+            MeshData mesh = GetMesh(mask | (cmask << 6) | (sidx << 12), tesselator);
             if (mesh == null) return false;
             mesher.AddMeshData(mesh);
             return true;
         }
 
-        MeshData GetMesh(int mask, ITesselatorAPI tesselator)
+        MeshData GetMesh(int key, ITesselatorAPI tesselator)
         {
             Dictionary<int, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-pipemeshes", () => new Dictionary<int, MeshData>());
             lock (cache)
             {
                 MeshData mesh;
-                if (cache.TryGetValue(mask, out mesh)) return mesh;
+                if (cache.TryGetValue(key, out mesh)) return mesh;
 
                 Shape shape = Shape.TryGet(Api, new AssetLocation("forgeandfeast", "shapes/block/stovepipe.json"));
                 if (shape == null) return null;
 
-                int cm = mask >> 6;
-                string[] elems = new string[1 + 6 * 2];
-                int k = 0;
-                elems[k++] = "core";
+                int mask = key & 63;
+                int cm = (key >> 6) & 63;
+                int sidx = key >> 12;
+                BlockFacing shift = sidx == 0 ? null : BlockFacing.ALLFACES[sidx - 1];
+
+                List<string> shifted = new List<string>();
+                List<string> fixedPart = new List<string>();
+                shifted.Add("core");
+                bool horizontal = false;
                 for (int i = 0; i < 6; i++)
                 {
                     if ((mask & (1 << i)) == 0) continue;
+                    bool vertical = i >= 4;
+                    List<string> target = (shift == null || vertical) ? shifted : fixedPart;
+                    if (!vertical) horizontal = true;
                     if ((cm & (1 << i)) != 0)
                     {
-                        elems[k++] = "c" + ArmNames[i];
-                        elems[k++] = "cflange-" + ArmNames[i].Substring(4);
+                        target.Add("c" + ArmNames[i]);
+                        target.Add("cflange-" + ArmNames[i].Substring(4));
                     }
-                    else elems[k++] = ArmNames[i];
+                    else target.Add(ArmNames[i]);
                 }
-                System.Array.Resize(ref elems, k);
+                if (shift != null && horizontal) fixedPart.Add("jog-" + shift.Code);
 
-                tesselator.TesselateShape(Block, shape, out mesh, null, null, elems);
-                cache[mask] = mesh;
+                tesselator.TesselateShape(Block, shape, out mesh, null, null, shifted.ToArray());
+                if (shift != null)
+                {
+                    mesh.Translate(shift.Normali.X * 6f / 16f, 0, shift.Normali.Z * 6f / 16f);
+                    if (fixedPart.Count > 0)
+                    {
+                        MeshData extra;
+                        tesselator.TesselateShape(Block, shape, out extra, null, null, fixedPart.ToArray());
+                        mesh.AddMeshData(extra);
+                    }
+                }
+                cache[key] = mesh;
                 return mesh;
             }
         }

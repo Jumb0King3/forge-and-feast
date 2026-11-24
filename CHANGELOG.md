@@ -1,5 +1,5 @@
-# Forge and Feast 1.4.4
+# Forge and Feast 1.5.0
 
-Stovepipe fix
+Stovepipe, range and kiln code
 
-  - Stovepipe model and joining code adjusted.
+  - Stovepipe model and code changes; range and kiln code updated.
