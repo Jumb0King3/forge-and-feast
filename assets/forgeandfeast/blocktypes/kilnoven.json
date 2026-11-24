@@ -249,16 +249,17 @@
    "speedMul": 1.1,
    "burnMul": 1.0,
    "heatMul": 1.0,
-   "maxTemp": 1000,
+   "maxTemp": 1100,
    "firingDurationMul": 4,
    "handbook": {
     "groupBy": [
      "kilnoven-*"
     ]
-   }
+   },
+   "smelting": true
   },
   "*-tinbronze-*": {
-   "firingSlots": 4,
+   "firingSlots": 3,
    "speedMul": 1.25,
    "burnMul": 1.15,
    "heatMul": 1.15,
@@ -268,15 +269,16 @@
     "groupBy": [
      "kilnoven-*"
     ]
-   }
+   },
+   "smelting": true
   },
   "*-iron-*": {
    "smelting": true,
-   "firingSlots": 6,
+   "firingSlots": 4,
    "speedMul": 1.4,
    "burnMul": 1.3,
    "heatMul": 1.3,
-   "maxTemp": 1200,
+   "maxTemp": 1100,
    "firingDurationMul": 4,
    "handbook": {
     "groupBy": [
@@ -286,11 +288,11 @@
   },
   "*-steel-*": {
    "smelting": true,
-   "firingSlots": 8,
+   "firingSlots": 5,
    "speedMul": 1.6,
    "burnMul": 1.5,
    "heatMul": 1.5,
-   "maxTemp": 1300,
+   "maxTemp": 1100,
    "firingDurationMul": 4,
    "handbook": {
     "groupBy": [

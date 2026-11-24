@@ -321,7 +321,7 @@ namespace ForgeAndFeast
 
             mode[b] = 2;
             float diff = itemTemp / browning;
-            progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * 1.2f * SpeedMul * VentMul / timeToBake;
+            progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * 1.2f * OvenSpeedMul * VentMul / timeToBake;
 
             if (progress[b] <= bake.LevelTo) return;
 
@@ -591,6 +591,9 @@ namespace ForgeAndFeast
             for (int i = 0; i < slots.Length; i++) if (!slots[i].Empty) r[n++] = slots[i].Itemstack;
             return r;
         }
+
+        /// <summary>Oven speed: Bronze bakes at normal clay-oven speed, Iron and Steel a bit faster.</summary>
+        float OvenSpeedMul => Block?.Attributes?["ovenSpeedMul"].AsFloat(1f) ?? 1f;
 
         protected override string DisplayKey()
         {

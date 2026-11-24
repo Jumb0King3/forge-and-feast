@@ -46,6 +46,14 @@ namespace ForgeAndFeast
             return new ItemSlotSurvival(this);
         }
 
+        public override bool CanContain(ItemSlot sinkSlot, ItemSlot sourceSlot)
+        {
+            int id = GetSlotId(sinkSlot);
+            if (id == 1 && sourceSlot?.Itemstack != null && !BERetort.IsRetortable(sourceSlot.Itemstack)) return false;
+            if (id == 2) return false;
+            return base.CanContain(sinkSlot, sourceSlot);
+        }
+
         public override float GetSuitability(ItemSlot sourceSlot, ItemSlot targetSlot, bool isMerge)
         {
             int id = GetSlotId(targetSlot);
@@ -106,6 +114,7 @@ namespace ForgeAndFeast
             public int OutputQty;
             public float MinTemp;
             public float Seconds;
+            public bool Coke;
         }
 
         /// <summary>
@@ -118,8 +127,13 @@ namespace ForgeAndFeast
             string path = stack.Collectible.Code.Path;
             if (path.StartsWith("firewood")) return new Batch { Needed = 3, OutputCode = "game:charcoal", OutputQty = 1, MinTemp = MinTemp, Seconds = BatchSeconds };
             if (path.StartsWith("log-")) return new Batch { Needed = 3, OutputCode = "game:charcoal", OutputQty = 4, MinTemp = MinTemp, Seconds = BatchSeconds };
-            if (path == "ore-bituminouscoal") return new Batch { Needed = 4, OutputCode = "game:coke", OutputQty = 3, MinTemp = CokeTemp, Seconds = CokeSeconds };
-            if (path == "ore-lignite") return new Batch { Needed = 2, OutputCode = "game:coke", OutputQty = 1, MinTemp = CokeTemp, Seconds = CokeSeconds };
+            // Any coal the game itself can coke (it carries a coke conversion rate): black coal 0.75, brown coal 0.5
+            float rate = stack.ItemAttributes?["cokeConversionRate"].AsFloat(0) ?? 0;
+            if (rate > 0)
+            {
+                int qty = Math.Max(1, (int)Math.Round(4 * rate));
+                return new Batch { Needed = 4, OutputCode = "game:coke", OutputQty = qty, MinTemp = CokeTemp, Seconds = CokeSeconds, Coke = true };
+            }
             return null;
         }
 
@@ -160,7 +174,8 @@ namespace ForgeAndFeast
 
             ItemStack input = inventory.InputSlot.Itemstack;
             Batch batch = BatchFor(input);
-            progress += dt * SpeedMul * VentMul;
+            // Coke runs at the same speed on every tier; charcoal gets the tier speed bonus
+            progress += dt * (batch.Coke ? 1f : SpeedMul) * VentMul;
             if (progress < batch.Seconds) return;
 
             inventory.InputSlot.TakeOut(batch.Needed);
@@ -184,6 +199,10 @@ namespace ForgeAndFeast
         public string GetStatusText()
         {
             ItemStack input = inventory.InputSlot.Itemstack;
+            if (input != null && !IsRetortable(input))
+            {
+                return input.Collectible.Code?.Path == "charcoal" ? Lang.Get("forgeandfeast:retort-charcoal") : Lang.Get("forgeandfeast:retort-cantuse");
+            }
             if (!IsRetortable(input)) return Lang.Get("forgeandfeast:retort-empty");
             if (!CanWork()) return Lang.Get("forgeandfeast:retort-full");
             Batch batch = BatchFor(input);

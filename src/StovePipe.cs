@@ -61,14 +61,26 @@ namespace ForgeAndFeast
             return null;
         }
 
-        /// <summary>A pipe running sideways under a solid roof sits tight against it instead of floating mid-block.</summary>
-        public static bool CeilingLift(IBlockAccessor ba, BlockPos pos, int realMask)
+        static bool SolidFace(IBlockAccessor ba, BlockPos p, BlockFacing face)
         {
-            int horizontal = realMask & 15;
-            // A bend that turns down the wall lifts too, so it lines up with the run it joins
-            if (horizontal == 0 || (realMask & (1 << BlockFacing.UP.Index)) != 0) return false;
-            Block above = ba.GetBlock(pos.UpCopy());
-            return above != null && above.Id != 0 && !IsPipe(above) && !IsChimney(above) && above.SideSolid[BlockFacing.DOWN.Index];
+            Block b = ba.GetBlock(p);
+            return b != null && b.Id != 0 && !IsPipe(b) && !IsChimney(b) && !(b is BlockFuelHeater) && b.SideSolid[face.Index];
+        }
+
+        /// <summary>
+        /// A pipe running sideways sits tight against a solid roof (+6/16) or, failing that, on a solid floor (-6/16)
+        /// instead of floating mid-block. A bend that turns up or down a wall moves with the run it belongs to.
+        /// Returns the shift in sixteenths.
+        /// </summary>
+        public static int VerticalShift(IBlockAccessor ba, BlockPos pos, int realMask)
+        {
+            if ((realMask & 15) == 0) return 0;
+            bool up = (realMask & (1 << BlockFacing.UP.Index)) != 0;
+            bool down = (realMask & (1 << BlockFacing.DOWN.Index)) != 0;
+            if (up && down) return 0;
+            if (!up && SolidFace(ba, pos.UpCopy(), BlockFacing.DOWN)) return 6;
+            if (!down && SolidFace(ba, pos.DownCopy(), BlockFacing.UP)) return -6;
+            return 0;
         }
 
         public static bool IsChimney(Block b) => b != null && b.Id != 0 && b.HasBehavior<BlockBehaviorChimney>();
@@ -269,18 +281,15 @@ namespace ForgeAndFeast
         {
             int real = StovePipes.ConnectionMask(ba, pos);
             Cuboidf[] boxes = Boxes(real, StovePipes.Offset(ba, pos));
-            if (StovePipes.CeilingLift(ba, pos, real))
-            {
-                List<Cuboidf> lifted = new List<Cuboidf>();
-                for (int i = 0; i < boxes.Length; i++) lifted.Add(boxes[i].Translate(0, 6f / 16f, 0));
-                if ((real & (1 << BlockFacing.DOWN.Index)) != 0)
-                {
-                    int[] o = StovePipes.Offset(ba, pos);
-                    lifted.Add(new Cuboidf(R1, 0, R1, R2, R2, R2).Translate(o[0] / 16f, 0, o[1] / 16f));
-                }
-                return lifted.ToArray();
-            }
-            return boxes;
+            int shift = StovePipes.VerticalShift(ba, pos, real);
+            if (shift == 0) return boxes;
+            List<Cuboidf> moved = new List<Cuboidf>();
+            for (int i = 0; i < boxes.Length; i++) moved.Add(boxes[i].Translate(0, shift / 16f, 0));
+            int[] o = StovePipes.Offset(ba, pos);
+            // The bend's own vertical arm still reaches the pipe above or below
+            if (shift > 0 && (real & (1 << BlockFacing.DOWN.Index)) != 0) moved.Add(new Cuboidf(R1, 0, R1, R2, R2, R2).Translate(o[0] / 16f, 0, o[1] / 16f));
+            if (shift < 0 && (real & (1 << BlockFacing.UP.Index)) != 0) moved.Add(new Cuboidf(R1, R1, R1, R2, 1, R2).Translate(o[0] / 16f, 0, o[1] / 16f));
+            return moved.ToArray();
         }
 
         public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
@@ -417,14 +426,16 @@ namespace ForgeAndFeast
 
             MeshData mesh = GetMesh(key.ToString(), tesselator, mask, cmask, o, f);
             if (mesh == null) return false;
-            if (StovePipes.CeilingLift(ba, Pos, real))
+            int shift = StovePipes.VerticalShift(ba, Pos, real);
+            if (shift != 0)
             {
                 mesh = mesh.Clone();
-                mesh.Translate(0, 6f / 16f, 0);
-                // Bend turning down the wall: fill the gap between the lifted elbow and the pipe below
-                if ((real & (1 << BlockFacing.DOWN.Index)) != 0)
+                mesh.Translate(0, shift / 16f, 0);
+                // A bend turning down (or up) the wall: fill the gap between the moved elbow and the next pipe
+                bool fill = shift > 0 ? (real & (1 << BlockFacing.DOWN.Index)) != 0 : (real & (1 << BlockFacing.UP.Index)) != 0;
+                if (fill)
                 {
-                    MeshData drop = DropMesh(tesselator, o);
+                    MeshData drop = DropMesh(tesselator, o, shift > 0 ? "arm-down" : "arm-up");
                     if (drop != null) mesher.AddMeshData(drop);
                 }
             }
@@ -432,17 +443,17 @@ namespace ForgeAndFeast
             return true;
         }
 
-        MeshData DropMesh(ITesselatorAPI tesselator, int[] o)
+        MeshData DropMesh(ITesselatorAPI tesselator, int[] o, string arm)
         {
             Dictionary<string, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-pipedrops", () => new Dictionary<string, MeshData>());
-            string key = o[0] + "," + o[1];
+            string key = arm + o[0] + "," + o[1];
             lock (cache)
             {
                 MeshData m;
                 if (cache.TryGetValue(key, out m)) return m;
                 Shape shape = Shape.TryGet(Api, new AssetLocation("forgeandfeast", "shapes/block/stovepipe.json"));
                 if (shape == null) return null;
-                m = Tess(tesselator, shape, new List<string> { "arm-down", "core" }, o[0], o[1]);
+                m = Tess(tesselator, shape, new List<string> { arm, "core" }, o[0], o[1]);
                 cache[key] = m;
                 return m;
             }

@@ -471,7 +471,8 @@
     "groupBy": [
      "kitchenrange-*"
     ]
-   }
+   },
+   "ovenSpeedMul": 1.0
   },
   "*-tinbronze-*": {
    "burners": 2,
@@ -484,7 +485,8 @@
     "groupBy": [
      "kitchenrange-*"
     ]
-   }
+   },
+   "ovenSpeedMul": 1.0
   },
   "*-iron-*": {
    "burners": 3,
@@ -497,7 +499,8 @@
     "groupBy": [
      "kitchenrange-*"
     ]
-   }
+   },
+   "ovenSpeedMul": 1.15
   },
   "*-steel-*": {
    "burners": 4,
@@ -510,7 +513,8 @@
     "groupBy": [
      "kitchenrange-*"
     ]
-   }
+   },
+   "ovenSpeedMul": 1.3
   }
  },
  "creativeinventory": {
