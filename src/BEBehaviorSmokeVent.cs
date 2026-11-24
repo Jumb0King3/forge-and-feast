@@ -112,7 +112,8 @@ namespace ForgeAndFeast
                 Smoky = false;
             }
 
-            if (Smoky) SmokeSeconds = Math.Min(MaxSmoke, SmokeSeconds + dt);
+            float smokeRate = (Blockentity as BEFuelHeater)?.CurrentSmokeMul ?? 1f;
+            if (Smoky) SmokeSeconds = Math.Min(MaxSmoke, SmokeSeconds + dt * smokeRate);
             else SmokeSeconds = Math.Max(0, SmokeSeconds - 3 * dt);
 
             BEFuelHeater heater = Blockentity as BEFuelHeater;
@@ -196,11 +197,12 @@ namespace ForgeAndFeast
             if (!Smoky || SmokeSeconds <= 0) return;
 
             float level = GameMath.Clamp(SmokeSeconds / SmokeBuildSeconds, 0.15f, 1.5f);
+            float smokeMul = (Blockentity as BEFuelHeater)?.SmokeMul ?? 1f;
             int alpha = (int)GameMath.Clamp(60 + 80 * level, 60, 180);
             Vec3d min = new Vec3d(Pos.X - 2.5, Pos.Y + 1.2, Pos.Z - 2.5);
             Vec3d max = new Vec3d(Pos.X + 3.5, Pos.Y + 2.6, Pos.Z + 3.5);
             SimpleParticleProperties props = new SimpleParticleProperties(
-                1 * level, 3 * level,
+                1 * level * smokeMul, 3 * level * smokeMul,
                 ColorUtil.ColorFromRgba(110, 110, 110, alpha),
                 min, max,
                 new Vec3f(-0.08f, -0.02f, -0.08f), new Vec3f(0.08f, 0.05f, 0.08f),

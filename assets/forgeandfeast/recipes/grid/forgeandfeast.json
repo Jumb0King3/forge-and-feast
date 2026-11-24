@@ -259,5 +259,87 @@
    "code": "forgeandfeast:stovepipe",
    "quantity": 6
   }
+ },
+ {
+  "ingredientPattern": "PPP,P_P,BBB",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-copper"
+   },
+   "B": {
+    "type": "item",
+    "code": "game:burnedbrick-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:retort-copper-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PPP,PKP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-tinbronze",
+    "name": "metal",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:retort-copper-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:retort-tinbronze-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PPP,PKP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:retort-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:retort-iron-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PPP,PKP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:retort-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:retort-steel-cold-closed-north"
+  }
  }
 ]

@@ -1,0 +1,993 @@
+{
+ "code": "retort",
+ "class": "FuelHeaterBlock",
+ "entityClass": "CharcoalRetort",
+ "behaviors": [
+  {
+   "name": "HorizontalOrientable"
+  },
+  {
+   "name": "WrenchOrientable",
+   "properties": {
+    "baseCode": "retort-{tier}-{burnstate}-{doors}-*"
+   }
+  }
+ ],
+ "variantgroups": [
+  {
+   "code": "tier",
+   "states": [
+    "copper",
+    "tinbronze",
+    "iron",
+    "steel"
+   ]
+  },
+  {
+   "code": "burnstate",
+   "states": [
+    "cold",
+    "lit"
+   ]
+  },
+  {
+   "code": "doors",
+   "states": [
+    "closed",
+    "open"
+   ]
+  },
+  {
+   "code": "side",
+   "loadFromProperties": "abstract/horizontalorientation"
+  }
+ ],
+ "shapeByType": {
+  "*-cold-closed-north": {
+   "base": "forgeandfeast:block/retort-cold-closed",
+   "rotateY": 0
+  },
+  "*-cold-open-north": {
+   "base": "forgeandfeast:block/retort-cold-open",
+   "rotateY": 0
+  },
+  "*-cold-closed-east": {
+   "base": "forgeandfeast:block/retort-cold-closed",
+   "rotateY": 270
+  },
+  "*-cold-open-east": {
+   "base": "forgeandfeast:block/retort-cold-open",
+   "rotateY": 270
+  },
+  "*-cold-closed-south": {
+   "base": "forgeandfeast:block/retort-cold-closed",
+   "rotateY": 180
+  },
+  "*-cold-open-south": {
+   "base": "forgeandfeast:block/retort-cold-open",
+   "rotateY": 180
+  },
+  "*-cold-closed-west": {
+   "base": "forgeandfeast:block/retort-cold-closed",
+   "rotateY": 90
+  },
+  "*-cold-open-west": {
+   "base": "forgeandfeast:block/retort-cold-open",
+   "rotateY": 90
+  },
+  "*-lit-closed-north": {
+   "base": "forgeandfeast:block/retort-lit-closed",
+   "rotateY": 0
+  },
+  "*-lit-open-north": {
+   "base": "forgeandfeast:block/retort-lit-open",
+   "rotateY": 0
+  },
+  "*-lit-closed-east": {
+   "base": "forgeandfeast:block/retort-lit-closed",
+   "rotateY": 270
+  },
+  "*-lit-open-east": {
+   "base": "forgeandfeast:block/retort-lit-open",
+   "rotateY": 270
+  },
+  "*-lit-closed-south": {
+   "base": "forgeandfeast:block/retort-lit-closed",
+   "rotateY": 180
+  },
+  "*-lit-open-south": {
+   "base": "forgeandfeast:block/retort-lit-open",
+   "rotateY": 180
+  },
+  "*-lit-closed-west": {
+   "base": "forgeandfeast:block/retort-lit-closed",
+   "rotateY": 90
+  },
+  "*-lit-open-west": {
+   "base": "forgeandfeast:block/retort-lit-open",
+   "rotateY": 90
+  }
+ },
+ "texturesByType": {
+  "*-copper-cold-*": {
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/copper3"
+   },
+   "metal": {
+    "base": "game:block/metal/sheet/copper1"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-copper-lit-*": {
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/copper3"
+   },
+   "metal": {
+    "base": "game:block/metal/sheet/copper1"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-tinbronze-cold-*": {
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/tinbronze3"
+   },
+   "metal": {
+    "base": "game:block/metal/sheet/tinbronze1"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-tinbronze-lit-*": {
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/tinbronze3"
+   },
+   "metal": {
+    "base": "game:block/metal/sheet/tinbronze1"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-iron-cold-*": {
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/iron1"
+   },
+   "metal": {
+    "base": "game:block/metal/sheet/iron1"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-iron-lit-*": {
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/iron1"
+   },
+   "metal": {
+    "base": "game:block/metal/sheet/iron1"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-steel-cold-*": {
+   "plate": {
+    "base": "game:block/metal/plate/steel"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/steel3"
+   },
+   "metal": {
+    "base": "game:block/metal/sheet/steel1"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-steel-lit-*": {
+   "plate": {
+    "base": "game:block/metal/plate/steel"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/steel3"
+   },
+   "metal": {
+    "base": "game:block/metal/sheet/steel1"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  }
+ },
+ "attributesByType": {
+  "*-copper-*": {
+   "speedMul": 1.1,
+   "burnMul": 1.0,
+   "heatMul": 1.0,
+   "maxTemp": 400,
+   "smokeMul": 2.5,
+   "handbook": {
+    "groupBy": [
+     "retort-*"
+    ]
+   }
+  },
+  "*-tinbronze-*": {
+   "speedMul": 1.25,
+   "burnMul": 1.15,
+   "heatMul": 1.15,
+   "maxTemp": 450,
+   "smokeMul": 2.5,
+   "handbook": {
+    "groupBy": [
+     "retort-*"
+    ]
+   }
+  },
+  "*-iron-*": {
+   "speedMul": 1.4,
+   "burnMul": 1.3,
+   "heatMul": 1.3,
+   "maxTemp": 500,
+   "smokeMul": 2.5,
+   "handbook": {
+    "groupBy": [
+     "retort-*"
+    ]
+   }
+  },
+  "*-steel-*": {
+   "speedMul": 1.6,
+   "burnMul": 1.5,
+   "heatMul": 1.5,
+   "maxTemp": 550,
+   "smokeMul": 2.5,
+   "handbook": {
+    "groupBy": [
+     "retort-*"
+    ]
+   }
+  }
+ },
+ "creativeinventory": {
+  "general": [
+   "*-cold-closed-north"
+  ],
+  "construction": [
+   "*-cold-closed-north"
+  ]
+ },
+ "drops": [
+  {
+   "type": "block",
+   "code": "retort-{tier}-cold-closed-north"
+  }
+ ],
+ "blockmaterial": "Stone",
+ "replaceable": 500,
+ "resistance": 3.5,
+ "maxStackSize": 1,
+ "lightAbsorption": 0,
+ "lightHsvByType": {
+  "*-lit-*": [
+   4,
+   7,
+   12
+  ]
+ },
+ "particlePropertiesByType": {
+  "*-lit-closed-north": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-open-north": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-east": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": -0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-open-east": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": -0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-south": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": -0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-open-south": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": -0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-west": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-open-west": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ]
+ },
+ "sounds": {
+  "walk": "walk/stone",
+  "place": "block/ceramicplace",
+  "byTool": {
+   "Pickaxe": {
+    "hit": "block/rock-hit-pickaxe",
+    "break": "block/rock-break-pickaxe"
+   }
+  }
+ },
+ "sideopaque": {
+  "all": false
+ },
+ "sidesolid": {
+  "all": false,
+  "down": true
+ },
+ "collisionbox": {
+  "x1": 0,
+  "y1": 0,
+  "z1": 0,
+  "x2": 1,
+  "y2": 1.0,
+  "z2": 1
+ },
+ "selectionbox": {
+  "x1": 0,
+  "y1": 0,
+  "z1": 0,
+  "x2": 1,
+  "y2": 1.0,
+  "z2": 1
+ },
+ "heldTpIdleAnimation": "holdbothhandslarge",
+ "heldTpUseAnimation": "twohandplaceblock",
+ "tpHandTransform": {
+  "translation": {
+   "x": -1.2,
+   "y": -0.9,
+   "z": -0.8
+  },
+  "rotation": {
+   "x": -2,
+   "y": 25,
+   "z": -78
+  },
+  "scale": 0.4
+ },
+ "guiTransform": {
+  "rotation": {
+   "x": -22.6,
+   "y": -45,
+   "z": 0
+  },
+  "origin": {
+   "x": 0.5,
+   "y": 0.5,
+   "z": 0.5
+  },
+  "scale": 1.2
+ },
+ "entityBehaviors": [
+  {
+   "name": "ForgeSmokeVent"
+  }
+ ]
+}

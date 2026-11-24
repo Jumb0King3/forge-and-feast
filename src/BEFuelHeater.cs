@@ -40,6 +40,10 @@ namespace ForgeAndFeast
         public int MaxTemp = 1000;
         /// <summary>Set by the smoke/ventilation behaviour: 1.25 with a chimney, 0.6 in a smoky room.</summary>
         public float VentMul = 1f;
+        /// <summary>How fast this station fills a closed room with smoke (1 = normal).</summary>
+        public float SmokeMul = 1f;
+        /// <summary>Smoke multiplier right now. Stations can smoke more while they work.</summary>
+        public virtual float CurrentSmokeMul => SmokeMul;
 
         float prevTemperature = 20;
 
@@ -112,6 +116,7 @@ namespace ForgeAndFeast
             BurnMul = attr["burnMul"].AsFloat(1f);
             HeatMul = attr["heatMul"].AsFloat(1f);
             MaxTemp = attr["maxTemp"].AsInt(1000);
+            SmokeMul = attr["smokeMul"].AsFloat(1f);
         }
 
         void On500msTick(float dt)
