@@ -276,7 +276,15 @@ namespace ForgeAndFeast
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
             int mask = BlockStovePipe.VisualMask(StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos));
-            MeshData mesh = GetMesh(mask, tesselator);
+            int cmask = 0;
+            BlockPos np = Pos.Copy();
+            for (int i = 0; i < 6; i++)
+            {
+                if ((mask & (1 << i)) == 0) continue;
+                np.Set(Pos).Add(BlockFacing.ALLFACES[i]);
+                if (StovePipes.IsChimney(Api.World.BlockAccessor.GetBlock(np))) cmask |= 1 << i;
+            }
+            MeshData mesh = GetMesh(mask | (cmask << 6), tesselator);
             if (mesh == null) return false;
             mesher.AddMeshData(mesh);
             return true;
@@ -293,12 +301,21 @@ namespace ForgeAndFeast
                 Shape shape = Shape.TryGet(Api, new AssetLocation("forgeandfeast", "shapes/block/stovepipe.json"));
                 if (shape == null) return null;
 
-                int count = 1;
-                for (int i = 0; i < 6; i++) if ((mask & (1 << i)) != 0) count++;
-                string[] elems = new string[count];
+                int cm = mask >> 6;
+                string[] elems = new string[1 + 6 * 2];
                 int k = 0;
                 elems[k++] = "core";
-                for (int i = 0; i < 6; i++) if ((mask & (1 << i)) != 0) elems[k++] = ArmNames[i];
+                for (int i = 0; i < 6; i++)
+                {
+                    if ((mask & (1 << i)) == 0) continue;
+                    if ((cm & (1 << i)) != 0)
+                    {
+                        elems[k++] = "c" + ArmNames[i];
+                        elems[k++] = "cflange-" + ArmNames[i].Substring(4);
+                    }
+                    else elems[k++] = ArmNames[i];
+                }
+                System.Array.Resize(ref elems, k);
 
                 tesselator.TesselateShape(Block, shape, out mesh, null, null, elems);
                 cache[mask] = mesh;
