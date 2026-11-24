@@ -458,8 +458,13 @@ namespace ForgeAndFeast
                 MeshData mesh = ContentMesh.For(Api, tesselator, s);
                 if (mesh == null) continue;
 
-                int row = i / 4, col = i % 4;
-                float x = (3.125f + 3.25f * col) / 16f - 0.5f;
+                // Spread evenly: up to 3 on the floor; 4 or 5 split between the floor and the shelf
+                int n = FiringSlots;
+                int bottom = n <= 3 ? n : (n + 1) / 2;
+                int row = i < bottom ? 0 : 1;
+                int inRow = row == 0 ? bottom : n - bottom;
+                int col = row == 0 ? i : i - bottom;
+                float x = (2.5f + 11f * (col + 0.5f) / inRow) / 16f - 0.5f;
                 float z = 2.4f / 16f - 0.5f;
                 float y = (row == 0 ? 5.4f : 9.0f) / 16f;
                 float xr = x, zr = z;

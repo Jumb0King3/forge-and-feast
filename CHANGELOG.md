@@ -1,20 +1,47 @@
-# Forge and Feast 2.9.0
+# Forge and Feast 2.10.0
 
-Full balance pass (against the base game)
+First public release (ModDB)
 
-  - Retort now runs on the in-game clock like the charcoal pit (18 h) and coke
-    oven (12 h):
-      - Charcoal: 1 in-game hour per charcoal on Copper, then x1.1 / x1.2 /
-        x1.3 faster for Bronze / Iron / Steel. A stack of 64 firewood (21
-        charcoal) takes about 21 h on Copper, 16 h on Steel.
-      - Coke: 1.5 in-game hours per 4 coal on every tier.
-  - Fuel use: higher tiers make each piece of fuel last x1.0 / x1.1 / x1.2 /
-    x1.3 (was up to x1.5), and heat up at the same rate. Applies to the range,
-    kiln and retort. One range already heats several burners from one fire, so
-    the old bonus stacked too high.
-  - Large Pots: 8 / 10 / 12 servings (were 10 / 14 / 20). A base game clay pot
-    holds 6. With four burners a Steel range still cooks 48 servings at once.
-  - Bronze Large Pot recipe fixed: it accepted any metal; it now takes bronze
-    plates and a bronze ingot (tin, bismuth or black bronze).
-  - Unchanged: burner speeds (x1.1 to x1.6), oven speeds (x1.0 / x1.15 / x1.3),
-    kiln times from 2.8.1, retort and kiln temperatures, retort yields.
+  KITCHEN RANGE (Copper, Bronze, Iron, Steel)
+  - 1 / 2 / 3 / 4 burner plates. Each takes a cooking pot, or a single item
+    like a steak.
+  - Built-in oven from Bronze up (1 / 2 / 3 slots). Bread comes out when it's
+    done and never chars.
+  - Cooks x1.1 faster than a firepit on Copper, up to x1.6 on Steel.
+  - Shows what's cooking: stew in the pot, meat on the plate, bread on the
+    oven rack.
+  - Large Pots in Copper, Bronze and Iron hold 8 / 10 / 12 servings.
+  KILN OVEN (Copper, Bronze, Iron, Steel)
+  - Fires 2 / 3 / 4 / 5 raw clay items at once: moulds, pots and crucibles,
+    spread out evenly inside the kiln.
+  - Firing runs on the in-game clock and is quicker than a pit kiln: 12 / 10 /
+    8 / 6 in-game hours, and about half that with charcoal or coal.
+  - Crucibles use the same slots as pottery, so it fires and smelts at the same
+    time. A crucible glows in the kiln once its metal is molten.
+  - Higher tiers run hotter than their fuel: up to 1100 / 1475 / 1700 / 1950 C.
+  - Fuel lasts 3 to 4 times longer than in an open fire.
+  CHARCOAL RETORT (Copper, Bronze, Iron, Steel)
+  - Firewood and logs make charcoal at twice the yield of a base game charcoal
+    pit.
+  - Black and brown coal make coke at the base game coke oven rates, on every
+    tier.
+  - Runs on the in-game clock, at about 1 in-game hour per charcoal.
+  - Open the hatch to see the wood or the charcoal inside.
+  - Gives off 2.5 times the smoke of the other stoves.
+  SMOKE, CHIMNEYS AND STOVEPIPES
+  - A fire in a sealed room with no chimney fills the room with smoke, and
+    anyone inside starts choking. This also applies to the base game firepit
+    and clay oven.
+  - A Clay Brick Chimney above a stove, or joined to it by stovepipe, makes it
+    work 25% faster.
+  - Stovepipes join up on their own and sit flush against walls, roof and floor.
+  - A chimney just above a roof one or two blocks thick still counts.
+  GENERAL
+  - Stoves face you when placed and turn with the wrench.
+  - Doors open and close with the stove's window, with a plain metal hinge
+    sound on the kiln, range and retort.
+  - A torch or firestarter lights a stove without opening its window.
+  - Stoves can be picked up with Carry On, if that mod is installed and its
+    settings allow it.
+  - The base game clay oven recipe is disabled, because the Kitchen Range
+    replaces it.

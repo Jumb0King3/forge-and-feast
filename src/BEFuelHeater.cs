@@ -38,6 +38,8 @@ namespace ForgeAndFeast
         public float HeatMul = 1f;
         /// <summary>The hottest this station can get, whatever the fuel.</summary>
         public int MaxTemp = 1000;
+        /// <summary>A well-insulated firebox runs hotter than the fuel would in the open (kilns only).</summary>
+        public float FuelTempMul = 1f;
         /// <summary>Set by the smoke/ventilation behaviour: 1.25 with a chimney, 0.6 in a smoky room.</summary>
         public float VentMul = 1f;
         /// <summary>How fast this station fills a closed room with smoke (1 = normal).</summary>
@@ -117,6 +119,7 @@ namespace ForgeAndFeast
             HeatMul = attr["heatMul"].AsFloat(1f);
             MaxTemp = attr["maxTemp"].AsInt(1000);
             SmokeMul = attr["smokeMul"].AsFloat(1f);
+            FuelTempMul = attr["fuelTempMul"].AsFloat(1f);
         }
 
         void On500msTick(float dt)
@@ -145,7 +148,7 @@ namespace ForgeAndFeast
                 }
             }
 
-            float target = IsBurning ? Math.Min(fuelTemperature, MaxTemp) : EnvironmentTemperature();
+            float target = IsBurning ? Math.Min(fuelTemperature * FuelTempMul, MaxTemp) : EnvironmentTemperature();
             float rate = IsBurning ? HeatMul * VentMul : 1f;
             temperature = ChangeTemperature(temperature, target, dt * rate);
 
@@ -266,7 +269,7 @@ namespace ForgeAndFeast
             MarkDirty(true);
             if (sound)
             {
-                Api.World.PlaySoundAt(new AssetLocation("game:sounds/block/cokeovendoor-" + (open ? "open" : "close")),
+                Api.World.PlaySoundAt(new AssetLocation("game:sounds/block/metaldoor"),
                     Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5, null, true, 16f, 0.9f);
             }
         }

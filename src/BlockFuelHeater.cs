@@ -23,8 +23,9 @@ namespace ForgeAndFeast
             ItemSlot hotbar = byPlayer.InventoryManager.ActiveHotbarSlot;
             ItemStack stack = hotbar?.Itemstack;
 
-            // Let a firestarter or torch do its lighting
-            if (stack != null && IsIgniter(stack) && be.GetIgnitableState(0) == EnumIgniteState.Ignitable)
+            // A firestarter or torch lights the stove (or a torch from it) and never opens the window,
+            // even when the button is still held after the fire catches
+            if (stack != null && IsIgniter(stack))
             {
                 return false;
             }

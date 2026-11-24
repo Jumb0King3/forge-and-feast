@@ -247,7 +247,7 @@
   "*-copper-*": {
    "firingSlots": 2,
    "speedMul": 1.1,
-   "burnMul": 1.0,
+   "burnMul": 3.0,
    "heatMul": 1.0,
    "maxTemp": 1100,
    "firingDurationMul": 4,
@@ -257,14 +257,15 @@
     ]
    },
    "smelting": true,
-   "firingHours": 12
+   "firingHours": 12,
+   "fuelTempMul": 1.0
   },
   "*-tinbronze-*": {
    "firingSlots": 3,
    "speedMul": 1.25,
-   "burnMul": 1.1,
+   "burnMul": 3.3,
    "heatMul": 1.1,
-   "maxTemp": 1100,
+   "maxTemp": 1475,
    "firingDurationMul": 4,
    "handbook": {
     "groupBy": [
@@ -272,37 +273,40 @@
     ]
    },
    "smelting": true,
-   "firingHours": 10
+   "firingHours": 10,
+   "fuelTempMul": 1.1
   },
   "*-iron-*": {
    "smelting": true,
    "firingSlots": 4,
    "speedMul": 1.4,
-   "burnMul": 1.2,
+   "burnMul": 3.6,
    "heatMul": 1.2,
-   "maxTemp": 1100,
+   "maxTemp": 1700,
    "firingDurationMul": 4,
    "handbook": {
     "groupBy": [
      "kilnoven-*"
     ]
    },
-   "firingHours": 8
+   "firingHours": 8,
+   "fuelTempMul": 1.25
   },
   "*-steel-*": {
    "smelting": true,
    "firingSlots": 5,
    "speedMul": 1.6,
-   "burnMul": 1.3,
+   "burnMul": 4.0,
    "heatMul": 1.3,
-   "maxTemp": 1100,
+   "maxTemp": 1950,
    "firingDurationMul": 4,
    "handbook": {
     "groupBy": [
      "kilnoven-*"
     ]
    },
-   "firingHours": 6
+   "firingHours": 6,
+   "fuelTempMul": 1.45
   }
  },
  "creativeinventory": {
