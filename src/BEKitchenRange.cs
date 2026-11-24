@@ -402,6 +402,30 @@ namespace ForgeAndFeast
             return key;
         }
 
+        /// <summary>
+        /// Where each burner sits on the cooktop, as an offset from the block centre, before the block's
+        /// rotation. Must match the burner plates in the shapes (2: side by side, 3: two front + one back,
+        /// 4: two by two). The model's front faces north, so the offset is rotated to the block's side.
+        /// </summary>
+        Vec3f BurnerOffset(int burners, int b)
+        {
+            float x, z;
+            const float d = 3.2f / 16f;
+            if (burners == 2) { x = b == 0 ? -d : d; z = 0; }
+            else if (burners == 3) { x = b == 2 ? 0 : (b == 0 ? -d : d); z = b == 2 ? d : -d; }
+            else { x = (b % 2 == 0) ? -d : d; z = b < 2 ? -d : d; }
+
+            // Rotate to match the block (north 0, east 270, south 180, west 90 - same as the shape rotateY)
+            string side = Block?.Variant?["side"] ?? "north";
+            switch (side)
+            {
+                case "east": return new Vec3f(-z, 0, x);
+                case "south": return new Vec3f(-x, 0, -z);
+                case "west": return new Vec3f(z, 0, -x);
+                default: return new Vec3f(x, 0, z);
+            }
+        }
+
         /// <summary>Draws any pot (or other block) sitting on each burner.</summary>
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
@@ -421,14 +445,10 @@ namespace ForgeAndFeast
                 }
                 if (mesh == null) continue;
 
-                float x = (b % 2 == 0) ? -0.22f : 0.22f;
-                float z = (b < 2) ? -0.22f : 0.22f;
-                if (Burners == 2) z = 0;
-                if (Burners == 3 && b == 2) x = 0;
-
+                Vec3f off = BurnerOffset(Burners, b);
                 mesh = mesh.Clone();
-                mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.9f, 0.9f, 0.9f);
-                mesh.Translate(x, 14f / 16f, z);
+                mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.8f, 0.8f, 0.8f);
+                mesh.Translate(off.X, 14.35f / 16f, off.Z);
                 mesher.AddMeshData(mesh);
             }
             return false;

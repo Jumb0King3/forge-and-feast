@@ -10,7 +10,7 @@ namespace ForgeAndFeast
     /// Block class for the Kitchen Range and Kiln Oven. Right-click opens the window.
     /// Shift + right-click with fuel adds one piece. A firestarter or torch lights it, like a firepit.
     /// </summary>
-    public class BlockFuelHeater : Block, IIgnitable
+    public class BlockFuelHeater : Block, IIgnitable, ISmokeEmitter
     {
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -46,6 +46,13 @@ namespace ForgeAndFeast
             }
 
             return be.OnPlayerRightClick(byPlayer, blockSel);
+        }
+
+        /// <summary>Lets a vanilla Clay Brick Chimney above this block puff smoke while it's burning.</summary>
+        public bool EmitsSmoke(BlockPos pos)
+        {
+            BEFuelHeater be = api.World.BlockAccessor.GetBlockEntity(pos) as BEFuelHeater;
+            return be?.IsBurning == true;
         }
 
         static bool IsIgniter(ItemStack stack)

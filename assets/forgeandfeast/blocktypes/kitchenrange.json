@@ -29,121 +29,203 @@
   }
  ],
  "shapeByType": {
-  "*-cold-north": {
-   "base": "forgeandfeast:block/kitchenrange-cold",
+  "*-copper-cold-north": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold",
    "rotateY": 0
   },
-  "*-cold-east": {
-   "base": "forgeandfeast:block/kitchenrange-cold",
+  "*-copper-cold-east": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold",
    "rotateY": 270
   },
-  "*-cold-south": {
-   "base": "forgeandfeast:block/kitchenrange-cold",
+  "*-copper-cold-south": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold",
    "rotateY": 180
   },
-  "*-cold-west": {
-   "base": "forgeandfeast:block/kitchenrange-cold",
+  "*-copper-cold-west": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold",
    "rotateY": 90
   },
-  "*-lit-north": {
-   "base": "forgeandfeast:block/kitchenrange-lit",
+  "*-copper-lit-north": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit",
    "rotateY": 0
   },
-  "*-lit-east": {
-   "base": "forgeandfeast:block/kitchenrange-lit",
+  "*-copper-lit-east": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit",
    "rotateY": 270
   },
-  "*-lit-south": {
-   "base": "forgeandfeast:block/kitchenrange-lit",
+  "*-copper-lit-south": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit",
    "rotateY": 180
   },
-  "*-lit-west": {
-   "base": "forgeandfeast:block/kitchenrange-lit",
+  "*-copper-lit-west": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit",
+   "rotateY": 90
+  },
+  "*-tinbronze-cold-north": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold",
+   "rotateY": 0
+  },
+  "*-tinbronze-cold-east": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold",
+   "rotateY": 270
+  },
+  "*-tinbronze-cold-south": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold",
+   "rotateY": 180
+  },
+  "*-tinbronze-cold-west": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold",
+   "rotateY": 90
+  },
+  "*-tinbronze-lit-north": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit",
+   "rotateY": 0
+  },
+  "*-tinbronze-lit-east": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit",
+   "rotateY": 270
+  },
+  "*-tinbronze-lit-south": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit",
+   "rotateY": 180
+  },
+  "*-tinbronze-lit-west": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit",
+   "rotateY": 90
+  },
+  "*-iron-cold-north": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold",
+   "rotateY": 0
+  },
+  "*-iron-cold-east": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold",
+   "rotateY": 270
+  },
+  "*-iron-cold-south": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold",
+   "rotateY": 180
+  },
+  "*-iron-cold-west": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold",
+   "rotateY": 90
+  },
+  "*-iron-lit-north": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit",
+   "rotateY": 0
+  },
+  "*-iron-lit-east": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit",
+   "rotateY": 270
+  },
+  "*-iron-lit-south": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit",
+   "rotateY": 180
+  },
+  "*-iron-lit-west": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit",
    "rotateY": 90
   }
  },
  "texturesByType": {
   "*-copper-cold-*": {
-   "brick": {
-    "base": "game:block/clay/brick/four/running/fire1"
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/copper3"
    },
    "metal": {
     "base": "game:block/metal/sheet/copper1"
    },
-   "dark": {
-    "base": "game:block/metal/sheet/iron2"
+   "black": {
+    "base": "game:block/coal/bituminous"
    },
-   "ember": {
+   "fire": {
     "base": "game:block/coal/charcoal"
    }
   },
   "*-copper-lit-*": {
-   "brick": {
-    "base": "game:block/clay/brick/four/running/fire1"
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/copper3"
    },
    "metal": {
     "base": "game:block/metal/sheet/copper1"
    },
-   "dark": {
-    "base": "game:block/metal/sheet/iron2"
+   "black": {
+    "base": "game:block/coal/bituminous"
    },
-   "ember": {
+   "fire": {
     "base": "game:block/coal/ember"
    }
   },
   "*-tinbronze-cold-*": {
-   "brick": {
-    "base": "game:block/clay/brick/four/running/fire1"
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/tinbronze3"
    },
    "metal": {
     "base": "game:block/metal/sheet/tinbronze1"
    },
-   "dark": {
-    "base": "game:block/metal/sheet/iron2"
+   "black": {
+    "base": "game:block/coal/bituminous"
    },
-   "ember": {
+   "fire": {
     "base": "game:block/coal/charcoal"
    }
   },
   "*-tinbronze-lit-*": {
-   "brick": {
-    "base": "game:block/clay/brick/four/running/fire1"
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/tinbronze3"
    },
    "metal": {
     "base": "game:block/metal/sheet/tinbronze1"
    },
-   "dark": {
-    "base": "game:block/metal/sheet/iron2"
+   "black": {
+    "base": "game:block/coal/bituminous"
    },
-   "ember": {
+   "fire": {
     "base": "game:block/coal/ember"
    }
   },
   "*-iron-cold-*": {
-   "brick": {
-    "base": "game:block/clay/brick/four/running/fire1"
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/iron1"
    },
    "metal": {
     "base": "game:block/metal/sheet/iron1"
    },
-   "dark": {
-    "base": "game:block/metal/sheet/iron2"
+   "black": {
+    "base": "game:block/coal/bituminous"
    },
-   "ember": {
+   "fire": {
     "base": "game:block/coal/charcoal"
    }
   },
   "*-iron-lit-*": {
-   "brick": {
-    "base": "game:block/clay/brick/four/running/fire1"
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "riv": {
+    "base": "game:block/metal/riveted/iron1"
    },
    "metal": {
     "base": "game:block/metal/sheet/iron1"
    },
-   "dark": {
-    "base": "game:block/metal/sheet/iron2"
+   "black": {
+    "base": "game:block/coal/bituminous"
    },
-   "ember": {
+   "fire": {
     "base": "game:block/coal/ember"
    }
   }
@@ -200,7 +282,7 @@
    "code": "kitchenrange-{tier}-cold-north"
   }
  ],
- "blockmaterial": "Stone",
+ "blockmaterial": "Metal",
  "replaceable": 500,
  "resistance": 3.5,
  "maxStackSize": 1,
@@ -213,7 +295,7 @@
   ]
  },
  "particlePropertiesByType": {
-  "*-lit-*": [
+  "*-lit-north": [
    {
     "hsvaColor": [
      {
@@ -243,16 +325,241 @@
     },
     "posOffset": [
      {
-      "avg": 0.2,
-      "var": 0.05
+      "avg": 0,
+      "var": 0.03
      },
      {
-      "avg": 0.8,
+      "avg": 0.9,
       "var": 0
      },
      {
-      "avg": 0.2,
+      "avg": 0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
       "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-east": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": -0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-south": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": -0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-west": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
      }
     ],
     "velocity": [
