@@ -1,0 +1,201 @@
+[
+ {
+  "ingredientPattern": "PPP,BIB,BBB",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-copper"
+   },
+   "B": {
+    "type": "item",
+    "code": "game:burnedbrick-*"
+   },
+   "I": {
+    "type": "item",
+    "code": "game:ingot-copper"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kitchenrange-copper-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "BBB,BPB,BBB",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-copper"
+   },
+   "B": {
+    "type": "item",
+    "code": "game:burnedbrick-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kilnoven-copper-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "P_P,PIP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-copper"
+   },
+   "I": {
+    "type": "item",
+    "code": "game:ingot-copper"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:largepot-copper-fired"
+  }
+ },
+ {
+  "ingredientPattern": "PPP,PRP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-*",
+    "name": "metal",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   },
+   "R": {
+    "type": "block",
+    "code": "forgeandfeast:kitchenrange-copper-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kitchenrange-tinbronze-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "PPP,PKP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-*",
+    "name": "metal",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:kilnoven-copper-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kilnoven-tinbronze-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "P_P,PIP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-*",
+    "name": "metal",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   },
+   "I": {
+    "type": "item",
+    "code": "game:ingot-*",
+    "name": "metal2",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:largepot-tinbronze-fired"
+  }
+ },
+ {
+  "ingredientPattern": "PPP,PRP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "R": {
+    "type": "block",
+    "code": "forgeandfeast:kitchenrange-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kitchenrange-iron-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "PPP,PKP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:kilnoven-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kilnoven-iron-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "P_P,PIP",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "I": {
+    "type": "item",
+    "code": "game:ingot-iron"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:largepot-iron-fired"
+  }
+ }
+]
