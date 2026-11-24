@@ -44,6 +44,49 @@ namespace ForgeAndFeast
 
         public static bool IsChimney(Block b) => b != null && b.Id != 0 && b.HasBehavior<BlockBehaviorChimney>();
 
+        static bool IsWall(IBlockAccessor ba, BlockPos pos, BlockFacing f)
+        {
+            Block b = ba.GetBlock(pos.AddCopy(f));
+            return b != null && b.Id != 0 && b.SideSolid[f.Opposite.Index];
+        }
+
+        /// <summary>
+        /// Where this pipe sits inside its block, as {x, z} offsets in sixteenths (-6, 0 or 6). A riser on a stove
+        /// lines up with the stove's rear stub. Otherwise the pipe hugs a wall beside it, or stays central.
+        /// </summary>
+        public static int[] Offset(IBlockAccessor ba, BlockPos pos)
+        {
+            BlockFacing back = BackShift(ba, pos);
+            if (back != null) return new[] { back.Normali.X * 6, back.Normali.Z * 6 };
+            int ox = 0, oz = 0;
+            bool w = IsWall(ba, pos, BlockFacing.WEST), e = IsWall(ba, pos, BlockFacing.EAST);
+            bool n = IsWall(ba, pos, BlockFacing.NORTH), s = IsWall(ba, pos, BlockFacing.SOUTH);
+            if (w && !e) ox = -6; else if (e && !w) ox = 6;
+            if (n && !s) oz = -6; else if (s && !n) oz = 6;
+            return new[] { ox, oz };
+        }
+
+        /// <summary>The offset the joint with a neighbour is drawn at: the same answer from both sides.</summary>
+        public static int Meet(int a, int b)
+        {
+            if (a == b) return a;
+            if (a == 0) return b;
+            if (b == 0) return a;
+            return Math.Min(a, b);
+        }
+
+        /// <summary>Offset of whatever is joined on face f, for working out the joint. Chimneys stay central.</summary>
+        public static int[] NeighbourOffset(IBlockAccessor ba, BlockPos pos, BlockFacing f, int[] mine, bool connected)
+        {
+            if (!connected) return mine;
+            BlockPos n = pos.AddCopy(f);
+            Block b = ba.GetBlock(n);
+            if (IsPipe(b)) return Offset(ba, n);
+            if (IsChimney(b)) return new[] { 0, 0 };
+            if (b is BlockFuelHeater) return mine;
+            return new[] { 0, 0 };
+        }
+
         /// <summary>Fires a stovepipe can connect to. The firepit is left out on purpose.</summary>
         public static bool IsSource(Block b)
         {
@@ -189,12 +232,12 @@ namespace ForgeAndFeast
 
         public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
         {
-            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos), StovePipes.BackShift(blockAccessor, pos));
+            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos), StovePipes.Offset(blockAccessor, pos));
         }
 
         public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
         {
-            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos), StovePipes.BackShift(blockAccessor, pos));
+            return Boxes(StovePipes.ConnectionMask(blockAccessor, pos), StovePipes.Offset(blockAccessor, pos));
         }
 
         public static int VisualMask(int mask)
@@ -208,32 +251,18 @@ namespace ForgeAndFeast
             return mask;
         }
 
-        static Cuboidf[] Boxes(int mask, BlockFacing shift)
+        static Cuboidf[] Boxes(int mask, int[] o)
         {
             mask = VisualMask(mask);
             List<Cuboidf> boxes = new List<Cuboidf>();
-            float sx = 0, sz = 0;
-            if (shift != null) { sx = shift.Normali.X * 5.5f / 16f; sz = shift.Normali.Z * 5.5f / 16f; }
-
-            // core and vertical arms follow the shift
-            boxes.Add(new Cuboidf(R1, R1, R1, R2, R2, R2).Translate(sx, 0, sz));
-            if ((mask & (1 << BlockFacing.DOWN.Index)) != 0) boxes.Add(new Cuboidf(R1, 0, R1, R2, R1, R2).Translate(sx, 0, sz));
-            if ((mask & (1 << BlockFacing.UP.Index)) != 0) boxes.Add(new Cuboidf(R1, R2, R1, R2, 1, R2).Translate(sx, 0, sz));
-
-            bool horizontal = false;
-            if ((mask & (1 << BlockFacing.NORTH.Index)) != 0) { boxes.Add(new Cuboidf(R1, R1, 0, R2, R2, R1)); horizontal = true; }
-            if ((mask & (1 << BlockFacing.SOUTH.Index)) != 0) { boxes.Add(new Cuboidf(R1, R1, R2, R2, R2, 1)); horizontal = true; }
-            if ((mask & (1 << BlockFacing.WEST.Index)) != 0) { boxes.Add(new Cuboidf(0, R1, R1, R1, R2, R2)); horizontal = true; }
-            if ((mask & (1 << BlockFacing.EAST.Index)) != 0) { boxes.Add(new Cuboidf(R2, R1, R1, 1, R2, R2)); horizontal = true; }
-
-            if (shift != null && horizontal)
-            {
-                // jog from the shifted riser back to the pipe's centre line
-                if (shift == BlockFacing.NORTH) boxes.Add(new Cuboidf(R1, R1, 0, R2, R2, R2));
-                else if (shift == BlockFacing.SOUTH) boxes.Add(new Cuboidf(R1, R1, R1, R2, R2, 1));
-                else if (shift == BlockFacing.WEST) boxes.Add(new Cuboidf(0, R1, R1, R2, R2, R2));
-                else if (shift == BlockFacing.EAST) boxes.Add(new Cuboidf(R1, R1, R1, 1, R2, R2));
-            }
+            float ox = o[0] / 16f, oz = o[1] / 16f;
+            boxes.Add(new Cuboidf(R1, R1, R1, R2, R2, R2).Translate(ox, 0, oz));
+            if ((mask & (1 << BlockFacing.DOWN.Index)) != 0) boxes.Add(new Cuboidf(R1, 0, R1, R2, R1, R2).Translate(ox, 0, oz));
+            if ((mask & (1 << BlockFacing.UP.Index)) != 0) boxes.Add(new Cuboidf(R1, R2, R1, R2, 1, R2).Translate(ox, 0, oz));
+            if ((mask & (1 << BlockFacing.NORTH.Index)) != 0) boxes.Add(new Cuboidf(R1 + ox, R1, 0, R2 + ox, R2, R2 + oz));
+            if ((mask & (1 << BlockFacing.SOUTH.Index)) != 0) boxes.Add(new Cuboidf(R1 + ox, R1, R1 + oz, R2 + ox, R2, 1));
+            if ((mask & (1 << BlockFacing.WEST.Index)) != 0) boxes.Add(new Cuboidf(0, R1, R1 + oz, R2 + ox, R2, R2 + oz));
+            if ((mask & (1 << BlockFacing.EAST.Index)) != 0) boxes.Add(new Cuboidf(R1 + ox, R1, R1 + oz, 1, R2, R2 + oz));
             return boxes.ToArray();
         }
 
@@ -305,30 +334,50 @@ namespace ForgeAndFeast
     /// <summary>Draws the pipe with arms toward whatever it's joined to.</summary>
     public class BEStovePipe : BlockEntity
     {
-        static readonly string[] ArmNames = { "arm-north", "arm-east", "arm-south", "arm-west", "arm-up", "arm-down" };
+        const string Dirs = "NESW";
+        static string Code(int v) { return v < 0 ? "m" : (v > 0 ? "p" : "0"); }
 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            int mask = BlockStovePipe.VisualMask(StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos));
+            IBlockAccessor ba = Api.World.BlockAccessor;
+            int real = StovePipes.ConnectionMask(ba, Pos);
+            int mask = BlockStovePipe.VisualMask(real);
+            int[] o = StovePipes.Offset(ba, Pos);
+
             int cmask = 0;
-            BlockPos np = Pos.Copy();
+            int[][] f = new int[6][];
+            System.Text.StringBuilder key = new System.Text.StringBuilder();
+            key.Append(Code(o[0])).Append(Code(o[1])).Append('|').Append(mask).Append('|');
             for (int i = 0; i < 6; i++)
             {
                 if ((mask & (1 << i)) == 0) continue;
-                np.Set(Pos).Add(BlockFacing.ALLFACES[i]);
-                if (StovePipes.IsChimney(Api.World.BlockAccessor.GetBlock(np))) cmask |= 1 << i;
+                BlockFacing face = BlockFacing.ALLFACES[i];
+                bool connected = (real & (1 << i)) != 0;
+                if (connected && StovePipes.IsChimney(ba.GetBlock(Pos.AddCopy(face)))) cmask |= 1 << i;
+                int[] n = StovePipes.NeighbourOffset(ba, Pos, face, o, connected);
+                f[i] = new[] { StovePipes.Meet(o[0], n[0]), StovePipes.Meet(o[1], n[1]) };
+                if ((cmask & (1 << i)) != 0) f[i] = new[] { 0, 0 };
+                key.Append(Code(f[i][0])).Append(Code(f[i][1])).Append(',');
             }
-            BlockFacing shift = StovePipes.BackShift(Api.World.BlockAccessor, Pos);
-            int sidx = shift == null ? 0 : shift.Index + 1;
-            MeshData mesh = GetMesh(mask | (cmask << 6) | (sidx << 12), tesselator);
+            key.Append('|').Append(cmask);
+
+            MeshData mesh = GetMesh(key.ToString(), tesselator, mask, cmask, o, f);
             if (mesh == null) return false;
             mesher.AddMeshData(mesh);
             return true;
         }
 
-        MeshData GetMesh(int key, ITesselatorAPI tesselator)
+        MeshData Tess(ITesselatorAPI t, Shape shape, List<string> names, float dx, float dz)
         {
-            Dictionary<int, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-pipemeshes", () => new Dictionary<int, MeshData>());
+            MeshData m;
+            t.TesselateShape(Block, shape, out m, null, null, names.ToArray());
+            if (dx != 0 || dz != 0) m.Translate(dx / 16f, 0, dz / 16f);
+            return m;
+        }
+
+        MeshData GetMesh(string key, ITesselatorAPI tesselator, int mask, int cmask, int[] o, int[][] f)
+        {
+            Dictionary<string, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-pipemeshes2", () => new Dictionary<string, MeshData>());
             lock (cache)
             {
                 MeshData mesh;
@@ -337,41 +386,37 @@ namespace ForgeAndFeast
                 Shape shape = Shape.TryGet(Api, new AssetLocation("forgeandfeast", "shapes/block/stovepipe.json"));
                 if (shape == null) return null;
 
-                int mask = key & 63;
-                int cm = (key >> 6) & 63;
-                int sidx = key >> 12;
-                BlockFacing shift = sidx == 0 ? null : BlockFacing.ALLFACES[sidx - 1];
-
-                List<string> shifted = new List<string>();
+                string[] faceNames = { "north", "east", "south", "west", "up", "down" };
+                List<string> body = new List<string> { "core" };
                 List<string> fixedPart = new List<string>();
-                shifted.Add("core");
-                bool horizontal = false;
-                for (int i = 0; i < 6; i++)
+
+                // up and down: part of the body, with a plate where the joint sits somewhere else
+                for (int i = 4; i < 6; i++)
                 {
                     if ((mask & (1 << i)) == 0) continue;
-                    bool vertical = i >= 4;
-                    List<string> target = (shift == null || vertical) ? shifted : fixedPart;
-                    if (!vertical) horizontal = true;
-                    if ((cm & (1 << i)) != 0)
-                    {
-                        target.Add("c" + ArmNames[i]);
-                        target.Add("cflange-" + ArmNames[i].Substring(4));
-                    }
-                    else target.Add(ArmNames[i]);
+                    string nm = faceNames[i];
+                    bool jog = f[i][0] != o[0] || f[i][1] != o[1];
+                    body.Add(jog ? "arm-" + nm + "-s" : "arm-" + nm);
+                    if (jog) fixedPart.Add((i == 4 ? "vu_" : "vd_") + Code(o[0]) + Code(o[1]) + "_" + Code(f[i][0]) + Code(f[i][1]));
+                    if ((cmask & (1 << i)) != 0) fixedPart.Add("cflange-" + nm);
                 }
-                if (shift != null && horizontal) fixedPart.Add("jog-" + shift.Code);
+                mesh = Tess(tesselator, shape, body, o[0], o[1]);
 
-                tesselator.TesselateShape(Block, shape, out mesh, null, null, shifted.ToArray());
-                if (shift != null)
+                for (int i = 0; i < 4; i++)
                 {
-                    mesh.Translate(shift.Normali.X * 6f / 16f, 0, shift.Normali.Z * 6f / 16f);
-                    if (fixedPart.Count > 0)
-                    {
-                        MeshData extra;
-                        tesselator.TesselateShape(Block, shape, out extra, null, null, fixedPart.ToArray());
-                        mesh.AddMeshData(extra);
-                    }
+                    if ((mask & (1 << i)) == 0) continue;
+                    bool ns = i == 0 || i == 2;
+                    int along = ns ? o[1] : o[0];
+                    int lat = ns ? o[0] : o[1];
+                    int flat = ns ? f[i][0] : f[i][1];
+                    List<string> arm = new List<string> { "h" + Dirs[i] + "_" + Code(along) };
+                    MeshData am = Tess(tesselator, shape, arm, ns ? lat : 0, ns ? 0 : lat);
+                    mesh.AddMeshData(am);
+                    if (lat != flat) fixedPart.Add("j" + Dirs[i] + "_" + Code(lat) + "_" + Code(flat));
+                    if ((cmask & (1 << i)) != 0) fixedPart.Add("cflange-" + faceNames[i]);
                 }
+
+                if (fixedPart.Count > 0) mesh.AddMeshData(Tess(tesselator, shape, fixedPart, 0, 0));
                 cache[key] = mesh;
                 return mesh;
             }
