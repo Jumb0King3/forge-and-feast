@@ -23,6 +23,10 @@ namespace ForgeAndFeast
     {
         public float temperature = 20;
         public int fuelTemperature;
+
+        /// <summary>Players with this stove's window open. While any are, its doors stand open.</summary>
+        readonly HashSet<string> openers = new HashSet<string>();
+        public bool DoorsOpen => Block?.Variant?["doors"] == "open";
         public float fuelBurnTime;
         public float maxFuelBurnTime;
 
@@ -87,6 +91,7 @@ namespace ForgeAndFeast
             {
                 RegisterGameTickListener(OnServerTick, 100);
                 RegisterGameTickListener(On500msTick, 500);
+                RegisterGameTickListener(PruneOpeners, 2000);
                 // Safety net: a lit-looking block that isn't actually burning goes dark again
                 RegisterDelayedCallback(dt =>
                 {
@@ -207,6 +212,58 @@ namespace ForgeAndFeast
             maxFuelBurnTime = 0;
             SetBurnState("cold");
             MarkDirty(true);
+        }
+
+        public override void OnReceivedClientPacket(IPlayer fromPlayer, int packetid, byte[] data)
+        {
+            base.OnReceivedClientPacket(fromPlayer, packetid, data);
+            if (packetid == (int)EnumBlockContainerPacketId.OpenInventory)
+            {
+                openers.Add(fromPlayer.PlayerUID);
+                SetDoors(true, true);
+            }
+            else if (packetid == (int)EnumBlockContainerPacketId.CloseInventory)
+            {
+                openers.Remove(fromPlayer.PlayerUID);
+                if (openers.Count == 0) SetDoors(false, true);
+            }
+        }
+
+        /// <summary>Closes the doors when nobody is using the stove any more (or after a reload).</summary>
+        void PruneOpeners(float dt)
+        {
+            if (openers.Count > 0)
+            {
+                string[] ids = new string[openers.Count];
+                openers.CopyTo(ids);
+                foreach (string id in ids)
+                {
+                    IPlayer p = Api.World.PlayerByUid(id);
+                    if (p?.Entity == null || p.Entity.Pos.DistanceTo(Pos.ToVec3d()) > 10) openers.Remove(id);
+                }
+                if (openers.Count == 0) SetDoors(false, true);
+            }
+            else if (DoorsOpen)
+            {
+                SetDoors(false, false);
+            }
+        }
+
+        public void SetDoors(bool open, bool sound)
+        {
+            if (Block == null || Api == null || Api.Side != EnumAppSide.Server) return;
+            string want = open ? "open" : "closed";
+            if (Block.Variant["doors"] == want) return;
+            Block block = Api.World.GetBlock(Block.CodeWithVariant("doors", want));
+            if (block == null) return;
+            Api.World.BlockAccessor.ExchangeBlock(block.Id, Pos);
+            Block = block;
+            MarkDirty(true);
+            if (sound)
+            {
+                Api.World.PlaySoundAt(new AssetLocation("sounds/block/cokeovendoor-" + (open ? "open" : "close")),
+                    Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5, null, true, 16f, 0.9f);
+            }
         }
 
         public void SetBurnState(string state)

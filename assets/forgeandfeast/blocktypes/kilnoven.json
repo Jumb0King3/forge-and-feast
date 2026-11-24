@@ -24,41 +24,80 @@
    ]
   },
   {
+   "code": "doors",
+   "states": [
+    "closed",
+    "open"
+   ]
+  },
+  {
    "code": "side",
    "loadFromProperties": "abstract/horizontalorientation"
   }
  ],
  "shapeByType": {
-  "*-cold-north": {
-   "base": "forgeandfeast:block/kilnoven-cold",
+  "*-cold-closed-north": {
+   "base": "forgeandfeast:block/kilnoven-cold-closed",
    "rotateY": 0
   },
-  "*-cold-east": {
-   "base": "forgeandfeast:block/kilnoven-cold",
+  "*-cold-open-north": {
+   "base": "forgeandfeast:block/kilnoven-cold-open",
+   "rotateY": 0
+  },
+  "*-cold-closed-east": {
+   "base": "forgeandfeast:block/kilnoven-cold-closed",
    "rotateY": 270
   },
-  "*-cold-south": {
-   "base": "forgeandfeast:block/kilnoven-cold",
+  "*-cold-open-east": {
+   "base": "forgeandfeast:block/kilnoven-cold-open",
+   "rotateY": 270
+  },
+  "*-cold-closed-south": {
+   "base": "forgeandfeast:block/kilnoven-cold-closed",
    "rotateY": 180
   },
-  "*-cold-west": {
-   "base": "forgeandfeast:block/kilnoven-cold",
+  "*-cold-open-south": {
+   "base": "forgeandfeast:block/kilnoven-cold-open",
+   "rotateY": 180
+  },
+  "*-cold-closed-west": {
+   "base": "forgeandfeast:block/kilnoven-cold-closed",
    "rotateY": 90
   },
-  "*-lit-north": {
-   "base": "forgeandfeast:block/kilnoven-lit",
+  "*-cold-open-west": {
+   "base": "forgeandfeast:block/kilnoven-cold-open",
+   "rotateY": 90
+  },
+  "*-lit-closed-north": {
+   "base": "forgeandfeast:block/kilnoven-lit-closed",
    "rotateY": 0
   },
-  "*-lit-east": {
-   "base": "forgeandfeast:block/kilnoven-lit",
+  "*-lit-open-north": {
+   "base": "forgeandfeast:block/kilnoven-lit-open",
+   "rotateY": 0
+  },
+  "*-lit-closed-east": {
+   "base": "forgeandfeast:block/kilnoven-lit-closed",
    "rotateY": 270
   },
-  "*-lit-south": {
-   "base": "forgeandfeast:block/kilnoven-lit",
+  "*-lit-open-east": {
+   "base": "forgeandfeast:block/kilnoven-lit-open",
+   "rotateY": 270
+  },
+  "*-lit-closed-south": {
+   "base": "forgeandfeast:block/kilnoven-lit-closed",
    "rotateY": 180
   },
-  "*-lit-west": {
-   "base": "forgeandfeast:block/kilnoven-lit",
+  "*-lit-open-south": {
+   "base": "forgeandfeast:block/kilnoven-lit-open",
+   "rotateY": 180
+  },
+  "*-lit-closed-west": {
+   "base": "forgeandfeast:block/kilnoven-lit-closed",
+   "rotateY": 90
+  },
+  "*-lit-open-west": {
+   "base": "forgeandfeast:block/kilnoven-lit-open",
    "rotateY": 90
   }
  },
@@ -209,16 +248,16 @@
  },
  "creativeinventory": {
   "general": [
-   "*-cold-north"
+   "*-cold-closed-north"
   ],
   "construction": [
-   "*-cold-north"
+   "*-cold-closed-north"
   ]
  },
  "drops": [
   {
    "type": "block",
-   "code": "kilnoven-{tier}-cold-north"
+   "code": "kilnoven-{tier}-cold-closed-north"
   }
  ],
  "blockmaterial": "Stone",
@@ -234,7 +273,7 @@
   ]
  },
  "particlePropertiesByType": {
-  "*-lit-north": [
+  "*-lit-closed-north": [
    {
     "hsvaColor": [
      {
@@ -309,7 +348,82 @@
     "windAffectednes": 0.7
    }
   ],
-  "*-lit-east": [
+  "*-lit-open-north": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-east": [
    {
     "hsvaColor": [
      {
@@ -384,7 +498,82 @@
     "windAffectednes": 0.7
    }
   ],
-  "*-lit-south": [
+  "*-lit-open-east": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": -0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-south": [
    {
     "hsvaColor": [
      {
@@ -459,7 +648,157 @@
     "windAffectednes": 0.7
    }
   ],
-  "*-lit-west": [
+  "*-lit-open-south": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": -0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-west": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-open-west": [
    {
     "hsvaColor": [
      {

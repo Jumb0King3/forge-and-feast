@@ -19,7 +19,7 @@
   },
   "output": {
    "type": "block",
-   "code": "forgeandfeast:kitchenrange-copper-cold-north"
+   "code": "forgeandfeast:kitchenrange-copper-cold-closed-north"
   }
  },
  {
@@ -38,7 +38,7 @@
   },
   "output": {
    "type": "block",
-   "code": "forgeandfeast:kilnoven-copper-cold-north"
+   "code": "forgeandfeast:kilnoven-copper-cold-closed-north"
   }
  },
  {
@@ -82,7 +82,7 @@
   },
   "output": {
    "type": "block",
-   "code": "forgeandfeast:kitchenrange-tinbronze-cold-north"
+   "code": "forgeandfeast:kitchenrange-tinbronze-cold-closed-north"
   }
  },
  {
@@ -107,7 +107,7 @@
   },
   "output": {
    "type": "block",
-   "code": "forgeandfeast:kilnoven-tinbronze-cold-north"
+   "code": "forgeandfeast:kilnoven-tinbronze-cold-closed-north"
   }
  },
  {
@@ -157,7 +157,7 @@
   },
   "output": {
    "type": "block",
-   "code": "forgeandfeast:kitchenrange-iron-cold-north"
+   "code": "forgeandfeast:kitchenrange-iron-cold-closed-north"
   }
  },
  {
@@ -176,7 +176,7 @@
   },
   "output": {
    "type": "block",
-   "code": "forgeandfeast:kilnoven-iron-cold-north"
+   "code": "forgeandfeast:kilnoven-iron-cold-closed-north"
   }
  },
  {

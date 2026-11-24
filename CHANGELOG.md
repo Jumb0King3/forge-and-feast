@@ -1,6 +1,7 @@
-# Forge and Feast 1.6.2
+# Forge and Feast 1.7.0
 
-Model and stovepipe touch-up
+Opening doors
 
-  - Further adjustments to the range, kiln and stovepipe models and block
-    settings.
+  - Range and Kiln get separate closed and open door models. Doors open and
+    close when you open the window.
+  - Recipe changes. Shared stove code updated.

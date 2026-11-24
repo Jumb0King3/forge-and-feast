@@ -24,105 +24,208 @@
    ]
   },
   {
+   "code": "doors",
+   "states": [
+    "closed",
+    "open"
+   ]
+  },
+  {
    "code": "side",
    "loadFromProperties": "abstract/horizontalorientation"
   }
  ],
  "shapeByType": {
-  "*-copper-cold-north": {
-   "base": "forgeandfeast:block/kitchenrange-copper-cold",
+  "*-copper-cold-closed-north": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold-closed",
    "rotateY": 0
   },
-  "*-copper-cold-east": {
-   "base": "forgeandfeast:block/kitchenrange-copper-cold",
+  "*-copper-cold-open-north": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold-open",
+   "rotateY": 0
+  },
+  "*-copper-cold-closed-east": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold-closed",
    "rotateY": 270
   },
-  "*-copper-cold-south": {
-   "base": "forgeandfeast:block/kitchenrange-copper-cold",
+  "*-copper-cold-open-east": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold-open",
+   "rotateY": 270
+  },
+  "*-copper-cold-closed-south": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold-closed",
    "rotateY": 180
   },
-  "*-copper-cold-west": {
-   "base": "forgeandfeast:block/kitchenrange-copper-cold",
+  "*-copper-cold-open-south": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold-open",
+   "rotateY": 180
+  },
+  "*-copper-cold-closed-west": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold-closed",
    "rotateY": 90
   },
-  "*-copper-lit-north": {
-   "base": "forgeandfeast:block/kitchenrange-copper-lit",
-   "rotateY": 0
-  },
-  "*-copper-lit-east": {
-   "base": "forgeandfeast:block/kitchenrange-copper-lit",
-   "rotateY": 270
-  },
-  "*-copper-lit-south": {
-   "base": "forgeandfeast:block/kitchenrange-copper-lit",
-   "rotateY": 180
-  },
-  "*-copper-lit-west": {
-   "base": "forgeandfeast:block/kitchenrange-copper-lit",
+  "*-copper-cold-open-west": {
+   "base": "forgeandfeast:block/kitchenrange-copper-cold-open",
    "rotateY": 90
   },
-  "*-tinbronze-cold-north": {
-   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold",
+  "*-copper-lit-closed-north": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit-closed",
    "rotateY": 0
   },
-  "*-tinbronze-cold-east": {
-   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold",
+  "*-copper-lit-open-north": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit-open",
+   "rotateY": 0
+  },
+  "*-copper-lit-closed-east": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit-closed",
    "rotateY": 270
   },
-  "*-tinbronze-cold-south": {
-   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold",
+  "*-copper-lit-open-east": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit-open",
+   "rotateY": 270
+  },
+  "*-copper-lit-closed-south": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit-closed",
    "rotateY": 180
   },
-  "*-tinbronze-cold-west": {
-   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold",
+  "*-copper-lit-open-south": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit-open",
+   "rotateY": 180
+  },
+  "*-copper-lit-closed-west": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit-closed",
    "rotateY": 90
   },
-  "*-tinbronze-lit-north": {
-   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit",
-   "rotateY": 0
-  },
-  "*-tinbronze-lit-east": {
-   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit",
-   "rotateY": 270
-  },
-  "*-tinbronze-lit-south": {
-   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit",
-   "rotateY": 180
-  },
-  "*-tinbronze-lit-west": {
-   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit",
+  "*-copper-lit-open-west": {
+   "base": "forgeandfeast:block/kitchenrange-copper-lit-open",
    "rotateY": 90
   },
-  "*-iron-cold-north": {
-   "base": "forgeandfeast:block/kitchenrange-iron-cold",
+  "*-tinbronze-cold-closed-north": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold-closed",
    "rotateY": 0
   },
-  "*-iron-cold-east": {
-   "base": "forgeandfeast:block/kitchenrange-iron-cold",
+  "*-tinbronze-cold-open-north": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold-open",
+   "rotateY": 0
+  },
+  "*-tinbronze-cold-closed-east": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold-closed",
    "rotateY": 270
   },
-  "*-iron-cold-south": {
-   "base": "forgeandfeast:block/kitchenrange-iron-cold",
+  "*-tinbronze-cold-open-east": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold-open",
+   "rotateY": 270
+  },
+  "*-tinbronze-cold-closed-south": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold-closed",
    "rotateY": 180
   },
-  "*-iron-cold-west": {
-   "base": "forgeandfeast:block/kitchenrange-iron-cold",
+  "*-tinbronze-cold-open-south": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold-open",
+   "rotateY": 180
+  },
+  "*-tinbronze-cold-closed-west": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold-closed",
    "rotateY": 90
   },
-  "*-iron-lit-north": {
-   "base": "forgeandfeast:block/kitchenrange-iron-lit",
+  "*-tinbronze-cold-open-west": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-cold-open",
+   "rotateY": 90
+  },
+  "*-tinbronze-lit-closed-north": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit-closed",
    "rotateY": 0
   },
-  "*-iron-lit-east": {
-   "base": "forgeandfeast:block/kitchenrange-iron-lit",
+  "*-tinbronze-lit-open-north": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit-open",
+   "rotateY": 0
+  },
+  "*-tinbronze-lit-closed-east": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit-closed",
    "rotateY": 270
   },
-  "*-iron-lit-south": {
-   "base": "forgeandfeast:block/kitchenrange-iron-lit",
+  "*-tinbronze-lit-open-east": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit-open",
+   "rotateY": 270
+  },
+  "*-tinbronze-lit-closed-south": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit-closed",
    "rotateY": 180
   },
-  "*-iron-lit-west": {
-   "base": "forgeandfeast:block/kitchenrange-iron-lit",
+  "*-tinbronze-lit-open-south": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit-open",
+   "rotateY": 180
+  },
+  "*-tinbronze-lit-closed-west": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit-closed",
+   "rotateY": 90
+  },
+  "*-tinbronze-lit-open-west": {
+   "base": "forgeandfeast:block/kitchenrange-tinbronze-lit-open",
+   "rotateY": 90
+  },
+  "*-iron-cold-closed-north": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold-closed",
+   "rotateY": 0
+  },
+  "*-iron-cold-open-north": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold-open",
+   "rotateY": 0
+  },
+  "*-iron-cold-closed-east": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold-closed",
+   "rotateY": 270
+  },
+  "*-iron-cold-open-east": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold-open",
+   "rotateY": 270
+  },
+  "*-iron-cold-closed-south": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold-closed",
+   "rotateY": 180
+  },
+  "*-iron-cold-open-south": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold-open",
+   "rotateY": 180
+  },
+  "*-iron-cold-closed-west": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold-closed",
+   "rotateY": 90
+  },
+  "*-iron-cold-open-west": {
+   "base": "forgeandfeast:block/kitchenrange-iron-cold-open",
+   "rotateY": 90
+  },
+  "*-iron-lit-closed-north": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit-closed",
+   "rotateY": 0
+  },
+  "*-iron-lit-open-north": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit-open",
+   "rotateY": 0
+  },
+  "*-iron-lit-closed-east": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit-closed",
+   "rotateY": 270
+  },
+  "*-iron-lit-open-east": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit-open",
+   "rotateY": 270
+  },
+  "*-iron-lit-closed-south": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit-closed",
+   "rotateY": 180
+  },
+  "*-iron-lit-open-south": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit-open",
+   "rotateY": 180
+  },
+  "*-iron-lit-closed-west": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit-closed",
+   "rotateY": 90
+  },
+  "*-iron-lit-open-west": {
+   "base": "forgeandfeast:block/kitchenrange-iron-lit-open",
    "rotateY": 90
   }
  },
@@ -270,16 +373,16 @@
  },
  "creativeinventory": {
   "general": [
-   "*-cold-north"
+   "*-cold-closed-north"
   ],
   "construction": [
-   "*-cold-north"
+   "*-cold-closed-north"
   ]
  },
  "drops": [
   {
    "type": "block",
-   "code": "kitchenrange-{tier}-cold-north"
+   "code": "kitchenrange-{tier}-cold-closed-north"
   }
  ],
  "blockmaterial": "Metal",
@@ -295,7 +398,7 @@
   ]
  },
  "particlePropertiesByType": {
-  "*-lit-north": [
+  "*-lit-closed-north": [
    {
     "hsvaColor": [
      {
@@ -370,7 +473,82 @@
     "windAffectednes": 0.7
    }
   ],
-  "*-lit-east": [
+  "*-lit-open-north": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-east": [
    {
     "hsvaColor": [
      {
@@ -445,7 +623,82 @@
     "windAffectednes": 0.7
    }
   ],
-  "*-lit-south": [
+  "*-lit-open-east": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": -0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-south": [
    {
     "hsvaColor": [
      {
@@ -520,7 +773,157 @@
     "windAffectednes": 0.7
    }
   ],
-  "*-lit-west": [
+  "*-lit-open-south": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": -0.44,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-closed-west": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0
+     },
+     {
+      "avg": 70,
+      "var": 30
+     },
+     {
+      "avg": 200,
+      "var": 50
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -255
+    },
+    "gravityEffect": {
+     "avg": 0,
+     "var": 0
+    },
+    "posOffset": [
+     {
+      "avg": 0.44,
+      "var": 0.03
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.02
+     },
+     {
+      "avg": 0.15,
+      "var": 0.05
+     },
+     {
+      "avg": 0,
+      "var": 0.02
+     }
+    ],
+    "quantity": {
+     "avg": 0.05
+    },
+    "size": {
+     "avg": 0.25,
+     "var": 0.05
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 1.2
+    },
+    "particleModel": "Quad",
+    "lifeLength": {
+     "avg": 8
+    },
+    "selfPropelled": true,
+    "windAffectednes": 0.7
+   }
+  ],
+  "*-lit-open-west": [
    {
     "hsvaColor": [
      {
