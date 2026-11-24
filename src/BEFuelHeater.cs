@@ -266,7 +266,7 @@ namespace ForgeAndFeast
             MarkDirty(true);
             if (sound)
             {
-                Api.World.PlaySoundAt(new AssetLocation("survival:sounds/block/cokeovendoor-" + (open ? "open" : "close")),
+                Api.World.PlaySoundAt(new AssetLocation("game:sounds/block/cokeovendoor-" + (open ? "open" : "close")),
                     Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5, null, true, 16f, 0.9f);
             }
         }
@@ -310,10 +310,25 @@ namespace ForgeAndFeast
             tree.SetFloat("pkMaxBurn", maxFuelBurnTime);
         }
 
+        string lastDisplayKey;
+
+        /// <summary>Codes of everything drawn as part of the stove, so the client knows when to redraw.</summary>
+        protected virtual string DisplayKey() => "";
+
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
             if (Api != null) Inventory.AfterBlocksLoaded(Api.World);
+            if (Api != null && Api.Side == EnumAppSide.Client)
+            {
+                // Redraw when what's shown on or in the stove changes
+                string key = DisplayKey();
+                if (key != lastDisplayKey)
+                {
+                    lastDisplayKey = key;
+                    Api.World.BlockAccessor.MarkBlockDirty(Pos);
+                }
+            }
 
             temperature = tree.GetFloat("pkTemp", 20);
             fuelTemperature = tree.GetInt("pkFuelTemp");

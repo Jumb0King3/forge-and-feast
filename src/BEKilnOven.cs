@@ -308,6 +308,14 @@ namespace ForgeAndFeast
             return 0;
         }
 
+        protected override string DisplayKey()
+        {
+            System.Text.StringBuilder k = new System.Text.StringBuilder();
+            for (int i = 0; i < InventoryKiln.MaxFiringSlots; i++)
+                k.Append(inventory.FiringSlot(i).Itemstack?.Collectible?.Code).Append(':').Append(GlowLevel(i)).Append(',');
+            return k.ToString();
+        }
+
         bool CrucibleHasIngredients(int i)
         {
             ItemSlot[] cs = inventory.Cook(i).Slots;
@@ -422,16 +430,7 @@ namespace ForgeAndFeast
                 ItemStack s = inventory.FiringSlot(i).Itemstack;
                 if (s == null) continue;
 
-                MeshData mesh = null;
-                try
-                {
-                    if (s.Block != null && s.Block.Id != 0) tesselator.TesselateBlock(s.Block, out mesh);
-                    else if (s.Item != null) tesselator.TesselateItem(s.Item, out mesh);
-                }
-                catch (Exception)
-                {
-                    mesh = null;
-                }
+                MeshData mesh = ContentMesh.For(Api, tesselator, s);
                 if (mesh == null) continue;
 
                 int row = i / 4, col = i % 4;

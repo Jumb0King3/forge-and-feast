@@ -327,7 +327,7 @@
  },
  "sounds": {
   "walk": "walk/stone",
-  "place": "survival:block/ceramicplace",
+  "place": "game:block/ceramicplace",
   "byTool": {
    "Pickaxe": {
     "hit": "block/rock-hit-pickaxe",

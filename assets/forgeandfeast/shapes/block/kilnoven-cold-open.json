@@ -1075,7 +1075,7 @@
    ],
    "faces": {
     "north": {
-     "texture": "#fire",
+     "texture": "#black",
      "uv": [
       2,
       4.6,

@@ -175,6 +175,12 @@ namespace ForgeAndFeast
             MarkDirty(true);
         }
 
+        protected override string DisplayKey()
+        {
+            ItemStack a = inventory.InputSlot.Itemstack, b = inventory.OutputSlot.Itemstack;
+            return a?.Collectible?.Code + ":" + (a == null ? 0 : a.StackSize / 3) + "," + b?.Collectible?.Code + ":" + (b == null ? 0 : b.StackSize / 4);
+        }
+
         public string GetStatusText()
         {
             ItemStack input = inventory.InputSlot.Itemstack;
@@ -217,16 +223,7 @@ namespace ForgeAndFeast
         /// <summary>Scatters a few pieces of the stack on the floor of the drum, between zFrom and zTo (in 1/16 blocks).</summary>
         void DrawPile(ITerrainMeshPool mesher, ITesselatorAPI tesselator, ItemStack stack, int pieces, float zFrom, float zTo, bool logs)
         {
-            MeshData mesh = null;
-            try
-            {
-                if (stack.Block != null && stack.Block.Id != 0) tesselator.TesselateBlock(stack.Block, out mesh);
-                else if (stack.Item != null) tesselator.TesselateItem(stack.Item, out mesh);
-            }
-            catch (Exception)
-            {
-                mesh = null;
-            }
+            MeshData mesh = ContentMesh.For(Api, tesselator, stack);
             if (mesh == null) return;
 
             string side = Block?.Variant?["side"] ?? "north";

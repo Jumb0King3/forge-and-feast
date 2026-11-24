@@ -527,26 +527,52 @@ namespace ForgeAndFeast
                 }
             }
 
+            string side = Block?.Variant?["side"] ?? "north";
             for (int b = 0; b < Burners; b++)
             {
                 ItemStack s = inventory.InputSlot(b).Itemstack ?? inventory.OutputSlot(b).Itemstack;
-                if (s?.Block == null) continue;
+                if (s == null) continue;
+                Vec3f off = BurnerOffset(Burners, b);
 
-                MeshData mesh;
-                try
+                if (s.Block is BlockCookingContainer || s.Block is BlockCookedContainerBase)
                 {
-                    tesselator.TesselateBlock(s.Block, out mesh);
-                }
-                catch (Exception)
-                {
+                    // A pot: show what's cooking in it, like the firepit does
+                    ItemStack[] ingredients = inventory.HasPot(b) && inventory.InputSlot(b).Itemstack == s ? NonEmpty(inventory.Burner(b).Slots) : null;
+                    bool showsFood;
+                    MeshData pot = ContentMesh.Pot(Api, tesselator, s, ingredients, out showsFood);
+                    if (pot == null) continue;
+                    pot = pot.Clone();
+                    pot.Scale(new Vec3f(0.5f, 0, 0.5f), 0.8f, 0.8f, 0.8f);
+                    pot.Translate(off.X, 14.35f / 16f, off.Z);
+                    mesher.AddMeshData(pot);
+
+                    // No recipe yet (a lone piece of meat, or a mix still being filled): show the pieces in the pot
+                    if (!showsFood && ingredients != null)
+                    {
+                        for (int i = 0; i < ingredients.Length && i < 4; i++)
+                        {
+                            MeshData m = ContentMesh.For(Api, tesselator, ingredients[i]);
+                            if (m == null) continue;
+                            m = m.Clone();
+                            float dx = ingredients.Length == 1 ? 0 : ((i % 2) - 0.5f) * 0.12f;
+                            float dz = ingredients.Length <= 2 ? 0 : ((i / 2) - 0.5f) * 0.12f;
+                            m.Rotate(new Vec3f(0.5f, 0, 0.5f), 0, (i * 70 + 20) * GameMath.DEG2RAD, 0);
+                            m.Scale(new Vec3f(0.5f, 0, 0.5f), 0.32f, 0.32f, 0.32f);
+                            m.Translate(off.X + dx, 14.35f / 16f + 0.12f, off.Z + dz);
+                            mesher.AddMeshData(m);
+                        }
+                    }
                     continue;
                 }
-                if (mesh == null) continue;
 
-                Vec3f off = BurnerOffset(Burners, b);
+                // Anything else (a steak, a block of something) sits right on the plate
+                MeshData mesh = ContentMesh.For(Api, tesselator, s);
+                if (mesh == null) continue;
                 mesh = mesh.Clone();
-                mesh.Scale(new Vec3f(0.5f, 0, 0.5f), 0.8f, 0.8f, 0.8f);
-                mesh.Translate(off.X, 14.35f / 16f, off.Z);
+                float scale = s.Block != null ? 0.5f : 0.55f;
+                mesh.Rotate(new Vec3f(0.5f, 0, 0.5f), 0, (b * 35 + 15) * GameMath.DEG2RAD, 0);
+                mesh.Scale(new Vec3f(0.5f, 0, 0.5f), scale, scale, scale);
+                mesh.Translate(off.X, 14.5f / 16f, off.Z);
                 mesher.AddMeshData(mesh);
             }
 
@@ -555,6 +581,29 @@ namespace ForgeAndFeast
             return drewBody;
         }
 
+
+        static ItemStack[] NonEmpty(ItemSlot[] slots)
+        {
+            int n = 0;
+            for (int i = 0; i < slots.Length; i++) if (!slots[i].Empty) n++;
+            ItemStack[] r = new ItemStack[n];
+            n = 0;
+            for (int i = 0; i < slots.Length; i++) if (!slots[i].Empty) r[n++] = slots[i].Itemstack;
+            return r;
+        }
+
+        protected override string DisplayKey()
+        {
+            System.Text.StringBuilder k = new System.Text.StringBuilder();
+            for (int u = 0; u < InventoryRange.MaxUnits; u++)
+            {
+                k.Append(inventory.InputSlot(u).Itemstack?.Collectible?.Code).Append(',');
+                k.Append(inventory.OutputSlot(u).Itemstack?.Collectible?.Code).Append(',');
+                if (u < InventoryRange.MaxBurners)
+                    for (int j = 0; j < 4; j++) k.Append(inventory.Burner(u).Slots[j].Itemstack?.Collectible?.Code).Append(',');
+            }
+            return k.ToString();
+        }
 
         /// <summary>Draws whatever is baking (or baked) on the oven rack, one spot per oven slot.</summary>
         void DrawOvenContents(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
@@ -574,16 +623,7 @@ namespace ForgeAndFeast
                 ItemStack s = inventory.InputSlot(unit).Itemstack ?? inventory.OutputSlot(unit).Itemstack;
                 if (s == null) continue;
 
-                MeshData mesh = null;
-                try
-                {
-                    if (s.Block != null && s.Block.Id != 0) tesselator.TesselateBlock(s.Block, out mesh);
-                    else if (s.Item != null) tesselator.TesselateItem(s.Item, out mesh);
-                }
-                catch (Exception)
-                {
-                    mesh = null;
-                }
+                MeshData mesh = ContentMesh.For(Api, tesselator, s);
                 if (mesh == null) continue;
 
                 // Spread the spots across the 7px wide chamber; the rack sits at 6.5px

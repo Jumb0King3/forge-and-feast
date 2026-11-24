@@ -46,9 +46,9 @@
  "faceCullMode": "NeverCull",
  "sounds": {
   "walk": "walk/stone",
-  "place": "survival:block/anvil",
-  "hit": "survival:block/anvil",
-  "break": "survival:block/anvil"
+  "place": "game:block/anvil",
+  "hit": "game:block/anvil",
+  "break": "game:block/anvil"
  },
  "collisionbox": {
   "x1": 0.3125,

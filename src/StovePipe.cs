@@ -65,7 +65,8 @@ namespace ForgeAndFeast
         public static bool CeilingLift(IBlockAccessor ba, BlockPos pos, int realMask)
         {
             int horizontal = realMask & 15;
-            if (horizontal == 0 || (realMask & ((1 << BlockFacing.UP.Index) | (1 << BlockFacing.DOWN.Index))) != 0) return false;
+            // A bend that turns down the wall lifts too, so it lines up with the run it joins
+            if (horizontal == 0 || (realMask & (1 << BlockFacing.UP.Index)) != 0) return false;
             Block above = ba.GetBlock(pos.UpCopy());
             return above != null && above.Id != 0 && !IsPipe(above) && !IsChimney(above) && above.SideSolid[BlockFacing.DOWN.Index];
         }
@@ -270,7 +271,14 @@ namespace ForgeAndFeast
             Cuboidf[] boxes = Boxes(real, StovePipes.Offset(ba, pos));
             if (StovePipes.CeilingLift(ba, pos, real))
             {
-                for (int i = 0; i < boxes.Length; i++) boxes[i] = boxes[i].Translate(0, 6f / 16f, 0);
+                List<Cuboidf> lifted = new List<Cuboidf>();
+                for (int i = 0; i < boxes.Length; i++) lifted.Add(boxes[i].Translate(0, 6f / 16f, 0));
+                if ((real & (1 << BlockFacing.DOWN.Index)) != 0)
+                {
+                    int[] o = StovePipes.Offset(ba, pos);
+                    lifted.Add(new Cuboidf(R1, 0, R1, R2, R2, R2).Translate(o[0] / 16f, 0, o[1] / 16f));
+                }
+                return lifted.ToArray();
             }
             return boxes;
         }
@@ -413,9 +421,31 @@ namespace ForgeAndFeast
             {
                 mesh = mesh.Clone();
                 mesh.Translate(0, 6f / 16f, 0);
+                // Bend turning down the wall: fill the gap between the lifted elbow and the pipe below
+                if ((real & (1 << BlockFacing.DOWN.Index)) != 0)
+                {
+                    MeshData drop = DropMesh(tesselator, o);
+                    if (drop != null) mesher.AddMeshData(drop);
+                }
             }
             mesher.AddMeshData(mesh);
             return true;
+        }
+
+        MeshData DropMesh(ITesselatorAPI tesselator, int[] o)
+        {
+            Dictionary<string, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-pipedrops", () => new Dictionary<string, MeshData>());
+            string key = o[0] + "," + o[1];
+            lock (cache)
+            {
+                MeshData m;
+                if (cache.TryGetValue(key, out m)) return m;
+                Shape shape = Shape.TryGet(Api, new AssetLocation("forgeandfeast", "shapes/block/stovepipe.json"));
+                if (shape == null) return null;
+                m = Tess(tesselator, shape, new List<string> { "arm-down", "core" }, o[0], o[1]);
+                cache[key] = m;
+                return m;
+            }
         }
 
         MeshData Tess(ITesselatorAPI t, Shape shape, List<string> names, float dx, float dz)
