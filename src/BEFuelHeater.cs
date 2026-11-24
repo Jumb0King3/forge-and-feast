@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
@@ -35,6 +37,41 @@ namespace ForgeAndFeast
         public float VentMul = 1f;
 
         float prevTemperature = 20;
+
+        /// <summary>
+        /// Draws the range without its built-in stovepipe stub, for when a real stovepipe is attached.
+        /// Returns null if that can't be done, so the normal model is used.
+        /// </summary>
+        protected MeshData GetMeshWithoutStub(ITesselatorAPI tesselator)
+        {
+            CompositeShape cs = Block?.Shape;
+            if (cs?.Base == null) return null;
+            Dictionary<int, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-rangenostub", () => new Dictionary<int, MeshData>());
+            lock (cache)
+            {
+                MeshData mesh;
+                if (cache.TryGetValue(Block.Id, out mesh)) return mesh;
+
+                AssetLocation loc = cs.Base.Clone().WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
+                Shape shape = Shape.TryGet(Api, loc);
+                if (shape?.Elements == null) return null;
+
+                int n = 0;
+                string[] names = new string[shape.Elements.Length];
+                for (int i = 0; i < shape.Elements.Length; i++)
+                {
+                    string name = shape.Elements[i].Name;
+                    if (name == "pipe" || name == "pipecollar") continue;
+                    names[n++] = name;
+                }
+                string[] keep = new string[n];
+                Array.Copy(names, keep, n);
+
+                tesselator.TesselateShape(Block, shape, out mesh, new Vec3f(cs.rotateX, cs.rotateY, cs.rotateZ), null, keep);
+                cache[Block.Id] = mesh;
+                return mesh;
+            }
+        }
 
         public bool IsBurning => fuelBurnTime > 0;
 

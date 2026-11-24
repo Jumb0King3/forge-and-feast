@@ -196,6 +196,17 @@ namespace ForgeAndFeast
         /// <summary>Draws the moulds and pots in the firing slots on the shelves behind the front opening.</summary>
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
+            bool drewBody = false;
+            if (StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos) != 0)
+            {
+                MeshData body = GetMeshWithoutStub(tesselator);
+                if (body != null)
+                {
+                    mesher.AddMeshData(body);
+                    drewBody = true;
+                }
+            }
+
             string side = Block?.Variant?["side"] ?? "north";
             float rot = 0;
             switch (side)
@@ -240,7 +251,7 @@ namespace ForgeAndFeast
                 mesh.Translate(xr, y, zr);
                 mesher.AddMeshData(mesh);
             }
-            return false;
+            return drewBody;
         }
 
         public override bool OnPlayerRightClick(IPlayer byPlayer, BlockSelection blockSel)
