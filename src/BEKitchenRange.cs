@@ -423,10 +423,11 @@ namespace ForgeAndFeast
         {
             float x, z;
             const float d = 3.2f / 16f;
+            const float db = 2.2f / 16f; // back row sits 1px forward, clear of the stovepipe stub
             if (burners == 1) { x = 0; z = 0; }
             else if (burners == 2) { x = b == 0 ? -d : d; z = 0; }
-            else if (burners == 3) { x = b == 2 ? 0 : (b == 0 ? -d : d); z = b == 2 ? d : -d; }
-            else { x = (b % 2 == 0) ? -d : d; z = b < 2 ? -d : d; }
+            else if (burners == 3) { x = b == 2 ? 0 : (b == 0 ? -d : d); z = b == 2 ? db : -d; }
+            else { x = (b % 2 == 0) ? -d : d; z = b < 2 ? -d : db; }
 
             // Rotate to match the block (north 0, east 270, south 180, west 90 - same as the shape rotateY)
             string side = Block?.Variant?["side"] ?? "north";

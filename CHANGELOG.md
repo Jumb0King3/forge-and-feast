@@ -1,6 +1,6 @@
-# Forge and Feast 2.0.1
+# Forge and Feast 2.0.2
 
-Base-game clay oven removed
+Iron and Steel plate clearance fix
 
-  - With this mod installed the vanilla clay oven can no longer be crafted and
-    is hidden from the creative menu. The campfire is left alone.
+  - Cooking plates on the Iron and Steel ranges no longer clip into the
+    surrounding body.
