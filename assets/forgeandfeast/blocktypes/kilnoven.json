@@ -256,7 +256,8 @@
      "kilnoven-*"
     ]
    },
-   "smelting": true
+   "smelting": true,
+   "firingHours": 12
   },
   "*-tinbronze-*": {
    "firingSlots": 3,
@@ -270,7 +271,8 @@
      "kilnoven-*"
     ]
    },
-   "smelting": true
+   "smelting": true,
+   "firingHours": 10
   },
   "*-iron-*": {
    "smelting": true,
@@ -284,7 +286,8 @@
     "groupBy": [
      "kilnoven-*"
     ]
-   }
+   },
+   "firingHours": 8
   },
   "*-steel-*": {
    "smelting": true,
@@ -298,7 +301,8 @@
     "groupBy": [
      "kilnoven-*"
     ]
-   }
+   },
+   "firingHours": 6
   }
  },
  "creativeinventory": {

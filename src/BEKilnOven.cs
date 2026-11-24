@@ -175,6 +175,8 @@ namespace ForgeAndFeast
         public bool CanSmelt;
         /// <summary>Firing takes this many times the item's own firing duration (before the tier speed bonus).</summary>
         public float DurationMul = 4f;
+        /// <summary>In-game hours to fire a pot or mould at minimum heat (Copper 12, Bronze 10, Iron 8, Steel 6).</summary>
+        public float FiringHours = 12f;
 
         readonly float[] progress = new float[InventoryKiln.MaxFiringSlots];
         readonly string[] lastCode = new string[InventoryKiln.MaxFiringSlots];
@@ -194,6 +196,7 @@ namespace ForgeAndFeast
             base.ReadTierStats();
             FiringSlots = GameMath.Clamp(Block?.Attributes?["firingSlots"].AsInt(4) ?? 4, 1, InventoryKiln.MaxFiringSlots);
             DurationMul = Block?.Attributes?["firingDurationMul"].AsFloat(4f) ?? 4f;
+            FiringHours = Block?.Attributes?["firingHours"].AsFloat(12f) ?? 12f;
             inventory.ActiveSlots = FiringSlots;
             CanSmelt = Block?.Attributes?["smelting"].AsBool(false) ?? false;
             inventory.Smelting = CanSmelt;
@@ -265,12 +268,13 @@ namespace ForgeAndFeast
                 CombustibleProperties props = stack.Collectible.CombustibleProps;
                 if (temperature < props.MeltingPoint)
                 {
-                    if (progress[i] > 0) progress[i] = Math.Max(0, progress[i] - dt);
+                    if (progress[i] > 0) progress[i] = Math.Max(0, progress[i] - GameHours(dt));
                     continue;
                 }
 
+                // Hotter fuel fires faster, like the pit kiln (charcoal twice as fast as firewood)
                 float bonus = GameMath.Clamp(temperature / Math.Max(1, props.MeltingPoint), 1f, 2f);
-                progress[i] += dt * SpeedMul * VentMul * bonus;
+                progress[i] += GameHours(dt) * VentMul * bonus;
 
                 if (progress[i] >= RequiredTime(props))
                 {
@@ -374,9 +378,28 @@ namespace ForgeAndFeast
         readonly float[] crucibleDuration = new float[InventoryKiln.MaxFiringSlots];
         readonly float[] crucibleMelt = new float[InventoryKiln.MaxFiringSlots];
 
+        /// <summary>In-game hours that pass in dt real seconds, so firing follows the world clock like the pit kiln.</summary>
+        float GameHours(float dt)
+        {
+            IGameCalendar cal = Api?.World?.Calendar;
+            if (cal == null) return dt / 120f;
+            return dt * cal.SpeedOfTime * cal.CalendarSpeedMul / 3600f;
+        }
+
+        /// <summary>
+        /// In-game hours to fire one item at its minimum firing heat. The tier sets the hours for a 30 s base-game item
+        /// (pots, moulds); slower items like crucibles (45 s) take proportionally longer.
+        /// </summary>
         float RequiredTime(CombustibleProperties props)
         {
-            return Math.Max(5f, props.MeltingDuration * DurationMul);
+            return Math.Max(0.25f, FiringHours * Math.Max(1f, props.MeltingDuration) / 30f);
+        }
+
+        /// <summary>Rough in-game hours left for slot i at the current heat.</summary>
+        float HoursLeft(int i, CombustibleProperties props)
+        {
+            float bonus = GameMath.Clamp(temperature / Math.Max(1, props.MeltingPoint), 1f, 2f);
+            return Math.Max(0, RequiredTime(props) - progress[i]) / Math.Max(0.1f, bonus * VentMul);
         }
 
         /// <summary>Status line for one firing slot, shown in the GUI.</summary>
@@ -399,6 +422,8 @@ namespace ForgeAndFeast
             CombustibleProperties props = stack.Collectible.CombustibleProps;
             if (temperature < props.MeltingPoint) return Lang.Get("forgeandfeast:kiln-needs", (int)props.MeltingPoint);
             int pct = (int)GameMath.Clamp(100 * progress[i] / RequiredTime(props), 0, 100);
+            if (temperature >= props.MeltingPoint)
+                return Lang.Get("forgeandfeast:kiln-firing-hours", pct, Math.Max(1, (int)Math.Ceiling(HoursLeft(i, props))));
             return Lang.Get("forgeandfeast:kiln-firing", pct);
         }
 
