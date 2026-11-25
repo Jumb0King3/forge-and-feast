@@ -9,6 +9,23 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.11.0  - Crafting cost rebalance
+  Costs below count 1 metal plate as 2 ingots. Burned bricks aren't counted.
+  - Kitchen Range, Copper: 1 copper plate, 1 copper ingot and 7 burned bricks
+    (was 3 plates, 1 ingot and 5 bricks). 7 ingots -> 3.
+  - Charcoal Retort, Copper: 2 copper plates and 6 burned bricks (was 5 plates
+    and 3 bricks). 10 ingots -> 4. It was dearer than the range.
+  - Kiln Oven, Copper: unchanged (1 plate and 8 bricks).
+  - Tier upgrades (Range, Kiln and Retort, to Bronze, Iron and Steel): the
+    previous tier plus 2 plates of the new metal in a row (was 5 plates).
+    10 ingots -> 4 per tier. A Steel Range now costs 3 copper, 4 bronze,
+    4 iron and 4 steel ingots in total (was 7 / 10 / 10 / 10).
+  - Large Pots (Copper, Bronze, Iron): 2 ingots and 1 plate (was 4 plates
+    and 1 ingot). 9 ingots -> 4.
+  - Stovepipes: 2 plates now make 8 pipes (was 6). About 0.5 ingot per pipe
+    instead of 0.67.
+  - README crafting section and the ModDB recipe GIFs updated to match.
+
 2.10.0  - First public release (ModDB)
   KITCHEN RANGE (Copper, Bronze, Iron, Steel)
   - 1 / 2 / 3 / 4 burner plates. Each takes a cooking pot, or a single item

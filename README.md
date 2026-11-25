@@ -65,7 +65,7 @@ Firing times are in-game hours for a pot or mould. Charcoal or coal roughly halv
 
 ### 🔨 Crafting
 
-Start with Copper, then upgrade each stove by surrounding it with plates of the next metal.
+Start with Copper, then upgrade each stove by putting a plate of the next metal on each side of it.
 
 <p align="center"><b>Kitchen Range</b><br><img src="https://moddbcdn.vintagestory.at/forgeandfeast_craft__0735e1bc8c589f3f8e8baf868bcccd60.gif" alt="Kitchen Range recipes" width="600"></p>
 
@@ -75,10 +75,10 @@ Start with Copper, then upgrade each stove by surrounding it with plates of the 
 
 <p align="center"><b>Large Pots and Stovepipes</b><br><img src="https://moddbcdn.vintagestory.at/forgeandfeast_craft__068e37f0e047d9672f9aec9884ab641d.gif" alt="Large Pots and Stovepipes recipes" width="600"></p>
 
-- **Copper tier:** copper plates and fired bricks (the range also takes a copper ingot).
-- **Higher tiers:** 5 plates of the new metal around the previous tier.
-- **Large Pots:** plates and an ingot of the same metal. The Bronze pot takes any bronze.
-- **Stovepipes:** 2 metal plates of any kind make 6 pipes.
+- **Copper tier:** fired bricks plus copper. The Kiln Oven takes 1 copper plate, the Retort 2, and the Range 1 plate and 1 ingot.
+- **Higher tiers:** 2 plates of the new metal, one on each side of the previous tier.
+- **Large Pots:** 2 ingots and 1 plate of the same metal. The Bronze pot takes any bronze.
+- **Stovepipes:** 2 metal plates of any kind make 8 pipes.
 
 ---
 

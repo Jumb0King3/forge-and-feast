@@ -1,6 +1,6 @@
 [
  {
-  "ingredientPattern": "PPP,BIB,BBB",
+  "ingredientPattern": "BPB,BIB,BBB",
   "width": 3,
   "height": 3,
   "ingredients": {
@@ -42,28 +42,28 @@
   }
  },
  {
-  "ingredientPattern": "P_P,PIP",
+  "ingredientPattern": "BPB,B_B,BPB",
   "width": 3,
-  "height": 2,
+  "height": 3,
   "ingredients": {
    "P": {
     "type": "item",
     "code": "game:metalplate-copper"
    },
-   "I": {
+   "B": {
     "type": "item",
-    "code": "game:ingot-copper"
+    "code": "game:burnedbrick-*"
    }
   },
   "output": {
    "type": "block",
-   "code": "forgeandfeast:largepot-copper-fired"
+   "code": "forgeandfeast:retort-copper-cold-closed-north"
   }
  },
  {
-  "ingredientPattern": "PPP,PRP",
+  "ingredientPattern": "PKP",
   "width": 3,
-  "height": 2,
+  "height": 1,
   "ingredients": {
    "P": {
     "type": "item",
@@ -75,7 +75,7 @@
      "blackbronze"
     ]
    },
-   "R": {
+   "K": {
     "type": "block",
     "code": "forgeandfeast:kitchenrange-copper-*"
    }
@@ -86,9 +86,47 @@
   }
  },
  {
-  "ingredientPattern": "PPP,PKP",
+  "ingredientPattern": "PKP",
   "width": 3,
-  "height": 2,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:kitchenrange-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kitchenrange-iron-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:kitchenrange-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kitchenrange-steel-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
   "ingredients": {
    "P": {
     "type": "item",
@@ -111,7 +149,127 @@
   }
  },
  {
-  "ingredientPattern": "P_P,PIP",
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:kilnoven-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kilnoven-iron-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:kilnoven-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:kilnoven-steel-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-tinbronze",
+    "name": "metal",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:retort-copper-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:retort-tinbronze-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:retort-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:retort-iron-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:retort-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:retort-steel-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "I_I,_P_",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-copper"
+   },
+   "I": {
+    "type": "item",
+    "code": "game:ingot-copper"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:largepot-copper-fired"
+  }
+ },
+ {
+  "ingredientPattern": "I_I,_P_",
   "width": 3,
   "height": 2,
   "ingredients": {
@@ -142,83 +300,7 @@
   }
  },
  {
-  "ingredientPattern": "PPP,PRP",
-  "width": 3,
-  "height": 2,
-  "ingredients": {
-   "P": {
-    "type": "item",
-    "code": "game:metalplate-iron"
-   },
-   "R": {
-    "type": "block",
-    "code": "forgeandfeast:kitchenrange-tinbronze-*"
-   }
-  },
-  "output": {
-   "type": "block",
-   "code": "forgeandfeast:kitchenrange-iron-cold-closed-north"
-  }
- },
- {
-  "ingredientPattern": "PPP,PRP",
-  "width": 3,
-  "height": 2,
-  "ingredients": {
-   "P": {
-    "type": "item",
-    "code": "game:metalplate-steel"
-   },
-   "R": {
-    "type": "block",
-    "code": "forgeandfeast:kitchenrange-iron-*"
-   }
-  },
-  "output": {
-   "type": "block",
-   "code": "forgeandfeast:kitchenrange-steel-cold-closed-north"
-  }
- },
- {
-  "ingredientPattern": "PPP,PKP",
-  "width": 3,
-  "height": 2,
-  "ingredients": {
-   "P": {
-    "type": "item",
-    "code": "game:metalplate-iron"
-   },
-   "K": {
-    "type": "block",
-    "code": "forgeandfeast:kilnoven-tinbronze-*"
-   }
-  },
-  "output": {
-   "type": "block",
-   "code": "forgeandfeast:kilnoven-iron-cold-closed-north"
-  }
- },
- {
-  "ingredientPattern": "PPP,PKP",
-  "width": 3,
-  "height": 2,
-  "ingredients": {
-   "P": {
-    "type": "item",
-    "code": "game:metalplate-steel"
-   },
-   "K": {
-    "type": "block",
-    "code": "forgeandfeast:kilnoven-iron-*"
-   }
-  },
-  "output": {
-   "type": "block",
-   "code": "forgeandfeast:kilnoven-steel-cold-closed-north"
-  }
- },
- {
-  "ingredientPattern": "P_P,PIP",
+  "ingredientPattern": "I_I,_P_",
   "width": 3,
   "height": 2,
   "ingredients": {
@@ -257,89 +339,7 @@
   "output": {
    "type": "block",
    "code": "forgeandfeast:stovepipe",
-   "quantity": 6
-  }
- },
- {
-  "ingredientPattern": "PPP,P_P,BBB",
-  "width": 3,
-  "height": 3,
-  "ingredients": {
-   "P": {
-    "type": "item",
-    "code": "game:metalplate-copper"
-   },
-   "B": {
-    "type": "item",
-    "code": "game:burnedbrick-*"
-   }
-  },
-  "output": {
-   "type": "block",
-   "code": "forgeandfeast:retort-copper-cold-closed-north"
-  }
- },
- {
-  "ingredientPattern": "PPP,PKP",
-  "width": 3,
-  "height": 2,
-  "ingredients": {
-   "P": {
-    "type": "item",
-    "code": "game:metalplate-tinbronze",
-    "name": "metal",
-    "allowedVariants": [
-     "tinbronze",
-     "bismuthbronze",
-     "blackbronze"
-    ]
-   },
-   "K": {
-    "type": "block",
-    "code": "forgeandfeast:retort-copper-*"
-   }
-  },
-  "output": {
-   "type": "block",
-   "code": "forgeandfeast:retort-tinbronze-cold-closed-north"
-  }
- },
- {
-  "ingredientPattern": "PPP,PKP",
-  "width": 3,
-  "height": 2,
-  "ingredients": {
-   "P": {
-    "type": "item",
-    "code": "game:metalplate-iron"
-   },
-   "K": {
-    "type": "block",
-    "code": "forgeandfeast:retort-tinbronze-*"
-   }
-  },
-  "output": {
-   "type": "block",
-   "code": "forgeandfeast:retort-iron-cold-closed-north"
-  }
- },
- {
-  "ingredientPattern": "PPP,PKP",
-  "width": 3,
-  "height": 2,
-  "ingredients": {
-   "P": {
-    "type": "item",
-    "code": "game:metalplate-steel"
-   },
-   "K": {
-    "type": "block",
-    "code": "forgeandfeast:retort-iron-*"
-   }
-  },
-  "output": {
-   "type": "block",
-   "code": "forgeandfeast:retort-steel-cold-closed-north"
+   "quantity": 8
   }
  }
 ]
