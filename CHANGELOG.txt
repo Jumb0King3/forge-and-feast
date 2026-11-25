@@ -1,0 +1,312 @@
+FORGE AND FEAST - CHANGELOG AND VERSION LIST
+============================================
+Mod id: forgeandfeast    Server: The Peeps    Game: Vintage Story 1.22.7
+Every version is kept on S:\ as forgeandfeast_<version>.zip. Newest first.
+
+NOTE ON 1.x ENTRIES: the notes for 2.0.0 and later were written as each
+version was released. The notes for 1.0.0 to 1.7.1 were rebuilt afterwards by
+comparing what changed inside each zip, so they describe what the files show
+(and the original test list) rather than a release note written at the time.
+
+
+2.10.0  - First public release (ModDB)
+  KITCHEN RANGE (Copper, Bronze, Iron, Steel)
+  - 1 / 2 / 3 / 4 burner plates. Each takes a cooking pot, or a single item
+    like a steak.
+  - Built-in oven from Bronze up (1 / 2 / 3 slots). Bread comes out when it's
+    done and never chars.
+  - Cooks x1.1 faster than a firepit on Copper, up to x1.6 on Steel.
+  - Shows what's cooking: stew in the pot, meat on the plate, bread on the
+    oven rack.
+  - Large Pots in Copper, Bronze and Iron hold 8 / 10 / 12 servings.
+  KILN OVEN (Copper, Bronze, Iron, Steel)
+  - Fires 2 / 3 / 4 / 5 raw clay items at once: moulds, pots and crucibles,
+    spread out evenly inside the kiln.
+  - Firing runs on the in-game clock and is quicker than a pit kiln: 12 / 10 /
+    8 / 6 in-game hours, and about half that with charcoal or coal.
+  - Crucibles use the same slots as pottery, so it fires and smelts at the same
+    time. A crucible glows in the kiln once its metal is molten.
+  - Higher tiers run hotter than their fuel: up to 1100 / 1475 / 1700 / 1950 C.
+  - Fuel lasts 3 to 4 times longer than in an open fire.
+  CHARCOAL RETORT (Copper, Bronze, Iron, Steel)
+  - Firewood and logs make charcoal at twice the yield of a base game charcoal
+    pit.
+  - Black and brown coal make coke at the base game coke oven rates, on every
+    tier.
+  - Runs on the in-game clock, at about 1 in-game hour per charcoal.
+  - Open the hatch to see the wood or the charcoal inside.
+  - Gives off 2.5 times the smoke of the other stoves.
+  SMOKE, CHIMNEYS AND STOVEPIPES
+  - A fire in a sealed room with no chimney fills the room with smoke, and
+    anyone inside starts choking. This also applies to the base game firepit
+    and clay oven.
+  - A Clay Brick Chimney above a stove, or joined to it by stovepipe, makes it
+    work 25% faster.
+  - Stovepipes join up on their own and sit flush against walls, roof and floor.
+  - A chimney just above a roof one or two blocks thick still counts.
+  GENERAL
+  - Stoves face you when placed and turn with the wrench.
+  - Doors open and close with the stove's window, with a plain metal hinge
+    sound on the kiln, range and retort.
+  - A torch or firestarter lights a stove without opening its window.
+  - Stoves can be picked up with Carry On, if that mod is installed and its
+    settings allow it.
+  - The base game clay oven recipe is disabled, because the Kitchen Range
+    replaces it.
+
+2.9.0  - Full balance pass (against the base game)
+  - Retort now runs on the in-game clock like the charcoal pit (18 h) and coke
+    oven (12 h):
+      - Charcoal: 1 in-game hour per charcoal on Copper, then x1.1 / x1.2 /
+        x1.3 faster for Bronze / Iron / Steel. A stack of 64 firewood (21
+        charcoal) takes about 21 h on Copper, 16 h on Steel.
+      - Coke: 1.5 in-game hours per 4 coal on every tier.
+  - Fuel use: higher tiers make each piece of fuel last x1.0 / x1.1 / x1.2 /
+    x1.3 (was up to x1.5), and heat up at the same rate. Applies to the range,
+    kiln and retort. One range already heats several burners from one fire, so
+    the old bonus stacked too high.
+  - Large Pots: 8 / 10 / 12 servings (were 10 / 14 / 20). A base game clay pot
+    holds 6. With four burners a Steel range still cooks 48 servings at once.
+  - Bronze Large Pot recipe fixed: it accepted any metal; it now takes bronze
+    plates and a bronze ingot (tin, bismuth or black bronze).
+  - Unchanged: burner speeds (x1.1 to x1.6), oven speeds (x1.0 / x1.15 / x1.3),
+    kiln times from 2.8.1, retort and kiln temperatures, retort yields.
+
+2.8.1  - Kiln firing times balanced against the base game pit kiln
+  - Firing now runs on the in-game clock (like the pit kiln), not real seconds.
+  - Hours to fire a pot or mould at minimum heat: Copper 12, Bronze 10, Iron 8,
+    Steel 6. Crucibles take 1.5x as long (same ratio as the base game).
+  - Hotter fuel fires faster, like the pit kiln: charcoal or coal roughly
+    halves the time (Copper about 6.5 h, Steel about 3.3 h). For comparison the
+    base game pit kiln takes 20 h with firewood and 10 h with charcoal.
+  - A chimney's 25% draft bonus still applies.
+  - The kiln window now shows hours left, e.g. "Firing 40% (about 4h left)".
+  - Crucible smelting is unchanged (still real-time, like the firepit).
+
+2.8.0  - Tier rebalance from Adam's notes, coke fix, pipes on the floor
+  - Kiln Oven, all tiers: reaches 1100 C and can smelt in crucibles (copper
+    melts at 1084 C in the base game, the hottest crucible metal). Firing slots
+    are now Copper 2, Bronze 3, Iron 4, Steel 5 (were 2/4/6/8). Needs charcoal
+    or coal to get that hot.
+  - Kitchen Range ovens: Bronze bakes at normal clay-oven speed, Iron a bit
+    faster (x1.15), Steel faster again (x1.3). Burners unchanged.
+  - Charcoal Retort, all tiers: max heat raised to 500/525/550/575 C so every
+    tier reaches the 450 C coke needs. Coke runs at the same speed on every tier
+    (60 s per 4 coal). Charcoal keeps its tier speed bonus.
+  - Coke: any coal the base game can coke is accepted (black coal 4 -> 3 coke,
+    brown coal 4 -> 2). Charcoal can no longer be put in the retort's input
+    slot; if it's already there the window says charcoal can't become coke.
+  - Stovepipes: a pipe running along the floor now sits on the floor, the same
+    way pipes under a roof sit against the roof. Bends that turn up a wall from
+    the floor line up with the run.
+
+2.7.0  - Food shows while cooking, door sounds, open oven, pipe bends
+  - Door sounds: the coke-oven door sound now plays when doors open and close.
+    The place sounds for the stoves and pipes are fixed too (they were pointing
+    at the wrong asset folder in 2.5.x and 2.6.x).
+  - Open oven: removed the red glow panel that sat inside the open Kitchen
+    Range oven (it belonged to the closed door's window). The cold open Kiln no
+    longer shows a glowing back wall.
+  - Cooking shows on the stove, like the firepit:
+      - A single item on a burner plate (a steak, for example) now sits on the
+        plate while it cooks, and stays there cooked until you take it out.
+      - A pot shows its food: once the ingredients match a recipe you see the
+        stew or meal in the pot, and a finished pot shows the cooked meal.
+      - A pot with ingredients that don't make a recipe yet (or one piece of
+        meat being fried) shows the pieces sitting in the pot.
+  - Oven, kiln and retort items now use the right textures when drawn (items
+    were being drawn without their proper textures before).
+  - Stovepipes: a pipe that runs along the ceiling and then turns down the wall
+    now lifts its bend too, so the run and the drop line up instead of leaving a
+    step at the corner.
+
+2.6.1  - Retort charcoal yield now twice the base game
+  - Base game charcoal pits give about 5.5 charcoal per 32 firewood, so the
+    retort now gives about double that (about 10.7 per 32).
+  - Firewood: 3 firewood makes 1 charcoal (was 2).
+  - Logs: 3 logs make 4 charcoal (was 1 for 1). A log is 4 firewood, so this is
+    the same 3 to 1 rate.
+  - Batch time and coke are unchanged.
+
+2.6.0  - Coke in the Charcoal Retort
+  - The Charcoal Retort can now make coke from coal, at the base game's coke
+    oven yields: black coal gives 3 coke per 4 coal (75%), brown coal 1 coke per
+    2 coal (50%). Anthracite is not coked, same as the base game.
+  - Coke needs 450 C and takes 60 seconds a batch, so it needs a Bronze, Iron or
+    Steel retort. A Copper retort tops out at 400 C and says so in its window.
+  - Charcoal is unchanged: 2 firewood or 1 log per charcoal, 40 seconds a batch.
+    (Base game charcoal pits give about 5.5 charcoal per 32 firewood, so the
+    retort is roughly 3 times as generous.)
+  - The retort window text now reads "Making coke" when it is working on coal.
+
+2.5.1  - Fix for 2.5.0 (use this one)
+  - 2.5.0 had a compile error (a packet name that doesn't exist), so none of the
+    mod's blocks loaded. 2.5.1 fixes that and contains everything below.
+    Do not use 2.5.0.
+
+2.5.0  - Fixes from the first in-game test
+  - Placement: the range, kiln and retort now face towards you when placed
+    (they were facing away). The wrench still rotates them.
+  - Doors: the doors now open when you open the stove window and close when you
+    close it. The game was sending a different "window opened" message than the
+    one the mod was listening for, so the doors never moved.
+  - Sounds: fixed the "Audio File not found" warnings (ceramicplace and anvil
+    sounds now come from the base game properly). The door sound is fixed too.
+  - Windows: Kitchen Range and Kiln Oven windows are re-laid out with space
+    between the fuel slot and the rows, section headings (Burner plates, Oven,
+    Firing slots, Crucible ingredients) and wider gaps between rows.
+  - "Heating up..." no longer shows when the stove is cold. It now says
+    "Needs fuel and heat".
+  - Frying: a pot holding a single food item (raw meat, for example) now cooks
+    it, like a frying pan. The cooked food stays in the pot slot. Single items
+    can also still go straight onto a burner plate. No separate frying pan item
+    was added.
+  - Open range oven: the inside of the oven is now dark and sooty instead of the
+    pink riveted metal.
+  - Pipes: a pipe running sideways under a roof now sits tight against the roof.
+    Stovepipes now count as solid for the room-sealing check, so a pipe going
+    through the roof no longer opens the room. A pipe that ends under a roof of
+    one or two solid blocks with a chimney above it now counts as connected to
+    that chimney, so you don't have to cut the roof open.
+  - Smoke: the little wisp from the stove's own rear stub now only shows when
+    no pipe is fitted on top of it (it used to keep smoking beside a connected
+    pipe).
+
+2.4.1  - Crucible shows in the Kiln Oven model (Iron and Steel)
+  - A crucible in a firing slot now shows in the model, in the same place a
+    clay pot or mould would sit.
+  - It glows dimly while its ingredients are melting, and glows full-bright
+    orange once the metal is molten.
+  - Molten metal left in the kiln stays hot while the kiln is hot. The glow
+    turns off and the model redraws when you take it out or it cools.
+
+2.4.0  - Crucible smelting in the Kiln Oven (Iron and Steel only)
+  - Iron and Steel Kiln Ovens can smelt metal. Put a crucible in any firing
+    slot (no separate crucible slots).
+  - Crucibles and clay pots/moulds work together: mixed loads smelt and fire
+    at the same time, each in its own firing slot.
+  - Each firing slot has four ingredient slots beside it. They only accept
+    items while a crucible is in that slot. Removing the crucible drops its
+    ingredients.
+  - Uses the game's own crucible rules: the highest melting point in the mix
+    must be reached, then it runs for the combined melt time.
+  - Status text per slot: Needs X C, Smelting N%, Add ingredients, Not a valid
+    mix, Molten metal - pour into a mould.
+  - The finished metal replaces the crucible in the same slot. Take it out and
+    pour it into a mould as you would at a firepit.
+  - Iron and Steel kiln window is one column of rows. Copper and Bronze keep
+    the two-column layout. Copper and Bronze kilns cannot smelt (they only
+    reach 1000 and 1100 C).
+
+2.3.1  - Range oven door swings sideways
+  - The Kitchen Range oven door now swings sideways on a left-hand hinge like
+    the Kiln and Retort, instead of dropping down.
+
+2.3.0  - Hollow chambers and sideways fire doors on all stoves
+  - Kitchen Range (all four tiers), Kiln Oven and Charcoal Retort all share
+    the hollow open design: the oven or firing chamber is hollow when the door
+    is open, and the fire door swings sideways.
+  - Items in the oven show inside it when the door is open.
+
+2.2.2  - Hollow Charcoal Retort
+  - Opening the Retort shows a hollow interior with the wood you load, or the
+    charcoal once it has burned.
+
+2.2.1  - Retort is a cylinder
+  - The Charcoal Retort model is now a round drum (octagonal) instead of a
+    square block.
+
+2.2.0  - New: Charcoal Retort
+  - Turns firewood and logs into charcoal. Firewood takes 2 per batch, logs 1.
+    Needs about 250 C to work.
+  - Tiers: copper, bronze, iron, steel (maximum temperature 400 / 450 / 500 /
+    550 C).
+  - Connects to the same chimneys and stovepipes as the other stoves.
+  - Makes much more smoke than other stoves when used indoors (2.5x).
+  - Recipes: copper from copper plates and burned bricks; upgrade to the next
+    tier with plates.
+
+2.1.0  - Pick-up and rotate
+  - Range, Kiln Oven and Retort can be picked up (Carry On support, only if
+    the Carry On mod is installed and its config allows it).
+  - They can be rotated with the wrench, like other rotatable blocks.
+
+2.0.2  - Iron and Steel plate clearance fix
+  - Cooking plates on the Iron and Steel ranges no longer clip into the
+    surrounding body.
+
+2.0.1  - Base-game clay oven removed
+  - With this mod installed the vanilla clay oven can no longer be crafted and
+    is hidden from the creative menu. The campfire is left alone.
+
+2.0.0  - Four tiers, oven slots
+  - Kitchen Range now comes in four tiers: Copper, Bronze, Iron, Steel.
+      Burner plates: 1 / 2 / 3 / 4
+      Oven slots:    0 / 1 / 2 / 3
+      Speed:         x1.1 / x1.25 / x1.4 / x1.6
+  - Oven slots bake bread and other bakeables. Burner plates cook as before.
+  - Kiln Oven also has four tiers. Firing slots: 2 / 4 / 6 / 8.
+  - Steel range models, recipes and names added.
+
+
+1.7.1  - Fix
+  - Fuel heater code fix (small change to the shared stove code).
+
+1.7.0  - Opening doors
+  - Range and Kiln get separate closed and open door models. Doors open and
+    close when you open the window.
+  - Recipe changes. Shared stove code updated.
+
+1.6.2  - Model and stovepipe touch-up
+  - Further adjustments to the range, kiln and stovepipe models and block
+    settings.
+
+1.6.1  - Model and stove touch-up
+  - Adjustments to the range and kiln models and block settings, plus shared
+    stove code changes.
+
+1.6.0  - Stovepipe model
+  - Stovepipe model and code adjustments.
+
+1.5.0  - Stovepipe, range and kiln code
+  - Stovepipe model and code changes; range and kiln code updated.
+
+1.4.4  - Stovepipe fix
+  - Stovepipe model and joining code adjusted.
+
+1.4.3  - Fix
+  - Shared stove code fix.
+
+1.4.2  - Fix
+  - Shared stove, range and kiln code fixes.
+
+1.4.1  - Fix
+  - Shared stove code fix.
+
+1.4.0  - Kiln Oven update
+  - Kiln Oven block settings, models and code changed.
+
+1.3.1  - Stovepipe fix
+  - Stovepipe model and code adjusted.
+
+1.3.0  - Smoke, chimneys and stovepipes
+  - Smoke fills a closed room if you light a stove without a chimney
+    (choking damage after about 15 seconds).
+  - Clay Brick Chimney on top gives a draft: no smoke and faster cooking.
+  - Stovepipes added (craft: 2 metal plates in a column = 6 pipes). They join
+    up with bends automatically and carry smoke from a stove to a chimney or
+    out through a wall. Pipes do not join to a firepit.
+  - Range models: copper shows 2 burner plates, bronze 3, iron 4.
+
+1.2.0  - Smoke system
+  - Smoke and chimney behaviour added, also applied to the vanilla firepit and
+    clay oven.
+
+1.1.0  - Separate range models per tier
+  - Copper, Bronze (tin bronze) and Iron range each get their own model.
+  - Range block settings and code updated.
+
+1.0.0  - First version
+  - Kitchen Range: cooks in several pots at once and bakes.
+  - Kiln Oven: fires raw clay moulds and pots.
+  - Large Pot (and dirty large pot): 10 servings copper, 14 bronze, 20 iron.
