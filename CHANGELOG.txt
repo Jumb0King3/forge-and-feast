@@ -9,6 +9,16 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.12.4  - Kitchen Range: items that both bake and cook
+  - Burners now take items that have a plain cooked or baked form even if they
+    can also be baked in an oven (for example the Expanded Foods breaded and
+    acorn items, which have both). Before, the range sent every bakeable item
+    to the oven slots only and refused it in a burner, which a firepit and the
+    Potbelly Stove do not. Pure oven items (bread dough and the like) still go to
+    the oven slots only.
+  - Crucibles and other metal-smelting containers are still refused by the
+    range on purpose. The Kiln Oven handles those.
+
 2.12.3  - Smoked Feverstone Wilds meats work in recipes
   - The smoked bison leg, ribs and cockatrice tail are now accepted everywhere
     the base game's cured red meat or cured poultry is accepted by Expanded

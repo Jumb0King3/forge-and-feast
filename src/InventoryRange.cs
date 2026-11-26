@@ -52,6 +52,13 @@ namespace ForgeAndFeast
 
         public static bool IsOven(int unit) => unit >= MaxBurners;
         public bool IsActiveUnit(int unit) => unit < MaxBurners ? unit < ActiveBurners : unit - MaxBurners < ActiveOvens;
+        /// <summary>Has a plain cooked form (cook or bake in a burner), whether or not it also bakes in an oven.</summary>
+        public static bool IsCookable(ItemStack stack)
+        {
+            CombustibleProperties props = stack?.Collectible?.CombustibleProps;
+            return props != null && !props.RequiresContainer && props.SmeltedStack != null;
+        }
+
         public static bool IsBakeable(ItemStack stack)
         {
             if (stack == null) return false;
@@ -139,7 +146,7 @@ namespace ForgeAndFeast
             if (stack == null) return true;
             // The oven slots only take things to bake; the burners take everything else
             if (IsOven(burner)) return IsBakeable(stack);
-            if (IsBakeable(stack)) return false;
+            if (IsBakeable(stack) && !IsCookable(stack)) return false;
             if (stack.Collectible is BlockSmeltingContainer) return false;
             if (stack.Collectible.CombustibleProps?.RequiresContainer == true) return false;
             if (stack.Collectible is BlockCookingContainer && !OutputSlot(burner).Empty) return false;
@@ -162,7 +169,7 @@ namespace ForgeAndFeast
                 if (rel == 1) return 0;
                 if (rel >= 2 && !HasPot(burner)) return 0;
                 if (rel == 0 && IsOven(burner)) return IsBakeable(stack) ? 2.2f : 0;
-                if (rel == 0 && IsBakeable(stack)) return 0;
+                if (rel == 0 && IsBakeable(stack) && !IsCookable(stack)) return 0;
                 if (rel == 0 && stack?.Collectible is BlockCookingContainer) return 2.2f;
             }
             return base.GetSuitability(sourceSlot, targetSlot, isMerge);

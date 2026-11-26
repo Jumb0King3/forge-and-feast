@@ -110,7 +110,7 @@ namespace ForgeAndFeast
                 else mode[b] = 0;
                 return;
             }
-            if (bake != null && bake.ResultCode != null)
+            if (bake != null && bake.ResultCode != null && !InventoryRange.IsCookable(stack))
             {
                 mode[b] = 0;
                 return;
