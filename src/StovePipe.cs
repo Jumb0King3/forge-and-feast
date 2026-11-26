@@ -31,7 +31,7 @@ namespace ForgeAndFeast
             {
                 p.Y -= 1;
                 Block b = ba.GetBlock(p);
-                if (b is BlockFuelHeater)
+                if (b is BlockFuelHeater || b is BlockPotbellyStove)
                 {
                     string side = b.Variant?["side"];
                     BlockFacing f = side == null ? null : BlockFacing.FromCode(side);
@@ -64,7 +64,7 @@ namespace ForgeAndFeast
         static bool SolidFace(IBlockAccessor ba, BlockPos p, BlockFacing face)
         {
             Block b = ba.GetBlock(p);
-            return b != null && b.Id != 0 && !IsPipe(b) && !IsChimney(b) && !(b is BlockFuelHeater) && b.SideSolid[face.Index];
+            return b != null && b.Id != 0 && !IsPipe(b) && !IsChimney(b) && !(b is BlockFuelHeater) && !(b is BlockPotbellyStove) && b.SideSolid[face.Index];
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace ForgeAndFeast
             Block b = ba.GetBlock(n);
             if (IsPipe(b)) return Offset(ba, n);
             if (IsChimney(b)) return new[] { 0, 0 };
-            if (b is BlockFuelHeater) return mine;
+            if (b is BlockFuelHeater || b is BlockPotbellyStove) return mine;
             return new[] { 0, 0 };
         }
 
@@ -133,6 +133,7 @@ namespace ForgeAndFeast
         {
             if (b == null || b.Id == 0) return false;
             if (b is BlockFuelHeater) return true;
+            if (b is BlockPotbellyStove) return true;
             return b.Code != null && b.Code.Domain == "game" && b.Code.Path.StartsWith("clayoven");
         }
 
@@ -245,6 +246,7 @@ namespace ForgeAndFeast
         public static bool SourceIsBurning(BlockEntity be)
         {
             if (be is BEFuelHeater heater) return heater.IsBurning;
+            if (be is BEPotbellyStove potbelly) return potbelly.IsBurning;
             if (be is BlockEntityOven oven) return oven.IsBurning;
             return false;
         }

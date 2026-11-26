@@ -9,7 +9,45 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
-2.11.0  - Crafting cost rebalance
+2.12.0  - New: Potbelly Stove and Smoker
+  POTBELLY STOVE (Copper, Bronze, Iron, Steel)
+  - A small black cast-iron potbelly stove with tier-metal trim, for cabins
+    and corners. One cooking spot on the hot plate on top.
+  - Built on the base game firepit: cooking pots, single items like a steak,
+    serving meals from the pot, shift-adding fuel and lighting it all work as
+    on a firepit, and so do other mods that cook on a firepit.
+  - Cooks x1.0 / x1.1 / x1.25 / x1.4 as fast as a firepit. Fuel lasts
+    x1.5 / x1.75 / x2.0 / x2.25 as long. Max heat 450 / 500 / 550 / 600 C.
+  - Keeps a room warm like a firepit, with the fire's crackle.
+  - Takes a stovepipe on its flue at the back, and gets the 25% chimney draft.
+  - Recipe: 1 copper plate, 1 copper ingot and 5 fired bricks. Upgrade with a
+    plate of the next metal on each side, like the other stoves.
+  SMOKER (Copper, Bronze, Iron, Steel)
+  - A 2-block farm smokehouse: plank walls on a stone footing, shingled gable
+    roof with a vent, and an iron firebox at the base. The tier shows in the
+    hinges, latch, ridge and firebox trim.
+  - Hang raw meat or fish on the hooks (4 / 6 / 8 / 10) and keep a small fire
+    going. The chamber stays at 60-120 C. Smoking takes about 24 / 20 / 16 / 12
+    in-game hours. It pauses, not resets, if the fire goes out.
+  - Wood gives full smoke. Charcoal and coal burn clean and smoke at a quarter
+    of the speed.
+  - Without Rustic Cookery, raw meat becomes the base game's cured meat.
+  - With Rustic Cookery: meat slabs become smoked slabs, raw red meat and
+    bushmeat become its smoked meat, and whole fish become its smoked fish.
+  - Meat keeps twice as long while it hangs. Open the door to see it hanging.
+  - Very smoky: it needs a chimney above it, or to be outdoors or in a room
+    with a way out for the smoke.
+  - Recipe: 5 planks, 2 stones and 1 copper plate. Upgrade with a plate of the
+    next metal on each side.
+  RUSTIC COOKERY
+  - Braising, roux, fried and scrambled eggs work on the Potbelly Stove with
+    tongs, as on a firepit (issue #1).
+  - The clay oven exception from 2.11.0 stays for now. It will be removed once
+    braising on the Potbelly Stove and Pot Roasts in the Range oven are tested.
+  GENERAL
+  - Closes issue #2 (small stove for cabins).
+
+2.11.0  - Crafting cost rebalance, Rustic Cookery fix
   Costs below count 1 metal plate as 2 ingots. Burned bricks aren't counted.
   - Kitchen Range, Copper: 1 copper plate, 1 copper ingot and 7 burned bricks
     (was 3 plates, 1 ingot and 5 bricks). 7 ingots -> 3.
@@ -25,6 +63,10 @@ comparing what changed inside each zip, so they describe what the files show
   - Stovepipes: 2 plates now make 8 pipes (was 6). About 0.5 ingot per pipe
     instead of 0.67.
   - README crafting section and the ModDB recipe GIFs updated to match.
+  - Rustic Cookery: when Rustic Cookery is installed, the base game clay oven
+    can be made and is in the creative menu again, so its Pot Roasts can be
+    baked. Without Rustic Cookery the clay oven stays turned off as before.
+    The clay oven still gets the smoke and chimney rules. (Issue #1)
 
 2.10.0  - First public release (ModDB)
   KITCHEN RANGE (Copper, Bronze, Iron, Steel)

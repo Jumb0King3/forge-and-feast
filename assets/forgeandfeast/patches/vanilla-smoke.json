@@ -24,13 +24,25 @@
   "path": "/enabled",
   "value": false,
   "file": "game:recipes/clayforming/clayoven.json",
-  "side": "Universal"
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "rusticcookery",
+    "invert": true
+   }
+  ]
  },
  {
   "op": "replace",
   "path": "/creativeinventory",
   "value": {},
   "file": "game:blocktypes/clay/oven.json",
-  "side": "Universal"
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "rusticcookery",
+    "invert": true
+   }
+  ]
  }
 ]

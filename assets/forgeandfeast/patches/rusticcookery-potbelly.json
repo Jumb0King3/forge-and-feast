@@ -1,0 +1,30 @@
+[
+ {
+  "file": "forgeandfeast:blocktypes/potbellystove.json",
+  "op": "add",
+  "path": "/behaviors/0",
+  "value": {
+   "name": "RusticCookeryBraising"
+  },
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "rusticcookery"
+   }
+  ]
+ },
+ {
+  "file": "forgeandfeast:blocktypes/potbellystove.json",
+  "op": "add",
+  "path": "/entityBehaviors/-",
+  "value": {
+   "name": "RusticCookeryBraisingSound"
+  },
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "rusticcookery"
+   }
+  ]
+ }
+]

@@ -11,7 +11,8 @@ using Vintagestory.GameContent;
 namespace ForgeAndFeast
 {
     /// <summary>
-    /// Smoke and ventilation for fires: the Kitchen Range, Kiln Oven, vanilla firepit and vanilla clay oven.
+    /// Smoke and ventilation for fires: the Kitchen Range, Kiln Oven, Retort, Smoker, Potbelly Stove,
+    /// vanilla firepit and vanilla clay oven.
     ///
     /// - Chimney: a Clay Brick Chimney within 8 blocks above (nothing solid in between), or one reached
     ///   through a run of stovepipes, gives a draft: the fire works 25% faster.
@@ -74,6 +75,8 @@ namespace ForgeAndFeast
                 tmp.Set(Pos.X, Pos.Y + i, Pos.Z);
                 Block block = ba.GetBlock(tmp);
                 if (block.Id == 0) continue;
+                // The upper part of a tall station (the Smoker) is its own block: look through it
+                if (block is BlockMultiblock mb && tmp.AddCopy(mb.OffsetInv.X, mb.OffsetInv.Y, mb.OffsetInv.Z).Equals(Pos)) continue;
                 if (block.HasBehavior<BlockBehaviorChimney>()) return true;
                 if (block.SideIsSolid(tmp, BlockFacing.DOWN.Index) || block.SideIsSolid(tmp, BlockFacing.UP.Index)) return false;
             }
@@ -209,7 +212,7 @@ namespace ForgeAndFeast
             }
             SimpleParticleProperties wisp = new SimpleParticleProperties(1, 1,
                 ColorUtil.ColorFromRgba(110, 110, 110, 150),
-                new Vec3d(Pos.X + 0.5 + dx - 0.02, Pos.Y + 0.95, Pos.Z + 0.5 + dz - 0.02), new Vec3d(Pos.X + 0.5 + dx + 0.02, Pos.Y + 0.97, Pos.Z + 0.5 + dz + 0.02),
+                new Vec3d(Pos.X + 0.5 + dx - 0.02, Pos.Y + heater.StubTop, Pos.Z + 0.5 + dz - 0.02), new Vec3d(Pos.X + 0.5 + dx + 0.02, Pos.Y + heater.StubTop + 0.02, Pos.Z + 0.5 + dz + 0.02),
                 new Vec3f(-0.02f, 0.12f, -0.02f), new Vec3f(0.02f, 0.2f, 0.02f),
                 5f, 0f, 0.15f, 0.3f, EnumParticleModel.Quad);
             wisp.SelfPropelled = true;

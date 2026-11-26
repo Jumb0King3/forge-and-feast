@@ -1,0 +1,476 @@
+{
+ "code": "smoker",
+ "class": "FuelHeaterBlock",
+ "entityClass": "Smoker",
+ "behaviors": [
+  {
+   "name": "WrenchOrientable",
+   "properties": {
+    "baseCode": "smoker-{tier}-{burnstate}-{doors}"
+   }
+  },
+  {
+   "name": "Multiblock",
+   "properties": {
+    "sizex": 1,
+    "sizey": 2,
+    "sizez": 1,
+    "cposition": {
+     "x": 0,
+     "y": 0,
+     "z": 0
+    }
+   }
+  }
+ ],
+ "variantgroups": [
+  {
+   "code": "tier",
+   "states": [
+    "copper",
+    "tinbronze",
+    "iron",
+    "steel"
+   ]
+  },
+  {
+   "code": "burnstate",
+   "states": [
+    "cold",
+    "lit"
+   ]
+  },
+  {
+   "code": "doors",
+   "states": [
+    "closed",
+    "open"
+   ]
+  },
+  {
+   "code": "side",
+   "loadFromProperties": "abstract/horizontalorientation"
+  }
+ ],
+ "shapeByType": {
+  "*-cold-closed-north": {
+   "base": "forgeandfeast:block/smoker-closed",
+   "rotateY": 0
+  },
+  "*-cold-closed-east": {
+   "base": "forgeandfeast:block/smoker-closed",
+   "rotateY": 270
+  },
+  "*-cold-closed-south": {
+   "base": "forgeandfeast:block/smoker-closed",
+   "rotateY": 180
+  },
+  "*-cold-closed-west": {
+   "base": "forgeandfeast:block/smoker-closed",
+   "rotateY": 90
+  },
+  "*-cold-open-north": {
+   "base": "forgeandfeast:block/smoker-open",
+   "rotateY": 0
+  },
+  "*-cold-open-east": {
+   "base": "forgeandfeast:block/smoker-open",
+   "rotateY": 270
+  },
+  "*-cold-open-south": {
+   "base": "forgeandfeast:block/smoker-open",
+   "rotateY": 180
+  },
+  "*-cold-open-west": {
+   "base": "forgeandfeast:block/smoker-open",
+   "rotateY": 90
+  },
+  "*-lit-closed-north": {
+   "base": "forgeandfeast:block/smoker-closed",
+   "rotateY": 0
+  },
+  "*-lit-closed-east": {
+   "base": "forgeandfeast:block/smoker-closed",
+   "rotateY": 270
+  },
+  "*-lit-closed-south": {
+   "base": "forgeandfeast:block/smoker-closed",
+   "rotateY": 180
+  },
+  "*-lit-closed-west": {
+   "base": "forgeandfeast:block/smoker-closed",
+   "rotateY": 90
+  },
+  "*-lit-open-north": {
+   "base": "forgeandfeast:block/smoker-open",
+   "rotateY": 0
+  },
+  "*-lit-open-east": {
+   "base": "forgeandfeast:block/smoker-open",
+   "rotateY": 270
+  },
+  "*-lit-open-south": {
+   "base": "forgeandfeast:block/smoker-open",
+   "rotateY": 180
+  },
+  "*-lit-open-west": {
+   "base": "forgeandfeast:block/smoker-open",
+   "rotateY": 90
+  }
+ },
+ "texturesByType": {
+  "*-copper-cold-*": {
+   "wall": {
+    "base": "game:block/wood/debarked/oak"
+   },
+   "wood": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "roof": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "stone": {
+    "base": "game:block/stone/rock/granite1"
+   },
+   "dark": {
+    "base": "game:block/coal/bituminous"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-copper-lit-*": {
+   "wall": {
+    "base": "game:block/wood/debarked/oak"
+   },
+   "wood": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "roof": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "stone": {
+    "base": "game:block/stone/rock/granite1"
+   },
+   "dark": {
+    "base": "game:block/coal/bituminous"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-tinbronze-cold-*": {
+   "wall": {
+    "base": "game:block/wood/debarked/oak"
+   },
+   "wood": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "roof": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "stone": {
+    "base": "game:block/stone/rock/granite1"
+   },
+   "dark": {
+    "base": "game:block/coal/bituminous"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-tinbronze-lit-*": {
+   "wall": {
+    "base": "game:block/wood/debarked/oak"
+   },
+   "wood": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "roof": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "stone": {
+    "base": "game:block/stone/rock/granite1"
+   },
+   "dark": {
+    "base": "game:block/coal/bituminous"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-iron-cold-*": {
+   "wall": {
+    "base": "game:block/wood/debarked/oak"
+   },
+   "wood": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "roof": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "stone": {
+    "base": "game:block/stone/rock/granite1"
+   },
+   "dark": {
+    "base": "game:block/coal/bituminous"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-iron-lit-*": {
+   "wall": {
+    "base": "game:block/wood/debarked/oak"
+   },
+   "wood": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "roof": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "stone": {
+    "base": "game:block/stone/rock/granite1"
+   },
+   "dark": {
+    "base": "game:block/coal/bituminous"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-steel-cold-*": {
+   "wall": {
+    "base": "game:block/wood/debarked/oak"
+   },
+   "wood": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "roof": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "stone": {
+    "base": "game:block/stone/rock/granite1"
+   },
+   "dark": {
+    "base": "game:block/coal/bituminous"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/steel"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-steel-lit-*": {
+   "wall": {
+    "base": "game:block/wood/debarked/oak"
+   },
+   "wood": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "roof": {
+    "base": "game:block/wood/shelf/wood"
+   },
+   "stone": {
+    "base": "game:block/stone/rock/granite1"
+   },
+   "dark": {
+    "base": "game:block/coal/bituminous"
+   },
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/steel"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  }
+ },
+ "attributesByType": {
+  "*-copper-*": {
+   "speedMul": 1.0,
+   "burnMul": 2.0,
+   "heatMul": 1.0,
+   "maxTemp": 120,
+   "smokeMul": 2.0,
+   "racks": 4,
+   "handbook": {
+    "groupBy": [
+     "smoker-*"
+    ]
+   }
+  },
+  "*-tinbronze-*": {
+   "speedMul": 1.2,
+   "burnMul": 2.2,
+   "heatMul": 1.1,
+   "maxTemp": 120,
+   "smokeMul": 2.0,
+   "racks": 6,
+   "handbook": {
+    "groupBy": [
+     "smoker-*"
+    ]
+   }
+  },
+  "*-iron-*": {
+   "speedMul": 1.5,
+   "burnMul": 2.4,
+   "heatMul": 1.2,
+   "maxTemp": 120,
+   "smokeMul": 2.0,
+   "racks": 8,
+   "handbook": {
+    "groupBy": [
+     "smoker-*"
+    ]
+   }
+  },
+  "*-steel-*": {
+   "speedMul": 2.0,
+   "burnMul": 2.6,
+   "heatMul": 1.3,
+   "maxTemp": 120,
+   "smokeMul": 2.0,
+   "racks": 10,
+   "handbook": {
+    "groupBy": [
+     "smoker-*"
+    ]
+   }
+  }
+ },
+ "creativeinventory": {
+  "general": [
+   "*-cold-closed-north"
+  ],
+  "construction": [
+   "*-cold-closed-north"
+  ]
+ },
+ "drops": [
+  {
+   "type": "block",
+   "code": "smoker-{tier}-cold-closed-north"
+  }
+ ],
+ "blockmaterial": "Wood",
+ "replaceable": 500,
+ "resistance": 3.0,
+ "maxStackSize": 1,
+ "lightAbsorption": 0,
+ "lightHsvByType": {
+  "*-lit-*": [
+   4,
+   7,
+   6
+  ]
+ },
+ "sounds": {
+  "walk": "walk/wood",
+  "place": "game:block/planks",
+  "hit": "game:block/planks",
+  "break": "game:block/planks"
+ },
+ "sideopaque": {
+  "all": false
+ },
+ "sidesolid": {
+  "all": false,
+  "down": true
+ },
+ "emitSideAo": {
+  "all": false
+ },
+ "collisionbox": {
+  "x1": 0.03,
+  "y1": 0,
+  "z1": 0.03,
+  "x2": 0.97,
+  "y2": 1,
+  "z2": 0.97
+ },
+ "selectionbox": {
+  "x1": 0.03,
+  "y1": 0,
+  "z1": 0.03,
+  "x2": 0.97,
+  "y2": 1,
+  "z2": 0.97
+ },
+ "heldTpIdleAnimation": "holdbothhandslarge",
+ "heldTpUseAnimation": "twohandplaceblock",
+ "tpHandTransform": {
+  "translation": {
+   "x": -1.2,
+   "y": -0.9,
+   "z": -0.8
+  },
+  "rotation": {
+   "x": -2,
+   "y": 25,
+   "z": -78
+  },
+  "scale": 0.4
+ },
+ "guiTransform": {
+  "rotation": {
+   "x": -22.6,
+   "y": -45,
+   "z": 0
+  },
+  "origin": {
+   "x": 0.5,
+   "y": 1.0,
+   "z": 0.5
+  },
+  "scale": 0.75
+ },
+ "entityBehaviors": [
+  {
+   "name": "ForgeSmokeVent"
+  }
+ ]
+}

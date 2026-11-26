@@ -1,0 +1,405 @@
+{
+ "code": "potbellystove",
+ "class": "PotbellyStoveBlock",
+ "entityClass": "PotbellyStove",
+ "behaviors": [
+  {
+   "name": "Container"
+  },
+  {
+   "name": "WrenchOrientable",
+   "properties": {
+    "baseCode": "potbellystove-{tier}-{burnstate}"
+   }
+  }
+ ],
+ "variantgroups": [
+  {
+   "code": "tier",
+   "states": [
+    "copper",
+    "tinbronze",
+    "iron",
+    "steel"
+   ]
+  },
+  {
+   "code": "side",
+   "loadFromProperties": "abstract/horizontalorientation"
+  },
+  {
+   "code": "burnstate",
+   "states": [
+    "cold",
+    "lit",
+    "extinct"
+   ]
+  }
+ ],
+ "shapeByType": {
+  "*-north-*": {
+   "base": "forgeandfeast:block/potbellystove",
+   "rotateY": 0
+  },
+  "*-east-*": {
+   "base": "forgeandfeast:block/potbellystove",
+   "rotateY": 270
+  },
+  "*-south-*": {
+   "base": "forgeandfeast:block/potbellystove",
+   "rotateY": 180
+  },
+  "*-west-*": {
+   "base": "forgeandfeast:block/potbellystove",
+   "rotateY": 90
+  }
+ },
+ "texturesByType": {
+  "*-copper-*-cold": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-copper-*-extinct": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-copper-*-lit": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/copper"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-tinbronze-*-cold": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-tinbronze-*-extinct": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-tinbronze-*-lit": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/tinbronze"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-iron-*-cold": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-iron-*-extinct": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-iron-*-lit": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/iron"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  },
+  "*-steel-*-cold": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/steel"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-steel-*-extinct": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/steel"
+   },
+   "fire": {
+    "base": "game:block/coal/charcoal"
+   }
+  },
+  "*-steel-*-lit": {
+   "black": {
+    "base": "game:block/coal/bituminous"
+   },
+   "plate": {
+    "base": "game:block/metal/plate/steel"
+   },
+   "fire": {
+    "base": "game:block/coal/ember"
+   }
+  }
+ },
+ "attributesByType": {
+  "*-copper-*": {
+   "speedMul": 1.0,
+   "burnMul": 1.5,
+   "maxTemp": 450,
+   "handbook": {
+    "groupBy": [
+     "potbellystove-*"
+    ]
+   }
+  },
+  "*-tinbronze-*": {
+   "speedMul": 1.1,
+   "burnMul": 1.75,
+   "maxTemp": 500,
+   "handbook": {
+    "groupBy": [
+     "potbellystove-*"
+    ]
+   }
+  },
+  "*-iron-*": {
+   "speedMul": 1.25,
+   "burnMul": 2.0,
+   "maxTemp": 550,
+   "handbook": {
+    "groupBy": [
+     "potbellystove-*"
+    ]
+   }
+  },
+  "*-steel-*": {
+   "speedMul": 1.4,
+   "burnMul": 2.25,
+   "maxTemp": 600,
+   "handbook": {
+    "groupBy": [
+     "potbellystove-*"
+    ]
+   }
+  }
+ },
+ "creativeinventory": {
+  "general": [
+   "*-north-cold"
+  ],
+  "construction": [
+   "*-north-cold"
+  ]
+ },
+ "drops": [
+  {
+   "type": "block",
+   "code": "potbellystove-{tier}-north-cold"
+  }
+ ],
+ "blockmaterial": "Metal",
+ "replaceable": 500,
+ "resistance": 3.5,
+ "maxStackSize": 1,
+ "lightAbsorption": 0,
+ "lightHsvByType": {
+  "*-lit": [
+   4,
+   7,
+   11
+  ]
+ },
+ "sounds": {
+  "walk": "walk/stone",
+  "place": "game:block/anvil",
+  "byTool": {
+   "Pickaxe": {
+    "hit": "block/rock-hit-pickaxe",
+    "break": "block/rock-break-pickaxe"
+   }
+  }
+ },
+ "sideopaque": {
+  "all": false
+ },
+ "sidesolid": {
+  "all": false,
+  "down": true
+ },
+ "emitSideAo": {
+  "all": false
+ },
+ "collisionbox": {
+  "x1": 0.125,
+  "y1": 0,
+  "z1": 0.125,
+  "x2": 0.875,
+  "y2": 0.95,
+  "z2": 0.875
+ },
+ "selectionbox": {
+  "x1": 0.125,
+  "y1": 0,
+  "z1": 0.0625,
+  "x2": 0.875,
+  "y2": 0.95,
+  "z2": 0.875
+ },
+ "particlePropertiesByType": {
+  "*-lit": [
+   {
+    "hsvaColor": [
+     {
+      "avg": 0
+     },
+     {
+      "avg": 0
+     },
+     {
+      "avg": 70,
+      "var": 20
+     },
+     {
+      "avg": 160,
+      "var": 40
+     }
+    ],
+    "opacityEvolve": {
+     "transform": "linear",
+     "factor": -160
+    },
+    "gravityEffect": {
+     "avg": -0.01
+    },
+    "posOffset": [
+     {
+      "avg": 0,
+      "var": 0.05
+     },
+     {
+      "avg": 0.9,
+      "var": 0
+     },
+     {
+      "avg": 0.4,
+      "var": 0.05
+     }
+    ],
+    "velocity": [
+     {
+      "avg": 0,
+      "var": 0.03
+     },
+     {
+      "avg": 0.12,
+      "var": 0.04
+     },
+     {
+      "avg": 0,
+      "var": 0.03
+     }
+    ],
+    "quantity": {
+     "avg": 0.15
+    },
+    "size": {
+     "avg": 0.3,
+     "var": 0.1
+    },
+    "sizeEvolve": {
+     "transform": "linear",
+     "factor": 0.6
+    },
+    "lifeLength": {
+     "avg": 4
+    },
+    "particleModel": "Quad",
+    "windAffectednes": 0.5,
+    "selfPropelled": true
+   }
+  ]
+ },
+ "heldTpIdleAnimation": "holdbothhandslarge",
+ "heldTpUseAnimation": "twohandplaceblock",
+ "tpHandTransform": {
+  "translation": {
+   "x": -1.2,
+   "y": -0.9,
+   "z": -0.8
+  },
+  "rotation": {
+   "x": -2,
+   "y": 25,
+   "z": -78
+  },
+  "scale": 0.4
+ },
+ "guiTransform": {
+  "rotation": {
+   "x": -22.6,
+   "y": -45,
+   "z": 0
+  },
+  "origin": {
+   "x": 0.5,
+   "y": 0.5,
+   "z": 0.5
+  },
+  "scale": 1.2
+ },
+ "entityBehaviors": [
+  {
+   "name": "FirepitAmbient"
+  },
+  {
+   "name": "ForgeSmokeVent"
+  }
+ ]
+}

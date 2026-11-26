@@ -341,5 +341,177 @@
    "code": "forgeandfeast:stovepipe",
    "quantity": 8
   }
+ },
+ {
+  "ingredientPattern": "_P_,BIB,B_B",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-copper"
+   },
+   "I": {
+    "type": "item",
+    "code": "game:ingot-copper"
+   },
+   "B": {
+    "type": "item",
+    "code": "game:burnedbrick-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:potbellystove-copper-north-cold"
+  }
+ },
+ {
+  "ingredientPattern": "LLL,L_L,SPS",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+   "L": {
+    "type": "item",
+    "code": "game:plank-*"
+   },
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-copper"
+   },
+   "S": {
+    "type": "item",
+    "code": "game:stone-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:smoker-copper-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-tinbronze",
+    "name": "metal",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:potbellystove-copper-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:potbellystove-tinbronze-north-cold"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:potbellystove-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:potbellystove-iron-north-cold"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:potbellystove-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:potbellystove-steel-north-cold"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-tinbronze",
+    "name": "metal",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:smoker-copper-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:smoker-tinbronze-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:smoker-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:smoker-iron-cold-closed-north"
+  }
+ },
+ {
+  "ingredientPattern": "PKP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "K": {
+    "type": "block",
+    "code": "forgeandfeast:smoker-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:smoker-steel-cold-closed-north"
+  }
  }
 ]

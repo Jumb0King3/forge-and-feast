@@ -15,6 +15,9 @@
 | **Kiln firing time** | 12 h | 10 h | 8 h | 6 h |
 | **Kiln max heat** | 1100°C | 1475°C | 1700°C | 1950°C |
 | **Large Pot servings** | 8 | 10 | 12 | – |
+| **Potbelly cooking speed** | ×1.0 | ×1.1 | ×1.25 | ×1.4 |
+| **Smoker hooks** | 4 | 6 | 8 | 10 |
+| **Smoking time** | 24 h | 20 h | 16 h | 12 h |
 
 Firing times are in-game hours for a pot or mould. Charcoal or coal roughly halves them.
 
@@ -29,6 +32,14 @@ Firing times are in-game hours for a pot or mould. Charcoal or coal roughly halv
 - **Faster than a firepit,** from ×1.1 on Copper up to ×1.6 on Steel.
 - **See what's cooking:** stew shows in the pot and meat sits on the plate.
 - **Large Pots** cook bigger batches than the base game's 6-serving clay pot.
+
+### 🔥 Potbelly Stove
+
+*A small cast-iron stove for one pot, for cabins and corners.*
+
+- **Cooks like a firepit:** a cooking pot or a single item on the hot plate on top.
+- **Warms the room** and burns its fuel slowly, up to 2.25x as long on Steel.
+- **Rustic Cookery:** braising, roux and eggs work on it with tongs.
 
 ### 🏺 Kiln Oven
 
@@ -49,6 +60,14 @@ Firing times are in-game hours for a pot or mould. Charcoal or coal roughly halv
 - **Open the hatch** to see the wood stacked inside or the charcoal ready.
 - **Very smoky,** so vent it well.
 
+### 🥩 Smoker
+
+*A 2-block farm smokehouse.*
+
+- **Hang raw meat or fish** on 4 to 10 hooks and keep a small wood fire going.
+- **About a day to smoke** on Copper, half that on Steel. Charcoal and coal smoke 4x slower.
+- **Without Rustic Cookery** it makes cured meat; **with it**, smoked slabs, meat and fish.
+
 ### 💨 Smoke, Chimneys and Stovepipes
 
 - **No chimney? The room fills with smoke.** In a sealed room, anyone inside starts choking after about 15 seconds. This also applies to the base game firepit and clay oven.
@@ -62,6 +81,7 @@ Firing times are in-game hours for a pot or mould. Charcoal or coal roughly halv
 - Doors **open** when you use a stove and **close** when you leave.
 - Stoves can be picked up with **Carry On**, if that mod is installed and its settings allow it.
 - The base game **clay oven can't be crafted** while this mod is installed, because the Kitchen Range replaces it. The firepit is unchanged.
+- **Rustic Cookery:** if it's installed, the clay oven stays craftable so you can bake its Pot Roasts.
 
 ### 🔨 Crafting
 
@@ -79,6 +99,8 @@ Start with Copper, then upgrade each stove by putting a plate of the next metal 
 - **Higher tiers:** 2 plates of the new metal, one on each side of the previous tier.
 - **Large Pots:** 2 ingots and 1 plate of the same metal. The Bronze pot takes any bronze.
 - **Stovepipes:** 2 metal plates of any kind make 8 pipes.
+- **Potbelly Stove:** 1 copper plate, 1 copper ingot and 5 fired bricks.
+- **Smoker:** 5 planks, 2 stones and 1 copper plate.
 
 ---
 

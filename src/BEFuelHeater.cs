@@ -86,6 +86,9 @@ namespace ForgeAndFeast
 
         public bool IsBurning => fuelBurnTime > 0;
 
+        /// <summary>Height (in blocks) the smoke wisp leaves the stove's own flue stub at.</summary>
+        public virtual double StubTop => 0.95;
+
         public abstract ItemSlot FuelSlot { get; }
 
         public override void Initialize(ICoreAPI api)
