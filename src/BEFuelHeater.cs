@@ -55,9 +55,15 @@ namespace ForgeAndFeast
         /// </summary>
         protected MeshData GetMeshWithoutStub(ITesselatorAPI tesselator)
         {
+            return GetMeshWithout(tesselator, new[] { "pipe" });
+        }
+
+        /// <summary>The block's model with the named elements left out. Null if that can't be done.</summary>
+        protected MeshData GetMeshWithout(ITesselatorAPI tesselator, string[] hide)
+        {
             CompositeShape cs = Block?.Shape;
             if (cs?.Base == null) return null;
-            Dictionary<int, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-rangenostub", () => new Dictionary<int, MeshData>());
+            Dictionary<int, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-without-" + string.Join(",", hide), () => new Dictionary<int, MeshData>());
             lock (cache)
             {
                 MeshData mesh;
@@ -67,18 +73,15 @@ namespace ForgeAndFeast
                 Shape shape = Shape.TryGet(Api, loc);
                 if (shape?.Elements == null) return null;
 
-                int n = 0;
-                string[] names = new string[shape.Elements.Length];
+                List<string> keep = new List<string>();
                 for (int i = 0; i < shape.Elements.Length; i++)
                 {
                     string name = shape.Elements[i].Name;
-                    if (name == "pipe") continue;
-                    names[n++] = name;
+                    if (Array.IndexOf(hide, name) >= 0) continue;
+                    keep.Add(name);
                 }
-                string[] keep = new string[n];
-                Array.Copy(names, keep, n);
 
-                tesselator.TesselateShape(Block, shape, out mesh, new Vec3f(cs.rotateX, cs.rotateY, cs.rotateZ), null, keep);
+                tesselator.TesselateShape(Block, shape, out mesh, new Vec3f(cs.rotateX, cs.rotateY, cs.rotateZ), null, keep.ToArray());
                 cache[Block.Id] = mesh;
                 return mesh;
             }

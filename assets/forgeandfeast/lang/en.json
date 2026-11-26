@@ -41,7 +41,7 @@
  "vent-smoky": "Smoky! No chimney in a closed room (works 40% slower)",
  "vent-choking": "Room is full of smoke - it will hurt anyone inside!",
  "block-stovepipe": "Stovepipe",
- "blockdesc-stovepipe": "Joins up automatically. Run it from a Kitchen Range, Kiln Oven or clay oven to a Clay Brick Chimney (draft bonus) or out through a wall to open air, so a closed room doesn't fill with smoke. Optional - stoves work without it.",
+ "blockdesc-stovepipe": "Joins up automatically. Run it from a Kitchen Range, Kiln Oven, Potbelly Stove, Smoker, Charcoal Retort or clay oven to a Clay Brick Chimney (draft bonus), up through a roof to a chimney above it, or out through a wall to open air, so a closed room doesn't fill with smoke. Optional - stoves work without it.",
  "stovepipe-handbook-title": "Venting a stove",
  "stovepipe-handbook-text": "A fire in a closed room with no way out for the smoke fills the room with smoke and chokes anyone inside. Vent it by: putting a Clay Brick Chimney straight above it (up to 8 blocks), running stovepipes from it to a Clay Brick Chimney, or running stovepipes out of the room into open air. A chimney also gives a draft that makes the fire work 25% faster.",
  "block-kitchenrange-copper-*": "Copper Kitchen Range",

@@ -525,7 +525,7 @@ namespace ForgeAndFeast
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
             bool drewBody = false;
-            if ((StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos) & (1 << BlockFacing.UP.Index)) != 0)
+            if (StovePipes.PipeOnTop(Api.World.BlockAccessor, Pos))
             {
                 MeshData body = GetMeshWithoutStub(tesselator);
                 if (body != null)

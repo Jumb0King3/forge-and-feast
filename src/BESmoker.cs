@@ -5,6 +5,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace ForgeAndFeast
@@ -319,30 +320,95 @@ namespace ForgeAndFeast
         /// <summary>With the door open you can see the meat hanging from the two rails.</summary>
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            if (!DoorsOpen) return false;
+            // With a stovepipe fitted on top, the roof vent comes off and the pipe goes into the ridge instead
+            bool drewBody = false;
+            if (StovePipes.PipeOnTop(Api.World.BlockAccessor, Pos))
+            {
+                MeshData body = GetMeshWithout(tesselator, new[] { "vent", "louvre0", "louvre1", "ventcap" });
+                if (body != null)
+                {
+                    mesher.AddMeshData(body);
+                    drewBody = true;
+                }
+            }
+            if (!DoorsOpen) return drewBody;
             string side = Block?.Variant?["side"] ?? "north";
 
+            MeshData hook = HookMesh(tesselator);
             for (int i = 0; i < Hooks; i++)
             {
+                // Two rails (front and back), up to five hooks each
+                int rail = i % 2, n = i / 2;
+                float x = (3.5f + n * 2.25f) / 16f - 0.5f;
+                float z = (rail == 0 ? 6.2f : 10.2f) / 16f - 0.5f;
+
+                if (hook != null)
+                {
+                    MeshData h = hook.Clone();
+                    ContentMesh.Place(h, side, 1f, x, 0, z, 0);
+                    mesher.AddMeshData(h);
+                }
+
                 ItemStack s = inventory.Hook(i).Itemstack;
                 if (s == null) continue;
                 MeshData mesh = ContentMesh.For(Api, tesselator, s);
                 if (mesh == null) continue;
                 MeshData m = mesh.Clone();
+                if (m.VerticesCount == 0) continue;
 
-                // Two rails (front and back), up to five pieces each, hanging below the rail at 20/16
-                int rail = i % 2, n = i / 2;
-                float x = (3.5f + n * 2.25f) / 16f - 0.5f;
-                float z = (rail == 0 ? 6.2f : 10.2f) / 16f - 0.5f;
+                // Item models come in any orientation: turn the longest side to hang downward
+                float[] bb = Bounds(m);
+                float sx = bb[3] - bb[0], sy = bb[4] - bb[1], sz = bb[5] - bb[2];
+                Vec3f mid = new Vec3f((bb[0] + bb[3]) / 2, (bb[1] + bb[4]) / 2, (bb[2] + bb[5]) / 2);
+                if (sx > sy * 1.25f && sx >= sz) m.Rotate(mid, 0, 0, GameMath.PIHALF);
+                else if (sz > sy * 1.25f) m.Rotate(mid, GameMath.PIHALF, 0, 0);
+                else if (sy < sx * 0.5f && sy < sz * 0.5f) m.Rotate(mid, GameMath.PIHALF, 0, 0);
+                bb = Bounds(m);
+                sx = bb[3] - bb[0]; sy = bb[4] - bb[1]; sz = bb[5] - bb[2];
 
-                // Stand the piece up so it hangs from its hook
-                m.Rotate(new Vec3f(0.5f, 0.5f, 0.5f), GameMath.PIHALF, 0, 0);
-                ContentMesh.Place(m, side, 0.55f, x, 0, z, (i * 37) % 30 - 15);
+                // Centre it on its hook, and size it to hang between the rails without touching its neighbours
+                m.Translate(0.5f - (bb[0] + bb[3]) / 2, 0, 0.5f - (bb[2] + bb[5]) / 2);
+                float scale = 0.55f;
+                if (sy > 0.001f) scale = Math.Min(scale, 0.17f / sy);
+                if (sx > 0.001f) scale = Math.Min(scale, 0.13f / sx);
+                if (sz > 0.001f) scale = Math.Min(scale, 0.2f / sz);
+
+                ContentMesh.Place(m, side, scale, x, 0, z, (i * 37) % 30 - 15);
                 float top = MaxY(m);
-                m.Translate(0, 19.9f / 16f - top, 0);
+                m.Translate(0, 19.1f / 16f - top, 0);
                 mesher.AddMeshData(m);
             }
-            return false;
+            return drewBody;
+        }
+
+        MeshData HookMesh(ITesselatorAPI tesselator)
+        {
+            Dictionary<int, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-smokerhooks", () => new Dictionary<int, MeshData>());
+            lock (cache)
+            {
+                MeshData m;
+                if (cache.TryGetValue(Block.Id, out m)) return m;
+                Shape shape = Shape.TryGet(Api, new AssetLocation("forgeandfeast", "shapes/block/smokerhook.json"));
+                m = null;
+                if (shape != null) tesselator.TesselateShape(Block, shape, out m);
+                cache[Block.Id] = m;
+                return m;
+            }
+        }
+
+        static float[] Bounds(MeshData mesh)
+        {
+            float[] b = { float.MaxValue, float.MaxValue, float.MaxValue, float.MinValue, float.MinValue, float.MinValue };
+            for (int i = 0; i < mesh.VerticesCount; i++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    float v = mesh.xyz[i * 3 + k];
+                    if (v < b[k]) b[k] = v;
+                    if (v > b[k + 3]) b[k + 3] = v;
+                }
+            }
+            return b;
         }
 
         static float MaxY(MeshData mesh)
