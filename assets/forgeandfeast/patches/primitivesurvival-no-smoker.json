@@ -1,0 +1,50 @@
+[
+ {
+  "op": "add",
+  "path": "/enabled",
+  "value": false,
+  "file": "primitivesurvival:recipes/grid/smoker.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/0/enabled",
+  "value": false,
+  "file": "primitivesurvival:recipes/grid/trussedmeat.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/1/enabled",
+  "value": false,
+  "file": "primitivesurvival:recipes/grid/trussedmeat.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/2/enabled",
+  "value": false,
+  "file": "primitivesurvival:recipes/grid/trussedmeat.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ }
+]

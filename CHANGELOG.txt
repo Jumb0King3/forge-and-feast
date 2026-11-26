@@ -9,6 +9,15 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.14.1  - Primitive Survival: its smoker is switched off
+  Only applies when Primitive Survival is installed next to Forge and Feast.
+  - The Primitive Survival smoker can no longer be crafted, and neither can
+    its trussed meat (only the smoker used it). The Forge and Feast Smoker
+    does the job instead, and now handles crab and snake meat too.
+  - Nothing already in a world is removed: smokers already placed keep working,
+    and smoked meat, cured smoked meat and jerky are left alone.
+  - New file: patches/primitivesurvival-no-smoker.json.
+
 2.14.0  - Primitive Survival: cured crab and snake meat
   Everything here only switches on when Primitive Survival is installed.
   Primitive Survival is not on The Peeps right now, so nothing changes in the
