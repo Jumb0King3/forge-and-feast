@@ -110,9 +110,13 @@ namespace ForgeAndFeast
                 else mode[b] = 0;
                 return;
             }
-            if (bake != null && bake.ResultCode != null && !InventoryRange.IsCookable(stack))
+            if (bake != null && bake.ResultCode != null && stack.Attributes.GetBool("bakeable", true))
             {
-                mode[b] = 0;
+                // Food with baking steps cooks in the pan through the same steps as the oven, as long as the
+                // table says it belongs on a burner. It never goes on to the charred step.
+                RangeKind kind = RangeStations.Of(stack);
+                if (kind == RangeKind.Burner || kind == RangeKind.Both) Bake(b, bake, dt, true);
+                else mode[b] = 0;
                 return;
             }
 
@@ -187,6 +191,8 @@ namespace ForgeAndFeast
                 found = cs[i];
             }
             if (found == null) return null;
+            BakingProperties foundBake = BakingProperties.ReadFrom(found.Itemstack);
+            if (foundBake != null && foundBake.ResultCode != null) return null;
             CombustibleProperties props = found.Itemstack.Collectible.CombustibleProps;
             if (props == null || props.SmeltingType != EnumSmeltType.Cook || props.RequiresContainer) return null;
             if (props.SmeltedStack?.ResolvedItemstack == null) return null;
@@ -293,7 +299,7 @@ namespace ForgeAndFeast
         /// Bakes like the clay oven: the item climbs from LevelFrom to LevelTo, then turns into the next stage.
         /// The range never lets food go to the charred stage - a finished item moves to the output slot instead.
         /// </summary>
-        void Bake(int b, BakingProperties bake, float dt)
+        void Bake(int b, BakingProperties bake, float dt, bool onBurner = false)
         {
             ItemSlot input = inventory.InputSlot(b);
             ItemSlot output = inventory.OutputSlot(b);
@@ -321,7 +327,9 @@ namespace ForgeAndFeast
 
             mode[b] = 2;
             float diff = itemTemp / browning;
-            progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * 1.2f * OvenSpeedMul * VentMul / timeToBake;
+            // A burner is far hotter than an oven, so a pan cooks at a steady pace instead of racing ahead
+            if (onBurner) diff = GameMath.Clamp(diff, 1f, 3f);
+            progress[b] += GameMath.Clamp((int)diff, 1, 30) * dt * 1.2f * (onBurner ? SpeedMul : OvenSpeedMul) * VentMul / timeToBake;
 
             if (progress[b] <= bake.LevelTo) return;
 

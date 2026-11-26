@@ -9,6 +9,28 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.13.0  - Kitchen Range: foods go where they would in real life
+  - Every food now goes in the oven slots, the burners, or either, by what
+    it is. Baked and roasted foods (bread, dough, muffins, hardtack, pemmican,
+    dried fruit, stuffed peppers, roasted nuts and the like) are oven only.
+    Fried, sauteed and boiled foods (breaded nuggets and vegetables, sausages,
+    dumplings, nuggets, mushrooms, pickled vegetables, grain) are burner only.
+    Raw meat, poultry, fish, vegetables and roots can go in either. The full
+    list is in range_oven_vs_burner_review.xlsx.
+  - Burners now cook food that has baking steps the way a pan would, through
+    the same steps as the oven (raw, part-cooked, cooked) at a steady pace, and
+    the finished food moves to the output slot before it can char. Before, raw
+    meat on a burner went straight to charred meat (Expanded Foods changes it so).
+  - Fixes 2.12.4, which let dough and part-baked bread sit on a burner.
+  - Feverstone Wilds bison leg, ribs and cockatrice tail can now be roasted
+    in the oven (raw, part-cooked, cooked), as well as cooked on a burner.
+  - A pot holding a single raw meat that can also be baked no longer chars it
+    on its own.
+  - Food not in the list follows what it can do: bake only goes in the oven,
+    cook only goes on a burner, both goes in either. Pots and other non-food
+    items are unchanged.
+  - New files: src/RangeStations.cs and patches/feverstone-baking.json.
+
 2.12.4  - Kitchen Range: items that both bake and cook
   - Burners now take items that have a plain cooked or baked form even if they
     can also be baked in an oven (for example the Expanded Foods breaded and

@@ -1,0 +1,143 @@
+[
+ {
+  "op": "addmerge",
+  "path": "/attributes/bakingPropertiesByType",
+  "value": {
+   "*-raw": {
+    "temp": 150,
+    "levelFrom": 0.0,
+    "levelTo": 0.25,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "ribs-partcooked"
+   },
+   "*-partcooked": {
+    "temp": 150,
+    "levelFrom": 0.25,
+    "levelTo": 0.5,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "ribs-cooked",
+    "initialCode": "ribs-raw"
+   },
+   "*-cooked": {
+    "temp": 150,
+    "levelFrom": 0.5,
+    "levelTo": 0.75,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "ribs-charred",
+    "initialCode": "ribs-partcooked"
+   },
+   "*-charred": {
+    "temp": 150,
+    "levelFrom": 0.75,
+    "levelTo": 1.0,
+    "startScaleY": 1.0,
+    "endScaleY": 0.9,
+    "initialCode": "ribs-cooked"
+   }
+  },
+  "file": "feverstonewilds:itemtypes/food/ribs.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "addmerge",
+  "path": "/attributes/bakingPropertiesByType",
+  "value": {
+   "*-raw": {
+    "temp": 150,
+    "levelFrom": 0.0,
+    "levelTo": 0.25,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "bisonleg-partcooked"
+   },
+   "*-partcooked": {
+    "temp": 150,
+    "levelFrom": 0.25,
+    "levelTo": 0.5,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "bisonleg-cooked",
+    "initialCode": "bisonleg-raw"
+   },
+   "*-cooked": {
+    "temp": 150,
+    "levelFrom": 0.5,
+    "levelTo": 0.75,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "bisonleg-charred",
+    "initialCode": "bisonleg-partcooked"
+   },
+   "*-charred": {
+    "temp": 150,
+    "levelFrom": 0.75,
+    "levelTo": 1.0,
+    "startScaleY": 1.0,
+    "endScaleY": 0.9,
+    "initialCode": "bisonleg-cooked"
+   }
+  },
+  "file": "feverstonewilds:itemtypes/food/bisonleg.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "addmerge",
+  "path": "/attributes/bakingPropertiesByType",
+  "value": {
+   "*-raw": {
+    "temp": 150,
+    "levelFrom": 0.0,
+    "levelTo": 0.25,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "cockatrice-tail-partcooked"
+   },
+   "*-partcooked": {
+    "temp": 150,
+    "levelFrom": 0.25,
+    "levelTo": 0.5,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "cockatrice-tail-cooked",
+    "initialCode": "cockatrice-tail-raw"
+   },
+   "*-cooked": {
+    "temp": 150,
+    "levelFrom": 0.5,
+    "levelTo": 0.75,
+    "startScaleY": 1.0,
+    "endScaleY": 1.0,
+    "resultCode": "cockatrice-tail-charred",
+    "initialCode": "cockatrice-tail-partcooked"
+   },
+   "*-charred": {
+    "temp": 150,
+    "levelFrom": 0.75,
+    "levelTo": 1.0,
+    "startScaleY": 1.0,
+    "endScaleY": 0.9,
+    "initialCode": "cockatrice-tail-cooked"
+   }
+  },
+  "file": "feverstonewilds:itemtypes/food/cockatricetail.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ }
+]
