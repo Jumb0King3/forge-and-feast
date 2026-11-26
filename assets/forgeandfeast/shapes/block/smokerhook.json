@@ -1,0 +1,144 @@
+{
+ "textureWidth": 16,
+ "textureHeight": 16,
+ "elements": [
+  {
+   "name": "wire",
+   "from": [
+    7.85,
+    19.45,
+    7.85
+   ],
+   "to": [
+    8.15,
+    20.0,
+    8.15
+   ],
+   "faces": {
+    "north": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "east": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "south": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "west": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "up": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "down": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    }
+   }
+  },
+  {
+   "name": "ring",
+   "from": [
+    7.6,
+    19.1,
+    7.85
+   ],
+   "to": [
+    8.4,
+    19.45,
+    8.15
+   ],
+   "faces": {
+    "north": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "east": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "south": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "west": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "up": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    },
+    "down": {
+     "texture": "#black",
+     "uv": [
+      0,
+      0,
+      2,
+      2
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -58,7 +58,16 @@ comparing what changed inside each zip, so they describe what the files show
     thatch, shingles) as well as full solid roofs, up to three layers, and
     find a chimney one block over where the roof slopes away. Pipes running
     sideways also tuck up under those roofs.
-  - New files: shapes/block/potbellystove-open.json.
+  - FIX: error on load, "Patch 12 in feverstone-smoked-recipes.json: File
+    forgeandfeast:recipes/cooking/porridge.json not found". That patch now
+    points at the base game's porridge recipe, so smoked Feverstone meats are
+    accepted in porridge again.
+  - Potbelly Stove: with the doors open you now see a metal-lined firebox
+    mouth with a glowing bed and grate bars, instead of a solid block.
+  - Smoker: each hook now has a visible hook on the rail, and meat hangs from
+    it. Meat is turned so its longest side hangs downward.
+  - New files: shapes/block/potbellystove-open.json,
+    shapes/block/smokerhook.json.
 
 2.13.0  - Kitchen Range: foods go where they would in real life
   - Every food now goes in the oven slots, the burners, or either, by what

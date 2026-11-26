@@ -259,7 +259,7 @@
     ]
    }
   ],
-  "file": "recipes/cooking/porridge.json",
+  "file": "game:recipes/cooking/porridge.json",
   "side": "server",
   "dependsOn": [
    {
