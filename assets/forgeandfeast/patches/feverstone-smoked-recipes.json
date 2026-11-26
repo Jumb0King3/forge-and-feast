@@ -1,0 +1,894 @@
+[
+ {
+  "op": "add",
+  "path": "/2/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/breadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/3/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/breadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/4/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/breadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/4/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/breadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/5/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/breadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/5/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/breadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/2/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/3/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/4/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/4/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/5/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/5/ingredients/3/inputs/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "quantity": 1
+  },
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedmeatnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/ingredients/8/validStacks/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "feverstonewilds:bisonleg-smoked",
+    "shapeElement": "bowl/meatnugget 1/*",
+    "textureMapping": [
+     "meatnugget",
+     "group6"
+    ]
+   },
+   {
+    "type": "item",
+    "code": "feverstonewilds:ribs-smoked",
+    "shapeElement": "bowl/meatnugget 1/*",
+    "textureMapping": [
+     "meatnugget",
+     "group6"
+    ]
+   },
+   {
+    "type": "item",
+    "code": "feverstonewilds:cockatrice-tail-smoked",
+    "shapeElement": "bowl/meatnugget 1/*",
+    "textureMapping": [
+     "meatnugget",
+     "group5"
+    ]
+   }
+  ],
+  "file": "recipes/cooking/porridge.json",
+  "side": "server",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/5/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group6"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/pastacold.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/5/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group6"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/pastacold.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/5/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry/*",
+   "textureMapping": [
+    "meat",
+    "group5"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/pastacold.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group6"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/pastacold.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group6"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/pastacold.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry 2/*",
+   "textureMapping": [
+    "meat",
+    "group5"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/pastacold.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group6"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/salad.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group6"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/salad.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry/*",
+   "textureMapping": [
+    "meat",
+    "group5"
+   ]
+  },
+  "file": "efmealsmodule:recipes/mixing/salad.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/riceandbeans.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/riceandbeans.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry/*",
+   "textureMapping": [
+    "meat",
+    "group3"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/riceandbeans.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/7/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/riceandbeans.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/7/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/riceandbeans.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/7/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry 2/*",
+   "textureMapping": [
+    "meat",
+    "group3"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/riceandbeans.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/5/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/augratin.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/5/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/augratin.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/5/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry/*",
+   "textureMapping": [
+    "meat",
+    "group3"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/augratin.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/augratin.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/augratin.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry 2/*",
+   "textureMapping": [
+    "meat",
+    "group3"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/augratin.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/pastahot.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/pastahot.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/6/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry/*",
+   "textureMapping": [
+    "meat",
+    "group3"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/pastahot.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/7/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:bisonleg-smoked",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/pastahot.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/7/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:ribs-smoked",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group2"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/pastahot.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/ingredients/7/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "feverstonewilds:cockatrice-tail-smoked",
+   "shapeElement": "bowl/poultry 2/*",
+   "textureMapping": [
+    "meat",
+    "group3"
+   ]
+  },
+  "file": "efmealsmodule:recipes/cooking/pastahot.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   },
+   {
+    "modid": "efmealsmodule"
+   }
+  ]
+ }
+]

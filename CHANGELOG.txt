@@ -9,6 +9,20 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.12.3  - Smoked Feverstone Wilds meats work in recipes
+  - The smoked bison leg, ribs and cockatrice tail are now accepted everywhere
+    the base game's cured red meat or cured poultry is accepted by Expanded
+    Foods and the Expanded Foods Meals Module:
+      Breaded meat nuggets (and the acorn version), pasta (hot and cold),
+      rice and beans, au gratin, salad, and porridge.
+    Bison leg and ribs count as red meat, cockatrice tail as poultry.
+  - They are only added when Feverstone Wilds and that mod are both installed.
+  - Not changed: Feverstone's raw and cooked meats are still not accepted by
+    these meals (Feverstone never added them), and I could not check the base
+    game's own meal recipes (soup, stew, pie and so on), because their files are
+    not available here. If a pot refuses a smoked Feverstone meat, send the log.
+  - New file: assets/forgeandfeast/patches/feverstone-smoked-recipes.json.
+
 2.12.2  - New: smoked Feverstone Wilds meats
   - Added real smoked versions of the three Feverstone Wilds meats that had
     none: Smoked bison leg, Smoked ribs and Smoked cockatrice tail. They use
