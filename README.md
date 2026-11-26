@@ -2,7 +2,7 @@
 
 # 🔥 Forge and Feast
 
-*Cook, fire and smelt indoors with four tiers of iron-age kitchen gear: **Copper, Bronze, Iron and Steel**. Every tier is a solid step up from the base game without skipping the progression.*
+*Cook, fire, smelt and smoke indoors with five stoves in four tiers of iron-age kitchen gear: **Copper, Bronze, Iron and Steel**. Every tier is a solid step up from the base game without skipping the progression.*
 
 ## At a glance
 
@@ -10,36 +10,32 @@
 |---|---|---|---|---|
 | **Range burner plates** | 1 | 2 | 3 | 4 |
 | **Range oven slots** | – | 1 | 2 | 3 |
-| **Cooking speed** | ×1.1 | ×1.25 | ×1.4 | ×1.6 |
+| **Range cooking speed** | ×1.1 | ×1.25 | ×1.4 | ×1.6 |
 | **Kiln slots** | 2 | 3 | 4 | 5 |
 | **Kiln firing time** | 12 h | 10 h | 8 h | 6 h |
 | **Kiln max heat** | 1100°C | 1475°C | 1700°C | 1950°C |
-| **Large Pot servings** | 8 | 10 | 12 | – |
 | **Potbelly cooking speed** | ×1.0 | ×1.1 | ×1.25 | ×1.4 |
+| **Potbelly fuel lasts** | ×1.5 | ×1.75 | ×2.0 | ×2.25 |
+| **Potbelly max heat** | 450°C | 500°C | 550°C | 600°C |
 | **Smoker hooks** | 4 | 6 | 8 | 10 |
 | **Smoking time** | 24 h | 20 h | 16 h | 12 h |
+| **Large Pot servings** | 8 | 10 | 12 | – |
 
-Firing times are in-game hours for a pot or mould. Charcoal or coal roughly halves them.
+Times are in-game hours. Kiln times are for a pot or mould; charcoal or coal roughly halves them.
 
 ---
 
 ### 🍲 Kitchen Range
 
-*One fire heats several burner plates at once.*
+*One fire heats several burner plates and an oven.*
 
 - **1 to 4 burner plates.** Each takes a cooking pot, or a single item like a steak.
 - **Built-in oven** from Bronze up. Bread comes out when it's done and never chars.
+- **Food goes where it would in real life.** Baked and roasted food (bread, dough, pies, pemmican, roasted nuts) goes in the oven. Fried and boiled food (nuggets, sausages, dumplings, grain) goes on the burners. Raw meat, fish and vegetables can go in either.
+- **Burners cook like a pan:** food moves to the output slot when it's done, before it can char.
 - **Faster than a firepit,** from ×1.1 on Copper up to ×1.6 on Steel.
 - **See what's cooking:** stew shows in the pot and meat sits on the plate.
 - **Large Pots** cook bigger batches than the base game's 6-serving clay pot.
-
-### 🔥 Potbelly Stove
-
-*A small cast-iron stove for one pot, for cabins and corners.*
-
-- **Cooks like a firepit:** a cooking pot or a single item on the hot plate on top.
-- **Warms the room** and burns its fuel slowly, up to 2.25x as long on Steel.
-- **Rustic Cookery:** braising, roux and eggs work on it with tongs.
 
 ### 🏺 Kiln Oven
 
@@ -60,47 +56,68 @@ Firing times are in-game hours for a pot or mould. Charcoal or coal roughly halv
 - **Open the hatch** to see the wood stacked inside or the charcoal ready.
 - **Very smoky,** so vent it well.
 
-### 🥩 Smoker
+### 🫖 Potbelly Stove
 
-*A 2-block farm smokehouse.*
+*A small cast-iron stove for cabins and corners.*
 
-- **Hang raw meat or fish** on 4 to 10 hooks and keep a small wood fire going.
-- **About a day to smoke** on Copper, half that on Steel. Charcoal and coal smoke 4x slower.
-- **Without Rustic Cookery** it makes cured meat; **with it**, smoked slabs, meat and fish.
+- **Works like a firepit:** cooking pots, single items, serving meals from the pot, shift-adding fuel and lighting it all work the same. Other mods that cook on a firepit work on it too.
+- **One cooking spot** on the hot plate on top, and the food or pot shows on it.
+- **Fuel lasts longer** in its closed box: ×1.5 on Copper up to ×2.25 on Steel.
+- **Keeps a room warm** like a firepit, with the fire's crackle. Its doors swing open while you use it.
+- **Takes a stovepipe** on the flue at the back.
+
+### 🥓 Smoker
+
+*A two-block farm smokehouse that smokes and cures meat and fish.*
+
+- **Hang raw meat or fish on the hooks** (4 to 10 by tier) and keep a small fire going. Smoking takes 24 in-game hours on Copper down to 12 on Steel, and pauses (doesn't reset) if the fire goes out.
+- **Open the door** to see the meat hanging on its hooks. The firebox hatch opens too.
+- **Wood gives full smoke;** charcoal and coal burn clean and smoke at a quarter of the speed.
+- **Raw meat becomes cured meat** that keeps for about a year. Meat nuggets cure too, and meat keeps twice as long while it hangs.
+- **Very smoky:** give it a chimney or a stovepipe on its roof, or put it outdoors.
 
 ### 💨 Smoke, Chimneys and Stovepipes
 
 - **No chimney? The room fills with smoke.** In a sealed room, anyone inside starts choking after about 15 seconds. This also applies to the base game firepit and clay oven.
 - **Chimney draft:** a Clay Brick Chimney above a stove, or joined to it by stovepipe, makes it work 25% faster.
-- **Stovepipes join up on their own,** with bends, tees and corners, and sit flush against walls, roof and floor.
-- **Through the roof:** a chimney just above a roof one or two blocks thick still counts, so you don't need a hole in your roof.
+- **Stovepipes join up on their own** to every stove, including the top of the Smoker, with bends, tees and crossings.
+- **Runs stay level:** a sideways run tucks up under a roof or ceiling, lies on a floor, or sits in the middle, and the whole run, junctions and bends included, keeps the same height.
+- **Through the roof:** a chimney just above a roof up to three blocks thick still counts, including the game's sloped roofing, ridges, thatch and shingles, so you don't need a hole in your roof.
+
+### 🧩 Works with other mods
+
+- **Expanded Foods:** meat nuggets cure in the Smoker, and the Range puts each food in the oven or on a burner as it should be.
+- **Rustic Cookery:** the Smoker makes its smoked slabs, smoked meat and smoked fish. Braising, roux and eggs work on the Potbelly Stove with tongs, and the base game clay oven can be made again for Pot Roasts.
+- **Feverstone Wilds:** the Smoker makes smoked bison leg, ribs and cockatrice tail, which count as cured meat in Expanded Foods recipes. They can also be roasted in the Range oven.
+- **Primitive Survival:** crab and snake meat cure in the Smoker and chop into cured nuggets for Expanded Foods recipes. Its own smoker is replaced by the Forge and Feast Smoker. *(Not yet tested in game.)*
+- **Carry On:** stoves can be picked up, if its settings allow it.
 
 ### ⚙️ Other Details
 
 - Stoves **face you** when placed and can be turned with the **wrench**.
 - Doors **open** when you use a stove and **close** when you leave.
-- Stoves can be picked up with **Carry On**, if that mod is installed and its settings allow it.
-- The base game **clay oven can't be crafted** while this mod is installed, because the Kitchen Range replaces it. The firepit is unchanged.
-- **Rustic Cookery:** if it's installed, the clay oven stays craftable so you can bake its Pot Roasts.
+- The base game **clay oven can't be crafted** while this mod is installed (unless Rustic Cookery is), because the Kitchen Range replaces it. The firepit is unchanged.
 
 ### 🔨 Crafting
 
 Start with Copper, then upgrade each stove by putting a plate of the next metal on each side of it.
 
-<p align="center"><b>Kitchen Range</b><br><img src="https://moddbcdn.vintagestory.at/forgeandfeast_craft__0735e1bc8c589f3f8e8baf868bcccd60.gif" alt="Kitchen Range recipes" width="600"></p>
+<p align="center"><b>Kitchen Range</b><br><img src="images/forgeandfeast_craft_kitchenrange.gif" alt="Kitchen Range recipes" width="600"></p>
 
-<p align="center"><b>Kiln Oven</b><br><img src="https://moddbcdn.vintagestory.at/forgeandfeast_craft__4e3acbb489bf17f709a04c723d50431b.gif" alt="Kiln Oven recipes" width="600"></p>
+<p align="center"><b>Kiln Oven</b><br><img src="images/forgeandfeast_craft_kilnoven.gif" alt="Kiln Oven recipes" width="600"></p>
 
-<p align="center"><b>Charcoal Retort</b><br><img src="https://moddbcdn.vintagestory.at/forgeandfeast_craft__d0348f9f820ab85309fdf7473d5c1e7a.gif" alt="Charcoal Retort recipes" width="600"></p>
+<p align="center"><b>Charcoal Retort</b><br><img src="images/forgeandfeast_craft_retort.gif" alt="Charcoal Retort recipes" width="600"></p>
 
-<p align="center"><b>Large Pots and Stovepipes</b><br><img src="https://moddbcdn.vintagestory.at/forgeandfeast_craft__068e37f0e047d9672f9aec9884ab641d.gif" alt="Large Pots and Stovepipes recipes" width="600"></p>
+<p align="center"><b>Potbelly Stove</b><br><img src="images/forgeandfeast_craft_potbelly.gif" alt="Potbelly Stove recipes" width="600"></p>
 
-- **Copper tier:** fired bricks plus copper. The Kiln Oven takes 1 copper plate, the Retort 2, and the Range 1 plate and 1 ingot.
+<p align="center"><b>Smoker</b><br><img src="images/forgeandfeast_craft_smoker.gif" alt="Smoker recipes" width="600"></p>
+
+<p align="center"><b>Large Pots and Stovepipes</b><br><img src="images/forgeandfeast_craft_largepots_stovepipes.gif" alt="Large Pots and Stovepipes recipes" width="600"></p>
+
+- **Copper tier:** fired bricks plus copper. The Kiln Oven takes 1 copper plate, the Retort 2, the Range and Potbelly Stove 1 plate and 1 ingot. The Smoker takes 5 planks, 2 stones and 1 copper plate.
 - **Higher tiers:** 2 plates of the new metal, one on each side of the previous tier.
 - **Large Pots:** 2 ingots and 1 plate of the same metal. The Bronze pot takes any bronze.
 - **Stovepipes:** 2 metal plates of any kind make 8 pipes.
-- **Potbelly Stove:** 1 copper plate, 1 copper ingot and 5 fired bricks.
-- **Smoker:** 5 planks, 2 stones and 1 copper plate.
 
 ---
 
