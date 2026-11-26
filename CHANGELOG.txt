@@ -9,6 +9,94 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.15.0  - Primitive Survival support, and a fix so the mod loads
+  Primitive Survival parts only switch on when that mod is installed. It is
+  not on The Peeps right now. Not yet tested in game.
+  - FIX: modinfo.json was empty in 2.12.3 through 2.13.0, so the game stopped
+    with "Object reference not set to an instance of an object" while loading
+    the mod info. The file is restored. This version has everything from
+    2.12.2 onward.
+  - Crab meat and snake meat now have a cured form. Put raw crab or snake meat
+    in the Smoker and it comes out as cured meat (same keeping time as the base
+    game's cured meat: very long). The cured meat can be cooked in soups and
+    meaty stews in the pot, like the other cured meats.
+  - Cured nuggets: chop cured crab or snake meat with a knife or cleaver to get
+    cured crab or snake nuggets. You can also cure raw nuggets in the Smoker
+    straight away, the same as the meat nuggets.
+  - Recipes that take raw crab or snake nuggets (pemmican, dumplings, breaded
+    balls, stuffed peppers, acorn versions, crab and snake pemmican) also take
+    the cured ones, the same way they already take cured meat nuggets.
+    Sausages stay raw only, the same as meat sausages.
+  - The Primitive Survival smoker can no longer be crafted, and neither can
+    its trussed meat (only the smoker used it). The Forge and Feast Smoker
+    does the job instead. Smokers already placed in a world keep working, and
+    smoked meat, cured smoked meat and jerky are left alone.
+  - Kitchen Range: crab meat, snake meat, smoked meat and cured smoked meat
+    (Primitive Survival) can go in the oven or on a burner, like other meat.
+  - New files: patches/primitivesurvival-cured.json,
+    patches/primitivesurvival-cured-recipes.json,
+    patches/primitivesurvival-no-smoker.json.
+  - FIX: the Primitive Survival smoker no longer shows in the creative
+    inventory or the handbook when Forge and Feast is installed with it.
+  - FIX: the Smoker's lower firebox hatch now swings open with the main door,
+    showing the dark firebox and embers.
+  - FIX: Potbelly Stove doors now open while you have its window open (the
+    firebox door and ash door swing open and the fire shows), and close again
+    when you walk away or close the window.
+  - FIX: meat hanging in the Smoker is stood up, centred on its hook and sized
+    to hang between the rails instead of clumping at the top or poking out
+    sideways. (Drawing is worked out from each item's model, so it needs a look
+    in game with a few different meats.)
+  - Potbelly Stove flue redrawn: a rear flue box rises from the body and meets
+    a wider collar on the top plate, so the pipe stub looks like part of the
+    stove. Stovepipes still join to it the same way.
+  - FIX: stovepipes now connect to the top of the Smoker (its upper half is a
+    separate part that pipes did not recognise). The pipe stands over the
+    Smoker's roof vent, and the draft, smoke venting and smoke puffs work
+    through the pipe like they do for the Range.
+  - FIX: stovepipes now pass through the game's roofing pieces (slopes, ridges,
+    thatch, shingles) as well as full solid roofs, up to three layers, and
+    find a chimney one block over where the roof slopes away. Pipes running
+    sideways also tuck up under those roofs.
+  - FIX: error on load, "Patch 12 in feverstone-smoked-recipes.json: File
+    forgeandfeast:recipes/cooking/porridge.json not found". That patch now
+    points at the base game's porridge recipe, so smoked Feverstone meats are
+    accepted in porridge again.
+  - Potbelly Stove: with the doors open you now see a metal-lined firebox
+    mouth with a glowing bed and grate bars, instead of a solid block.
+  - Smoker: each hook now has a visible hook on the rail, and meat hangs from
+    it. Meat is turned so its longest side hangs downward.
+  - FIX: a pipe run tucked up under a roof now stays level where it turns up
+    into a chimney (or up through the roof), instead of the bend dropping to
+    the middle of the block and leaving a gap. The short piece above the bend
+    stops at the top of the block, with a flange where it meets a chimney.
+  - Stovepipes reworked so every joint lines up (tested against 30,000
+    random layouts of pipes, walls, floors, roofs, chimneys, Ranges and
+    Smokers, plus the layouts from the screenshots):
+    - A run of pipe going sideways now picks one height for the whole run:
+      tucked up under a roof or ceiling if any part of it is under one, on
+      the floor if it lies on one, otherwise the middle. T-junctions,
+      crossings and the bends where a run turns up into a chimney or down to
+      a stove now sit at the same height as the rest of the run, so there are
+      no more steps or gaps.
+    - The pipe going up or down from a tucked or floor-level run is drawn
+      the full way to the next block, so riser columns join cleanly.
+    - A run joined to the side of a stove stays at the stove's middle
+      instead of dropping to the floor, and its end goes slightly into the
+      stove so there's no gap against the Smoker's or Potbelly's walls.
+  - FIX: stovepipes on the Smoker now visibly join it. The roof vent comes
+    off when a pipe is fitted and the pipe goes down into the ridge with a
+    collar. A pipe standing on the Smoker stays centred over it instead of
+    being pulled against a nearby wall.
+  - FIX: the Smoker's own top half no longer counts as "a pipe on top", so
+    the thin smoke wisp from its vent shows again when no pipe is fitted
+    (from the middle of the ridge).
+  - Pipes no longer treat a stove next to them as a wall to hug.
+  - Stovepipe description now lists the Potbelly Stove, Smoker and Charcoal
+    Retort, and mentions going up through a roof to a chimney.
+  - New files: shapes/block/potbellystove-open.json,
+    shapes/block/smokerhook.json.
+
 2.13.0  - Kitchen Range: foods go where they would in real life
   - Every food now goes in the oven slots, the burners, or either, by what
     it is. Baked and roasted foods (bread, dough, muffins, hardtack, pemmican,
