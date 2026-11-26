@@ -1,0 +1,1836 @@
+[
+ {
+  "op": "addeach",
+  "path": "/-",
+  "value": [
+   {
+    "ingredientPattern": "SM",
+    "recipeGroup": 9,
+    "ingredients": {
+     "S": {
+      "type": "item",
+      "tags": [
+       "tool-knife"
+      ],
+      "isTool": true
+     },
+     "M": {
+      "type": "item",
+      "code": "primitivesurvival:crabmeat-cured",
+      "name": "meat"
+     }
+    },
+    "width": 2,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+     "type": "item",
+     "code": "expandedfoods:crabnugget-cured"
+    }
+   },
+   {
+    "ingredientPattern": "SM",
+    "recipeGroup": 10,
+    "ingredients": {
+     "S": {
+      "type": "item",
+      "tags": [
+       "tool-cleaver"
+      ],
+      "isTool": true
+     },
+     "M": {
+      "type": "item",
+      "code": "primitivesurvival:crabmeat-cured",
+      "name": "meat"
+     }
+    },
+    "width": 2,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+     "type": "item",
+     "code": "expandedfoods:crabnugget-cured"
+    }
+   }
+  ],
+  "file": "expandedfoods:recipes/grid/primitivesurvival/crabnugget.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/-",
+  "value": [
+   {
+    "ingredientPattern": "SM",
+    "recipeGroup": 9,
+    "ingredients": {
+     "S": {
+      "type": "item",
+      "tags": [
+       "tool-knife"
+      ],
+      "isTool": true
+     },
+     "M": {
+      "type": "item",
+      "code": "primitivesurvival:snakemeat-cured",
+      "name": "meat"
+     }
+    },
+    "width": 2,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+     "type": "item",
+     "code": "expandedfoods:snakenugget-cured"
+    }
+   },
+   {
+    "ingredientPattern": "SM",
+    "recipeGroup": 10,
+    "ingredients": {
+     "S": {
+      "type": "item",
+      "tags": [
+       "tool-cleaver"
+      ],
+      "isTool": true
+     },
+     "M": {
+      "type": "item",
+      "code": "primitivesurvival:snakemeat-cured",
+      "name": "meat"
+     }
+    },
+    "width": 2,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+     "type": "item",
+     "code": "expandedfoods:snakenugget-cured"
+    }
+   }
+  ],
+  "file": "expandedfoods:recipes/grid/primitivesurvival/snakenugget.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/primitivesurvival/snakepemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/primitivesurvival/snakepemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/primitivesurvival/snakepemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/primitivesurvival/snakepemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/primitivesurvival/crabpemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/primitivesurvival/crabpemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/primitivesurvival/crabpemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/primitivesurvival/crabpemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/fishpemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/fishpemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/fishpemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/fishpemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/pemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/pemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/pemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/5/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/pemmican.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/dumpling.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/dumpling.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/3/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/dumpling.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/3/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/dumpling.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/breadedball.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/breadedball.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/breadedball.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/breadedball.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/2/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/2/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/2/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/2/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/2/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/2/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/3/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/3/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/4/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/4/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/4/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/4/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/5/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/5/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/6/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/6/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/6/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/6/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/7/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/7/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/7/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/7/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/7/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/7/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/8/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/8/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/stuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acorndumpling.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acorndumpling.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/3/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acorndumpling.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/3/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acorndumpling.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedball.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedball.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedball.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/3/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornbreadedball.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornstuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/0/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornstuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornstuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornstuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornstuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/1/ingredients/2/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornstuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/2/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:crabnugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornstuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/2/ingredients/1/inputs/-",
+  "value": [
+   {
+    "type": "item",
+    "code": "expandedfoods:snakenugget-cured",
+    "quantity": 1
+   }
+  ],
+  "file": "expandedfoods:recipes/kneading/acorns/acornstuffedpepper.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "file": "game:recipes/cooking/meatystew",
+  "side": "Server",
+  "op": "add",
+  "path": "/ingredients/0/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "primitivesurvival:crabmeat-cured",
+   "shapeElement": "bowl/meat stew/*",
+   "textureMapping": [
+    "meat",
+    "group4"
+   ]
+  },
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:recipes/cooking/meatystew",
+  "side": "Server",
+  "op": "add",
+  "path": "/ingredients/3/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "primitivesurvival:crabmeat-cured",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group1"
+   ]
+  },
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:recipes/cooking/meatystew",
+  "side": "Server",
+  "op": "add",
+  "path": "/ingredients/4/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "primitivesurvival:crabmeat-cured",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group1"
+   ]
+  },
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:recipes/cooking/soup",
+  "side": "Server",
+  "op": "add",
+  "path": "/ingredients/4/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "primitivesurvival:crabmeat-cured",
+   "shapeElement": "bowl/meat/*",
+   "textureMapping": [
+    "meat",
+    "group1"
+   ]
+  },
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:blocktypes/clay/fired/pot",
+  "side": "Server",
+  "op": "add",
+  "path": "/attributesByType/claypot-blue-cooked/textureMapping/crabmeat-cured",
+  "value": [
+   "meat",
+   "group4"
+  ],
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:recipes/cooking/meatystew",
+  "side": "Server",
+  "op": "add",
+  "path": "/ingredients/0/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "primitivesurvival:snakemeat-cured",
+   "shapeElement": "bowl/meat stew/*",
+   "textureMapping": [
+    "meat",
+    "group4"
+   ]
+  },
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:recipes/cooking/meatystew",
+  "side": "Server",
+  "op": "add",
+  "path": "/ingredients/3/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "primitivesurvival:snakemeat-cured",
+   "shapeElement": "bowl/red meat/*",
+   "textureMapping": [
+    "meat",
+    "group1"
+   ]
+  },
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:recipes/cooking/meatystew",
+  "side": "Server",
+  "op": "add",
+  "path": "/ingredients/4/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "primitivesurvival:snakemeat-cured",
+   "shapeElement": "bowl/red meat 2/*",
+   "textureMapping": [
+    "meat",
+    "group1"
+   ]
+  },
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:recipes/cooking/soup",
+  "side": "Server",
+  "op": "add",
+  "path": "/ingredients/4/validStacks/-",
+  "value": {
+   "type": "item",
+   "code": "primitivesurvival:snakemeat-cured",
+   "shapeElement": "bowl/meat/*",
+   "textureMapping": [
+    "meat",
+    "group1"
+   ]
+  },
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "file": "game:blocktypes/clay/fired/pot",
+  "side": "Server",
+  "op": "add",
+  "path": "/attributesByType/claypot-blue-cooked/textureMapping/snakemeat-cured",
+  "value": [
+   "meat",
+   "group4"
+  ],
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ }
+]

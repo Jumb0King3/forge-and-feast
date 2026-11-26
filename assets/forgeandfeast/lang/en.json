@@ -99,5 +99,9 @@
  "smoker-cleanfuel": "This fuel gives little smoke - wood smokes 4x faster",
  "feverstonewilds:item-bisonleg-smoked": "Smoked bison leg",
  "feverstonewilds:item-ribs-smoked": "Smoked ribs",
- "feverstonewilds:item-cockatrice-tail-smoked": "Smoked cockatrice tail"
+ "feverstonewilds:item-cockatrice-tail-smoked": "Smoked cockatrice tail",
+ "expandedfoods:item-crabnugget-cured": "Cured crab nuggets",
+ "expandedfoods:item-snakenugget-cured": "Cured snake nuggets",
+ "expandedfoods:itemdesc-crabnugget-cured": "Chopped cured crab meat. Good in meals.",
+ "expandedfoods:itemdesc-snakenugget-cured": "Chopped cured snake meat. Good in meals."
 }
