@@ -9,6 +9,12 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.14.2  - Fix: the mod would not load
+  - modinfo.json was empty in 2.12.3 through 2.14.1, so the game stopped with
+    "Object reference not set to an instance of an object" while loading the
+    mod info. The file is restored. Use 2.14.2; it has everything from
+    2.12.2 to 2.14.1.
+
 2.14.1  - Primitive Survival: its smoker is switched off
   Only applies when Primitive Survival is installed next to Forge and Feast.
   - The Primitive Survival smoker can no longer be crafted, and neither can
