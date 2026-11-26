@@ -131,11 +131,32 @@ namespace ForgeAndFeast
         /// </summary>
         public static int VerticalShift(IBlockAccessor ba, BlockPos pos, int realMask)
         {
+            return Shift(ba, pos, realMask, true);
+        }
+
+        static int Shift(IBlockAccessor ba, BlockPos pos, int realMask, bool lookAlong)
+        {
             if ((realMask & 15) == 0) return 0;
             bool up = (realMask & (1 << BlockFacing.UP.Index)) != 0;
             bool down = (realMask & (1 << BlockFacing.DOWN.Index)) != 0;
             if (up && down) return 0;
             if (!up && (SolidFace(ba, pos.UpCopy(), BlockFacing.DOWN) || IsRoofLike(ba.GetBlock(pos.UpCopy())))) return 6;
+
+            // A riser going up from a run that is tucked under the roof (into a chimney or through the roof):
+            // the bend stays level with the run instead of dropping to mid-block
+            if (up && !down && lookAlong)
+            {
+                BlockPos n = pos.Copy();
+                for (int i = 0; i < 4; i++)
+                {
+                    if ((realMask & (1 << i)) == 0) continue;
+                    BlockFacing f = BlockFacing.HORIZONTALS[i];
+                    n.Set(pos.X + f.Normali.X, pos.Y, pos.Z + f.Normali.Z);
+                    if (!IsPipe(ba.GetBlock(n))) continue;
+                    if (Shift(ba, n, ConnectionMask(ba, n), false) == 6) return 6;
+                }
+            }
+
             if (!down && SolidFace(ba, pos.DownCopy(), BlockFacing.UP)) return -6;
             return 0;
         }
@@ -355,7 +376,13 @@ namespace ForgeAndFeast
             int shift = StovePipes.VerticalShift(ba, pos, real);
             if (shift == 0) return boxes;
             List<Cuboidf> moved = new List<Cuboidf>();
-            for (int i = 0; i < boxes.Length; i++) moved.Add(boxes[i].Translate(0, shift / 16f, 0));
+            for (int i = 0; i < boxes.Length; i++)
+            {
+                Cuboidf c = boxes[i].Translate(0, shift / 16f, 0);
+                if (c.Y2 > 1) c.Y2 = 1;
+                if (c.Y1 < 0) c.Y1 = 0;
+                if (c.Y2 - c.Y1 > 0.01f) moved.Add(c);
+            }
             int[] o = StovePipes.Offset(ba, pos);
             // The bend's own vertical arm still reaches the pipe above or below
             if (shift > 0 && (real & (1 << BlockFacing.DOWN.Index)) != 0) moved.Add(new Cuboidf(R1, 0, R1, R2, R2, R2).Translate(o[0] / 16f, 0, o[1] / 16f));
@@ -477,6 +504,11 @@ namespace ForgeAndFeast
             int real = StovePipes.ConnectionMask(ba, Pos);
             int mask = BlockStovePipe.VisualMask(real);
             int[] o = StovePipes.Offset(ba, Pos);
+            int shift = StovePipes.VerticalShift(ba, Pos, real);
+            // Lifted bend with a riser above: the full up arm would poke into the next block, so draw a short one
+            bool shortUp = shift > 0 && (mask & (1 << BlockFacing.UP.Index)) != 0;
+            bool upChimney = shortUp && StovePipes.IsChimney(ba.GetBlock(Pos.UpCopy()));
+            if (shortUp) mask &= ~(1 << BlockFacing.UP.Index);
 
             int cmask = 0;
             int[][] f = new int[6][];
@@ -497,7 +529,11 @@ namespace ForgeAndFeast
 
             MeshData mesh = GetMesh(key.ToString(), tesselator, mask, cmask, o, f);
             if (mesh == null) return false;
-            int shift = StovePipes.VerticalShift(ba, Pos, real);
+            if (shortUp)
+            {
+                MeshData stub = UpStub(tesselator, o, upChimney);
+                if (stub != null) mesher.AddMeshData(stub);
+            }
             if (shift != 0)
             {
                 mesh = mesh.Clone();
@@ -512,6 +548,25 @@ namespace ForgeAndFeast
             }
             mesher.AddMeshData(mesh);
             return true;
+        }
+
+        /// <summary>The last bit of pipe from a lifted bend to the top of the block (13/16 to 16/16).</summary>
+        MeshData UpStub(ITesselatorAPI tesselator, int[] o, bool flange)
+        {
+            Dictionary<string, MeshData> cache = ObjectCacheUtil.GetOrCreate(Api, "forgeandfeast-pipeupstubs", () => new Dictionary<string, MeshData>());
+            string key = o[0] + "," + o[1] + (flange ? "f" : "");
+            lock (cache)
+            {
+                MeshData m;
+                if (cache.TryGetValue(key, out m)) return m;
+                Shape shape = Shape.TryGet(Api, new AssetLocation("forgeandfeast", "shapes/block/stovepipe.json"));
+                if (shape == null) return null;
+                m = Tess(tesselator, shape, new List<string> { "arm-up-s" }, o[0], o[1]);
+                m.Translate(0, 4f / 16f, 0);
+                if (flange) m.AddMeshData(Tess(tesselator, shape, new List<string> { "cflange-up" }, 0, 0));
+                cache[key] = m;
+                return m;
+            }
         }
 
         MeshData DropMesh(ITesselatorAPI tesselator, int[] o, string arm)

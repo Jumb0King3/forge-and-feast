@@ -66,6 +66,12 @@ comparing what changed inside each zip, so they describe what the files show
     mouth with a glowing bed and grate bars, instead of a solid block.
   - Smoker: each hook now has a visible hook on the rail, and meat hangs from
     it. Meat is turned so its longest side hangs downward.
+  - FIX: a pipe run tucked up under a roof now stays level where it turns up
+    into a chimney (or up through the roof), instead of the bend dropping to
+    the middle of the block and leaving a gap. The short piece above the bend
+    stops at the top of the block, with a flange where it meets a chimney.
+  - Stovepipe description now lists the Potbelly Stove, Smoker and Charcoal
+    Retort, and mentions going up through a roof to a chimney.
   - New files: shapes/block/potbellystove-open.json,
     shapes/block/smokerhook.json.
 
