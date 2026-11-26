@@ -320,7 +320,18 @@ namespace ForgeAndFeast
         /// <summary>With the door open you can see the meat hanging from the two rails.</summary>
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            if (!DoorsOpen) return false;
+            // With a stovepipe fitted on top, the roof vent comes off and the pipe goes into the ridge instead
+            bool drewBody = false;
+            if (StovePipes.PipeOnTop(Api.World.BlockAccessor, Pos))
+            {
+                MeshData body = GetMeshWithout(tesselator, new[] { "vent", "louvre0", "louvre1", "ventcap" });
+                if (body != null)
+                {
+                    mesher.AddMeshData(body);
+                    drewBody = true;
+                }
+            }
+            if (!DoorsOpen) return drewBody;
             string side = Block?.Variant?["side"] ?? "north";
 
             MeshData hook = HookMesh(tesselator);
@@ -367,7 +378,7 @@ namespace ForgeAndFeast
                 m.Translate(0, 19.1f / 16f - top, 0);
                 mesher.AddMeshData(m);
             }
-            return false;
+            return drewBody;
         }
 
         MeshData HookMesh(ITesselatorAPI tesselator)

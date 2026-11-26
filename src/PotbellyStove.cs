@@ -183,7 +183,7 @@ namespace ForgeAndFeast
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
             bool drewBody = false;
-            bool pipeUp = (StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos) & (1 << BlockFacing.UP.Index)) != 0;
+            bool pipeUp = StovePipes.PipeOnTop(Api.World.BlockAccessor, Pos);
             if (pipeUp || doorsOpen)
             {
                 MeshData body = StoveMeshes.Body(Api, Block, tesselator, doorsOpen, pipeUp);

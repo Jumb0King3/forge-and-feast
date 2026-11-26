@@ -70,6 +70,28 @@ comparing what changed inside each zip, so they describe what the files show
     into a chimney (or up through the roof), instead of the bend dropping to
     the middle of the block and leaving a gap. The short piece above the bend
     stops at the top of the block, with a flange where it meets a chimney.
+  - Stovepipes reworked so every joint lines up (tested against 30,000
+    random layouts of pipes, walls, floors, roofs, chimneys, Ranges and
+    Smokers, plus the layouts from the screenshots):
+    - A run of pipe going sideways now picks one height for the whole run:
+      tucked up under a roof or ceiling if any part of it is under one, on
+      the floor if it lies on one, otherwise the middle. T-junctions,
+      crossings and the bends where a run turns up into a chimney or down to
+      a stove now sit at the same height as the rest of the run, so there are
+      no more steps or gaps.
+    - The pipe going up or down from a tucked or floor-level run is drawn
+      the full way to the next block, so riser columns join cleanly.
+    - A run joined to the side of a stove stays at the stove's middle
+      instead of dropping to the floor, and its end goes slightly into the
+      stove so there's no gap against the Smoker's or Potbelly's walls.
+  - FIX: stovepipes on the Smoker now visibly join it. The roof vent comes
+    off when a pipe is fitted and the pipe goes down into the ridge with a
+    collar. A pipe standing on the Smoker stays centred over it instead of
+    being pulled against a nearby wall.
+  - FIX: the Smoker's own top half no longer counts as "a pipe on top", so
+    the thin smoke wisp from its vent shows again when no pipe is fitted
+    (from the middle of the ridge).
+  - Pipes no longer treat a stove next to them as a wall to hug.
   - Stovepipe description now lists the Potbelly Stove, Smoker and Charcoal
     Retort, and mentions going up through a roof to a chimney.
   - New files: shapes/block/potbellystove-open.json,

@@ -200,11 +200,12 @@ namespace ForgeAndFeast
         {
             BEFuelHeater heater = Blockentity as BEFuelHeater;
             if (heater == null || !heater.IsBurning) return;
-            if ((StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos) & (1 << BlockFacing.UP.Index)) != 0) return;
+            if (StovePipes.PipeOnTop(Api.World.BlockAccessor, Pos)) return;
             if (Api.World.Rand.NextDouble() > 0.5) return;
 
             double dx = 0, dz = -0.06;   // stub sits just behind the middle on a north-facing stove
-            switch (Blockentity.Block?.Variant?["side"])
+            if (heater is BESmoker) dz = 0;   // the Smoker's vent is in the middle of its ridge
+            else switch (Blockentity.Block?.Variant?["side"])
             {
                 case "east": dx = 0.06; dz = 0; break;
                 case "south": dz = 0.06; break;
