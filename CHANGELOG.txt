@@ -9,6 +9,17 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.12.1  - Smoker: Feverstone Wilds meats
+  - Checked the smoker against the meats from every mod on the server.
+  - Works already: raw red meat, bushmeat and poultry (including everything the
+    Legacy of the Phanerozoic dinosaurs drop) become the base game's cured meat,
+    and raw fish fillets become smoked fish. Expanded Foods meat nuggets cure too.
+  - New: Feverstone Wilds bison leg and ribs now smoke into cured red meat, and
+    the cockatrice tail into cured poultry, one for one. They had no smoked or
+    cured version of their own, so the smoker refused them.
+  - Whole fish (base game and Feverstone Wilds) still can't be smoked. Fillet
+    them first.
+
 2.12.0  - New: Potbelly Stove and Smoker
   POTBELLY STOVE (Copper, Bronze, Iron, Steel)
   - A small black cast-iron potbelly stove with tier-metal trim, for cabins

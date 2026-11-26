@@ -34,8 +34,26 @@ namespace ForgeAndFeast
             }
         }
 
+        /// <summary>
+        /// Raw meats from other mods that have no smoked or cured version of their own. They smoke into the
+        /// base game's cured meat of the same kind, one for one.
+        /// </summary>
+        static readonly Dictionary<string, string> Equivalents = new Dictionary<string, string>
+        {
+            { "feverstonewilds:bisonleg-raw", "game:redmeat-cured" },
+            { "feverstonewilds:ribs-raw", "game:redmeat-cured" },
+            { "feverstonewilds:cockatrice-tail-raw", "game:poultry-cured" },
+        };
+
         static AssetLocation Find(IWorldAccessor world, AssetLocation code)
         {
+            string mapped;
+            if (Equivalents.TryGetValue(code.ToString(), out mapped))
+            {
+                AssetLocation target = new AssetLocation(mapped);
+                return world.GetItem(target) != null ? target : null;
+            }
+
             string path = code.Path;
             if (path.EndsWith("-raw"))
             {
