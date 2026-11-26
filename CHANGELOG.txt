@@ -9,25 +9,13 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
-2.14.2  - Fix: the mod would not load
-  - modinfo.json was empty in 2.12.3 through 2.14.1, so the game stopped with
-    "Object reference not set to an instance of an object" while loading the
-    mod info. The file is restored. Use 2.14.2; it has everything from
-    2.12.2 to 2.14.1.
-
-2.14.1  - Primitive Survival: its smoker is switched off
-  Only applies when Primitive Survival is installed next to Forge and Feast.
-  - The Primitive Survival smoker can no longer be crafted, and neither can
-    its trussed meat (only the smoker used it). The Forge and Feast Smoker
-    does the job instead, and now handles crab and snake meat too.
-  - Nothing already in a world is removed: smokers already placed keep working,
-    and smoked meat, cured smoked meat and jerky are left alone.
-  - New file: patches/primitivesurvival-no-smoker.json.
-
-2.14.0  - Primitive Survival: cured crab and snake meat
-  Everything here only switches on when Primitive Survival is installed.
-  Primitive Survival is not on The Peeps right now, so nothing changes in the
-  game until it is added. Not yet tested in game.
+2.15.0  - Primitive Survival support, and a fix so the mod loads
+  Primitive Survival parts only switch on when that mod is installed. It is
+  not on The Peeps right now. Not yet tested in game.
+  - FIX: modinfo.json was empty in 2.12.3 through 2.13.0, so the game stopped
+    with "Object reference not set to an instance of an object" while loading
+    the mod info. The file is restored. This version has everything from
+    2.12.2 onward.
   - Crab meat and snake meat now have a cured form. Put raw crab or snake meat
     in the Smoker and it comes out as cured meat (same keeping time as the base
     game's cured meat: very long). The cured meat can be cooked in soups and
@@ -39,13 +27,15 @@ comparing what changed inside each zip, so they describe what the files show
     balls, stuffed peppers, acorn versions, crab and snake pemmican) also take
     the cured ones, the same way they already take cured meat nuggets.
     Sausages stay raw only, the same as meat sausages.
+  - The Primitive Survival smoker can no longer be crafted, and neither can
+    its trussed meat (only the smoker used it). The Forge and Feast Smoker
+    does the job instead. Smokers already placed in a world keep working, and
+    smoked meat, cured smoked meat and jerky are left alone.
   - Kitchen Range: crab meat, snake meat, smoked meat and cured smoked meat
     (Primitive Survival) can go in the oven or on a burner, like other meat.
-  - Primitive Survival has its own smoker (trussed meat into smoked meat) and
-    jerky. They are left alone and work as before next to the Forge and Feast
-    Smoker.
   - New files: patches/primitivesurvival-cured.json,
-    patches/primitivesurvival-cured-recipes.json.
+    patches/primitivesurvival-cured-recipes.json,
+    patches/primitivesurvival-no-smoker.json.
 
 2.13.0  - Kitchen Range: foods go where they would in real life
   - Every food now goes in the oven slots, the burners, or either, by what
