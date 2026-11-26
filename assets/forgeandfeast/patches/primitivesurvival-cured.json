@@ -1,0 +1,482 @@
+[
+ {
+  "op": "add",
+  "path": "/variantgroups/0/states/-",
+  "value": "cured",
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/*-cured",
+  "value": {
+   "satiety": 80,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/*-cured",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "spoilHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 1
+   }
+  ],
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/inPiePropertiesByType/*-cured",
+  "value": {
+   "texture": "game:block/food/pie/fill-crab",
+   "partType": "Filling",
+   "mixingCodes": [
+    "potpie"
+   ]
+  },
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/variantgroups/0/states/-",
+  "value": "cured",
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/*-cured",
+  "value": {
+   "satiety": 95,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/*-cured",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "spoilHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 1
+   }
+  ],
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/inPiePropertiesByType/*-cured",
+  "value": {
+   "texture": "game:block/food/pie/fill-snake",
+   "partType": "Filling",
+   "mixingCodes": [
+    "potpie"
+   ]
+  },
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/variantgroups/0/states/-",
+  "value": "cured",
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/crabnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/shapebytype/*-cured",
+  "value": {
+   "base": "item/food/meat/poultry-nugget"
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/crabnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "replace",
+  "path": "/texturesByType",
+  "value": {
+   "*-partbaked": {
+    "cooked": {
+     "base": "primitivesurvival:item/crab/crabmeat-partbaked"
+    }
+   },
+   "*-charred": {
+    "cooked": {
+     "base": "primitivesurvival:item/crab/crabmeat-charred"
+    }
+   },
+   "*-cured": {
+    "meat": {
+     "base": "primitivesurvival:item/crab/crabmeat-cured"
+    },
+    "raw": {
+     "base": "primitivesurvival:item/crab/crabmeat-cured"
+    }
+   },
+   "*": {
+    "partbaked": {
+     "base": "primitivesurvival:item/crab/crabmeat-partbaked"
+    },
+    "cooked": {
+     "base": "primitivesurvival:item/crab/crabmeat-cooked"
+    },
+    "charred": {
+     "base": "primitivesurvival:item/crab/crabmeat-charred"
+    },
+    "meat": {
+     "base": "primitivesurvival:item/crab/crabmeat-raw"
+    },
+    "raw": {
+     "base": "primitivesurvival:item/crab/crabmeat-raw"
+    }
+   }
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/crabnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/crabnugget-cured",
+  "value": {
+   "satiety": 110,
+   "foodcategory": "Protein"
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/crabnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/nutritionPropsWhenInMealByType/crabnugget-cured",
+  "value": {
+   "satiety": 165,
+   "foodcategory": "Protein"
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/crabnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/*-cured",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "transitionHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 1
+   }
+  ],
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/crabnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/inPiePropertiesByType/*-cured",
+  "value": {
+   "texture": "game:block/food/pie/fill-crab",
+   "partType": "Filling"
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/crabnugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/variantgroups/0/states/-",
+  "value": "cured",
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/snakenugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/shapebytype/*-cured",
+  "value": {
+   "base": "item/food/meat/poultry-nugget"
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/snakenugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "replace",
+  "path": "/texturesByType",
+  "value": {
+   "*-partbaked": {
+    "cooked": {
+     "base": "primitivesurvival:item/snake/snakemeat-partbaked"
+    }
+   },
+   "*-charred": {
+    "cooked": {
+     "base": "primitivesurvival:item/snake/snakemeat-charred"
+    }
+   },
+   "*-cured": {
+    "meat": {
+     "base": "primitivesurvival:item/snake/snakemeat-cured"
+    },
+    "raw": {
+     "base": "primitivesurvival:item/snake/snakemeat-cured"
+    }
+   },
+   "*": {
+    "partbaked": {
+     "base": "primitivesurvival:item/snake/snakemeat-partbaked"
+    },
+    "cooked": {
+     "base": "primitivesurvival:item/snake/snakemeat-cooked"
+    },
+    "charred": {
+     "base": "primitivesurvival:item/snake/snakemeat-charred"
+    },
+    "meat": {
+     "base": "primitivesurvival:item/snake/snakemeat-raw"
+    },
+    "raw": {
+     "base": "primitivesurvival:item/snake/snakemeat-raw"
+    }
+   }
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/snakenugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/snakenugget-cured",
+  "value": {
+   "satiety": 130,
+   "foodcategory": "Protein"
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/snakenugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/nutritionPropsWhenInMealByType/snakenugget-cured",
+  "value": {
+   "satiety": 190,
+   "foodcategory": "Protein"
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/snakenugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/*-cured",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "transitionHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 1
+   }
+  ],
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/snakenugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/inPiePropertiesByType/*-cured",
+  "value": {
+   "texture": "game:block/food/pie/fill-snake",
+   "partType": "Filling"
+  },
+  "file": "expandedfoods:itemtypes/food/primitivesurvival/snakenugget.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   },
+   {
+    "modid": "expandedfoods"
+   }
+  ]
+ }
+]

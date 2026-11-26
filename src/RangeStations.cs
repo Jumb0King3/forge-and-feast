@@ -22,7 +22,8 @@ namespace ForgeAndFeast
 
             // Base game foods that Expanded Foods lets you bake as well as fry
             Add(RangeKind.Both, "redmeat", "bushmeat", "poultry", "fish", "saltedmeat", "vegetable",
-                "catttailroot", "papyrusroot", "tuleroot", "agedmeat", "ribs", "bisonleg", "cockatrice-tail");
+                "catttailroot", "papyrusroot", "tuleroot", "agedmeat", "ribs", "bisonleg", "cockatrice-tail",
+                "crabmeat", "snakemeat", "smokedmeat", "curedsmokedmeat");
             Add(RangeKind.Burner, "pickledvegetable", "mushroom", "grain", "choppedvegetable", "choppedmushroom",
                 "fishnugget", "soyprep", "meatnugget", "saltedmeatnugget", "gozinaki", "crabnugget", "snakenugget",
                 "sausage", "sausagefish", "sausagesnake", "sausagecrab", "dumpling", "acorndumpling",
