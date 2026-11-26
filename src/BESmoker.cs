@@ -329,20 +329,51 @@ namespace ForgeAndFeast
                 MeshData mesh = ContentMesh.For(Api, tesselator, s);
                 if (mesh == null) continue;
                 MeshData m = mesh.Clone();
+                if (m.VerticesCount == 0) continue;
 
-                // Two rails (front and back), up to five pieces each, hanging below the rail at 20/16
+                // Item models come flat or upright depending on the item: stand a flat piece up so it hangs
+                float[] bb = Bounds(m);
+                float sx = bb[3] - bb[0], sy = bb[4] - bb[1], sz = bb[5] - bb[2];
+                if (sy < sz && sy < sx)
+                {
+                    m.Rotate(new Vec3f((bb[0] + bb[3]) / 2, (bb[1] + bb[4]) / 2, (bb[2] + bb[5]) / 2), GameMath.PIHALF, 0, 0);
+                    bb = Bounds(m);
+                    sx = bb[3] - bb[0]; sy = bb[4] - bb[1]; sz = bb[5] - bb[2];
+                }
+
+                // Centre it on its hook, and size it to hang between the rails without touching its neighbours
+                m.Translate(0.5f - (bb[0] + bb[3]) / 2, 0, 0.5f - (bb[2] + bb[5]) / 2);
+                float scale = 0.55f;
+                if (sy > 0.001f) scale = Math.Min(scale, 0.19f / sy);
+                if (sx > 0.001f) scale = Math.Min(scale, 0.13f / sx);
+                if (sz > 0.001f) scale = Math.Min(scale, 0.2f / sz);
+
+                // Two rails (front and back), up to five pieces each
                 int rail = i % 2, n = i / 2;
                 float x = (3.5f + n * 2.25f) / 16f - 0.5f;
                 float z = (rail == 0 ? 6.2f : 10.2f) / 16f - 0.5f;
 
-                // Stand the piece up so it hangs from its hook
-                m.Rotate(new Vec3f(0.5f, 0.5f, 0.5f), GameMath.PIHALF, 0, 0);
-                ContentMesh.Place(m, side, 0.55f, x, 0, z, (i * 37) % 30 - 15);
+                ContentMesh.Place(m, side, scale, x, 0, z, (i * 37) % 30 - 15);
                 float top = MaxY(m);
                 m.Translate(0, 19.9f / 16f - top, 0);
                 mesher.AddMeshData(m);
             }
             return false;
+        }
+
+        static float[] Bounds(MeshData mesh)
+        {
+            float[] b = { float.MaxValue, float.MaxValue, float.MaxValue, float.MinValue, float.MinValue, float.MinValue };
+            for (int i = 0; i < mesh.VerticesCount; i++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    float v = mesh.xyz[i * 3 + k];
+                    if (v < b[k]) b[k] = v;
+                    if (v > b[k + 3]) b[k + 3] = v;
+                }
+            }
+            return b;
         }
 
         static float MaxY(MeshData mesh)

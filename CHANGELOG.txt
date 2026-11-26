@@ -36,6 +36,29 @@ comparing what changed inside each zip, so they describe what the files show
   - New files: patches/primitivesurvival-cured.json,
     patches/primitivesurvival-cured-recipes.json,
     patches/primitivesurvival-no-smoker.json.
+  - FIX: the Primitive Survival smoker no longer shows in the creative
+    inventory or the handbook when Forge and Feast is installed with it.
+  - FIX: the Smoker's lower firebox hatch now swings open with the main door,
+    showing the dark firebox and embers.
+  - FIX: Potbelly Stove doors now open while you have its window open (the
+    firebox door and ash door swing open and the fire shows), and close again
+    when you walk away or close the window.
+  - FIX: meat hanging in the Smoker is stood up, centred on its hook and sized
+    to hang between the rails instead of clumping at the top or poking out
+    sideways. (Drawing is worked out from each item's model, so it needs a look
+    in game with a few different meats.)
+  - Potbelly Stove flue redrawn: a rear flue box rises from the body and meets
+    a wider collar on the top plate, so the pipe stub looks like part of the
+    stove. Stovepipes still join to it the same way.
+  - FIX: stovepipes now connect to the top of the Smoker (its upper half is a
+    separate part that pipes did not recognise). The pipe stands over the
+    Smoker's roof vent, and the draft, smoke venting and smoke puffs work
+    through the pipe like they do for the Range.
+  - FIX: stovepipes now pass through the game's roofing pieces (slopes, ridges,
+    thatch, shingles) as well as full solid roofs, up to three layers, and
+    find a chimney one block over where the roof slopes away. Pipes running
+    sideways also tuck up under those roofs.
+  - New files: shapes/block/potbellystove-open.json.
 
 2.13.0  - Kitchen Range: foods go where they would in real life
   - Every food now goes in the oven slots, the burners, or either, by what

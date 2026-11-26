@@ -21,6 +21,55 @@ namespace ForgeAndFeast
         public static bool IsPipe(Block b) => b is BlockStovePipe;
 
         /// <summary>
+        /// The main block of a tall station: the Smoker's upper half is a separate multiblock part, which
+        /// points back at the real station below it. Other blocks are returned as they are.
+        /// </summary>
+        public static Block MainBlock(IBlockAccessor ba, BlockPos pos, Block b, out BlockPos mainPos)
+        {
+            mainPos = pos;
+            if (b is BlockMultiblock mb)
+            {
+                mainPos = pos.AddCopy(mb.OffsetInv.X, mb.OffsetInv.Y, mb.OffsetInv.Z);
+                return ba.GetBlock(mainPos);
+            }
+            return b;
+        }
+
+        /// <summary>A fire a pipe can join at this position, counting the upper half of a tall station.</summary>
+        public static bool IsSourceAt(IBlockAccessor ba, BlockPos pos, Block b)
+        {
+            if (b == null || b.Id == 0) return false;
+            if (b is BlockMultiblock)
+            {
+                BlockPos mp;
+                Block main = MainBlock(ba, pos, b, out mp);
+                return main != null && !(main is BlockMultiblock) && IsSource(main);
+            }
+            return IsSource(b);
+        }
+
+        public static bool ConnectsAt(IBlockAccessor ba, BlockPos pos, Block b)
+        {
+            return IsPipe(b) || IsChimney(b) || IsSourceAt(ba, pos, b);
+        }
+
+        /// <summary>
+        /// A block a pipe can pass through to a chimney above: a solid roof, or one of the game's partial
+        /// roofing pieces (slopes, ridges, thatch, shingles) that are not solid on every side.
+        /// </summary>
+        public static bool IsRoofLike(Block b)
+        {
+            if (b == null || b.Id == 0 || IsPipe(b) || IsChimney(b) || b is BlockMultiblock) return false;
+            if (b.SideSolid[BlockFacing.DOWN.Index]) return true;
+            string path = b.Code?.Path;
+            if (path != null)
+            {
+                if (path.Contains("roof") || path.Contains("thatch") || path.Contains("shingle") || path.Contains("slate")) return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// A pipe riser standing on a Kitchen Range or Kiln Oven lines up with the stove's rear stub, so it is drawn
         /// pushed toward the back. Returns that direction, or null when the pipe doesn't stand on one.
         /// </summary>
@@ -31,6 +80,8 @@ namespace ForgeAndFeast
             {
                 p.Y -= 1;
                 Block b = ba.GetBlock(p);
+                // Standing on the top of a tall station (the Smoker): its vent is central, no shift
+                if (b is BlockMultiblock && IsSourceAt(ba, p, b)) return null;
                 if (b is BlockFuelHeater || b is BlockPotbellyStove)
                 {
                     string side = b.Variant?["side"];
@@ -49,14 +100,20 @@ namespace ForgeAndFeast
         public static BlockPos RoofChimney(IBlockAccessor ba, BlockPos pipe)
         {
             BlockPos u = pipe.UpCopy();
-            Block first = ba.GetBlock(u);
-            if (first == null || first.Id == 0 || IsPipe(first) || IsChimney(first) || !first.SideSolid[BlockFacing.DOWN.Index]) return null;
-            for (int k = 0; k < 2; k++)
+            if (!IsRoofLike(ba.GetBlock(u))) return null;
+            BlockPos t = new BlockPos();
+            for (int k = 0; k < 3; k++)
             {
                 u.Up();
+                // A chimney straight above, or one block over where the roof slopes away
+                for (int d = 0; d < 5; d++)
+                {
+                    int dx = d == 1 ? 1 : (d == 2 ? -1 : 0), dz = d == 3 ? 1 : (d == 4 ? -1 : 0);
+                    t.Set(u.X + dx, u.Y, u.Z + dz);
+                    if (IsChimney(ba.GetBlock(t))) return t.Copy();
+                }
                 Block b = ba.GetBlock(u);
-                if (IsChimney(b)) return u.Copy();
-                if (b == null || b.Id == 0 || !b.SideSolid[BlockFacing.DOWN.Index]) return null;
+                if (!IsRoofLike(b)) return null;
             }
             return null;
         }
@@ -78,7 +135,7 @@ namespace ForgeAndFeast
             bool up = (realMask & (1 << BlockFacing.UP.Index)) != 0;
             bool down = (realMask & (1 << BlockFacing.DOWN.Index)) != 0;
             if (up && down) return 0;
-            if (!up && SolidFace(ba, pos.UpCopy(), BlockFacing.DOWN)) return 6;
+            if (!up && (SolidFace(ba, pos.UpCopy(), BlockFacing.DOWN) || IsRoofLike(ba.GetBlock(pos.UpCopy())))) return 6;
             if (!down && SolidFace(ba, pos.DownCopy(), BlockFacing.UP)) return -6;
             return 0;
         }
@@ -137,7 +194,6 @@ namespace ForgeAndFeast
             return b.Code != null && b.Code.Domain == "game" && b.Code.Path.StartsWith("clayoven");
         }
 
-        public static bool Connects(Block b) => IsPipe(b) || IsChimney(b) || IsSource(b);
 
         /// <summary>Bit per face (BlockFacing.Index: N, E, S, W, U, D) that has something to join.</summary>
         public static int ConnectionMask(IBlockAccessor ba, BlockPos pos)
@@ -148,7 +204,7 @@ namespace ForgeAndFeast
             {
                 BlockFacing f = BlockFacing.ALLFACES[i];
                 tmp.Set(pos.X + f.Normali.X, pos.Y + f.Normali.Y, pos.Z + f.Normali.Z);
-                if (Connects(ba.GetBlock(tmp))) mask |= 1 << f.Index;
+                if (ConnectsAt(ba, tmp, ba.GetBlock(tmp))) mask |= 1 << f.Index;
             }
             return mask;
         }
@@ -168,14 +224,25 @@ namespace ForgeAndFeast
 
             VentResult result = VentResult.None;
             BlockPos n = source.Copy();
-            for (int i = 0; i < 6; i++)
+            // The station's cells: itself, plus the upper half of a tall one (the Smoker)
+            List<BlockPos> cells = new List<BlockPos> { source.Copy() };
+            for (int dy = 1; dy <= 3; dy++)
             {
-                BlockFacing f = BlockFacing.ALLFACES[i];
-                n.Set(source.X + f.Normali.X, source.Y + f.Normali.Y, source.Z + f.Normali.Z);
-                if (IsPipe(ba.GetBlock(n)) && !seen.ContainsKey(Key(n)) && tail < MaxPipes)
+                BlockPos up = source.UpCopy(dy);
+                Block ub = ba.GetBlock(up);
+                if (ub is BlockMultiblock mb && up.AddCopy(mb.OffsetInv.X, mb.OffsetInv.Y, mb.OffsetInv.Z).Equals(source)) cells.Add(up);
+            }
+            foreach (BlockPos cell in cells)
+            {
+                for (int i = 0; i < 6; i++)
                 {
-                    seen[Key(n)] = true;
-                    queue[tail++] = n.Copy();
+                    BlockFacing f = BlockFacing.ALLFACES[i];
+                    n.Set(cell.X + f.Normali.X, cell.Y + f.Normali.Y, cell.Z + f.Normali.Z);
+                    if (IsPipe(ba.GetBlock(n)) && !seen.ContainsKey(Key(n)) && tail < MaxPipes)
+                    {
+                        seen[Key(n)] = true;
+                        queue[tail++] = n.Copy();
+                    }
                 }
             }
 
@@ -224,9 +291,11 @@ namespace ForgeAndFeast
                     BlockFacing f = BlockFacing.ALLFACES[i];
                     n.Set(p.X + f.Normali.X, p.Y + f.Normali.Y, p.Z + f.Normali.Z);
                     Block nb = ba.GetBlock(n);
-                    if (IsSource(nb))
+                    if (IsSourceAt(ba, n, nb))
                     {
-                        if (SourceIsBurning(ba.GetBlockEntity(n))) return true;
+                        BlockPos mp;
+                        MainBlock(ba, n, nb, out mp);
+                        if (SourceIsBurning(ba.GetBlockEntity(mp))) return true;
                         continue;
                     }
                     if (IsPipe(nb))
@@ -364,7 +433,7 @@ namespace ForgeAndFeast
                 BlockFacing f = BlockFacing.ALLFACES[i];
                 n.Set(pos.X + f.Normali.X, pos.Y + f.Normali.Y, pos.Z + f.Normali.Z);
                 Block nb = ba.GetBlock(n);
-                if (StovePipes.IsPipe(nb) || StovePipes.IsSource(nb)) pipeCount++;
+                if (StovePipes.IsPipe(nb) || StovePipes.IsSourceAt(ba, n, nb)) pipeCount++;
                 // Chimney joined from the side or from above: vanilla won't smoke it, so we do
                 if (StovePipes.IsChimney(nb) && f != BlockFacing.UP) { feedsChimney = true; chimney = n.Copy(); }
             }

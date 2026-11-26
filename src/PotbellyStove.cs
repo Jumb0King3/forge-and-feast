@@ -58,6 +58,11 @@ namespace ForgeAndFeast
         float lastCookTime;
         string lastContentKey;
 
+        /// <summary>Players with the stove's window open. While any are, its doors stand open.</summary>
+        readonly HashSet<string> openers = new HashSet<string>();
+        bool doorsOpen;
+        public bool DoorsOpen => doorsOpen;
+
         static readonly FieldInfo RendererField = typeof(BlockEntityFirepit).GetField("renderer", BindingFlags.Instance | BindingFlags.NonPublic);
 
         public override float BurnDurationModifier => BurnMul;
@@ -114,6 +119,7 @@ namespace ForgeAndFeast
         /// <summary>Tier speed and heat cap, applied on top of the firepit's own cooking.</summary>
         void OnStoveTick(float dt)
         {
+            PruneOpeners();
             if (maxTemperature > MaxTemp) maxTemperature = MaxTemp;
             if (furnaceTemperature > MaxTemp) furnaceTemperature = MaxTemp;
 
@@ -126,14 +132,61 @@ namespace ForgeAndFeast
             lastCookTime = inputStackCookingTime;
         }
 
+        public override void OnReceivedClientPacket(IPlayer fromPlayer, int packetid, byte[] data)
+        {
+            base.OnReceivedClientPacket(fromPlayer, packetid, data);
+            if (packetid == (int)EnumBlockEntityPacketId.Open || packetid == (int)EnumBlockContainerPacketId.OpenInventory)
+            {
+                openers.Add(fromPlayer.PlayerUID);
+                SetDoors(true);
+            }
+            else if (packetid == (int)EnumBlockEntityPacketId.Close)
+            {
+                openers.Remove(fromPlayer.PlayerUID);
+                if (openers.Count == 0) SetDoors(false);
+            }
+        }
+
+        /// <summary>Closes the doors when nobody is using the stove any more (or after a reload).</summary>
+        void PruneOpeners()
+        {
+            if (openers.Count > 0)
+            {
+                string[] ids = new string[openers.Count];
+                openers.CopyTo(ids);
+                foreach (string id in ids)
+                {
+                    IPlayer p = Api.World.PlayerByUid(id);
+                    if (p?.Entity == null || p.Entity.Pos.DistanceTo(Pos.ToVec3d()) > 10) openers.Remove(id);
+                }
+            }
+            if (openers.Count == 0 && doorsOpen) SetDoors(false);
+        }
+
+        void SetDoors(bool open)
+        {
+            if (Api?.Side != EnumAppSide.Server || doorsOpen == open) return;
+            doorsOpen = open;
+            MarkDirty(true);
+            Api.World.PlaySoundAt(new AssetLocation("game:sounds/block/metaldoor"),
+                Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5, null, true, 16f, 0.9f);
+        }
+
+        public override void ToTreeAttributes(ITreeAttribute tree)
+        {
+            base.ToTreeAttributes(tree);
+            tree.SetBool("pkDoors", doorsOpen);
+        }
+
         #region Drawing
 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
             bool drewBody = false;
-            if ((StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos) & (1 << BlockFacing.UP.Index)) != 0)
+            bool pipeUp = (StovePipes.ConnectionMask(Api.World.BlockAccessor, Pos) & (1 << BlockFacing.UP.Index)) != 0;
+            if (pipeUp || doorsOpen)
             {
-                MeshData body = StoveMeshes.WithoutStub(Api, Block, tesselator);
+                MeshData body = StoveMeshes.Body(Api, Block, tesselator, doorsOpen, pipeUp);
                 if (body != null)
                 {
                     mesher.AddMeshData(body);
@@ -228,6 +281,7 @@ namespace ForgeAndFeast
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
+            doorsOpen = tree.GetBool("pkDoors");
 
             // Redraw when what sits on the plate changes (the firepit only redraws for its own renderer)
             if (Api?.Side == EnumAppSide.Client)
@@ -244,7 +298,7 @@ namespace ForgeAndFeast
         string ContentKey()
         {
             System.Text.StringBuilder k = new System.Text.StringBuilder();
-            k.Append(inputStack?.Collectible?.Code).Append('|').Append(outputStack?.Collectible?.Code).Append('|');
+            k.Append(doorsOpen).Append('|').Append(inputStack?.Collectible?.Code).Append('|').Append(outputStack?.Collectible?.Code).Append('|');
             ItemSlot[] cs = otherCookingSlots;
             if (cs != null) for (int i = 0; i < cs.Length; i++) k.Append(cs[i].Itemstack?.Collectible?.Code).Append(',');
             return k.ToString();
@@ -259,26 +313,43 @@ namespace ForgeAndFeast
         /// <summary>The block's model without its element named "pipe", for when a stovepipe sits on top.</summary>
         public static MeshData WithoutStub(ICoreAPI api, Block block, ITesselatorAPI tesselator)
         {
+            return Body(api, block, tesselator, false, true);
+        }
+
+        /// <summary>
+        /// The stove's model: the "-open" shape (doors swung open) when open, and without its element named
+        /// "pipe" when a stovepipe sits on top.
+        /// </summary>
+        public static MeshData Body(ICoreAPI api, Block block, ITesselatorAPI tesselator, bool open, bool noStub)
+        {
             CompositeShape cs = block?.Shape;
             if (cs?.Base == null) return null;
-            Dictionary<int, MeshData> cache = ObjectCacheUtil.GetOrCreate(api, "forgeandfeast-stovenostub", () => new Dictionary<int, MeshData>());
+            Dictionary<string, MeshData> cache = ObjectCacheUtil.GetOrCreate(api, "forgeandfeast-stovebodies", () => new Dictionary<string, MeshData>());
+            string key = block.Id + (open ? "o" : "c") + (noStub ? "n" : "s");
             lock (cache)
             {
                 MeshData mesh;
-                if (cache.TryGetValue(block.Id, out mesh)) return mesh;
+                if (cache.TryGetValue(key, out mesh)) return mesh;
 
-                AssetLocation loc = cs.Base.Clone().WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
+                AssetLocation baseLoc = cs.Base.Clone();
+                if (open) baseLoc.Path += "-open";
+                AssetLocation loc = baseLoc.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
                 Shape shape = Shape.TryGet(api, loc);
                 if (shape?.Elements == null) return null;
 
-                List<string> keep = new List<string>();
-                for (int i = 0; i < shape.Elements.Length; i++)
+                string[] keep = null;
+                if (noStub)
                 {
-                    if (shape.Elements[i].Name != "pipe") keep.Add(shape.Elements[i].Name);
+                    List<string> names = new List<string>();
+                    for (int i = 0; i < shape.Elements.Length; i++)
+                    {
+                        if (shape.Elements[i].Name != "pipe") names.Add(shape.Elements[i].Name);
+                    }
+                    keep = names.ToArray();
                 }
 
-                tesselator.TesselateShape(block, shape, out mesh, new Vec3f(cs.rotateX, cs.rotateY, cs.rotateZ), null, keep.ToArray());
-                cache[block.Id] = mesh;
+                tesselator.TesselateShape(block, shape, out mesh, new Vec3f(cs.rotateX, cs.rotateY, cs.rotateZ), null, keep);
+                cache[key] = mesh;
                 return mesh;
             }
         }
