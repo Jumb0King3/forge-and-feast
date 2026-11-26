@@ -9,6 +9,21 @@ comparing what changed inside each zip, so they describe what the files show
 (and the original test list) rather than a release note written at the time.
 
 
+2.12.2  - New: smoked Feverstone Wilds meats
+  - Added real smoked versions of the three Feverstone Wilds meats that had
+    none: Smoked bison leg, Smoked ribs and Smoked cockatrice tail. They use
+    the Feverstone models with a new smoky brown texture, and show up in the
+    handbook and creative menu next to the raw, cooked and charred versions.
+  - The smoker now turns the raw bison leg, ribs and cockatrice tail into
+    these, one for one. (2.12.1 made them cured red meat and cured poultry.)
+  - Smoked versions keep like the base game's cured meat (about a year fresh).
+    Satiety: bison leg 300, ribs 250, cockatrice tail 250 (cooked is 400, 350
+    and 350). They add nothing and change nothing if Feverstone Wilds is not
+    installed. If the new items fail to load, the smoker falls back to the
+    2.12.1 cured meat.
+  - New file: assets/forgeandfeast/patches/feverstone-smoked.json and
+    textures/item/smokedmeat.png.
+
 2.12.1  - Smoker: Feverstone Wilds meats
   - Checked the smoker against the meats from every mod on the server.
   - Works already: raw red meat, bushmeat and poultry (including everything the

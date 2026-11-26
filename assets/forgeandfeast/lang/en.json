@@ -96,5 +96,8 @@
  "smoker-nofire": "Light a fire in the firebox",
  "smoker-heating": "Warming up (needs {0}°C)",
  "smoker-working": "Smoking {0}% (about {1}h left)",
- "smoker-cleanfuel": "This fuel gives little smoke - wood smokes 4x faster"
+ "smoker-cleanfuel": "This fuel gives little smoke - wood smokes 4x faster",
+ "feverstonewilds:item-bisonleg-smoked": "Smoked bison leg",
+ "feverstonewilds:item-ribs-smoked": "Smoked ribs",
+ "feverstonewilds:item-cockatrice-tail-smoked": "Smoked cockatrice tail"
 }

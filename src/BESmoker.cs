@@ -36,7 +36,8 @@ namespace ForgeAndFeast
 
         /// <summary>
         /// Raw meats from other mods that have no smoked or cured version of their own. They smoke into the
-        /// base game's cured meat of the same kind, one for one.
+        /// base game's cured meat of the same kind, one for one. Only used when the mod has no "-smoked"
+        /// version (Forge and Feast adds one for Feverstone Wilds when that mod is installed).
         /// </summary>
         static readonly Dictionary<string, string> Equivalents = new Dictionary<string, string>
         {
@@ -47,13 +48,6 @@ namespace ForgeAndFeast
 
         static AssetLocation Find(IWorldAccessor world, AssetLocation code)
         {
-            string mapped;
-            if (Equivalents.TryGetValue(code.ToString(), out mapped))
-            {
-                AssetLocation target = new AssetLocation(mapped);
-                return world.GetItem(target) != null ? target : null;
-            }
-
             string path = code.Path;
             if (path.EndsWith("-raw"))
             {
@@ -62,6 +56,13 @@ namespace ForgeAndFeast
                 if (world.GetItem(smoked) != null) return smoked;
                 AssetLocation cured = new AssetLocation(code.Domain, stem + "-cured");
                 if (world.GetItem(cured) != null) return cured;
+
+                string mapped;
+                if (Equivalents.TryGetValue(code.ToString(), out mapped))
+                {
+                    AssetLocation target = new AssetLocation(mapped);
+                    return world.GetItem(target) != null ? target : null;
+                }
                 return null;
             }
             // Whole fish from the base game: fish-{habitat}-{type}-{species}-{age}

@@ -1,0 +1,251 @@
+[
+ {
+  "op": "add",
+  "path": "/variantgroups/0/states/-",
+  "value": "smoked",
+  "file": "feverstonewilds:itemtypes/food/bisonleg.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/texturesByType/bisonleg-smoked",
+  "value": {
+   "bisonleg": {
+    "base": "forgeandfeast:item/smokedmeat"
+   }
+  },
+  "file": "feverstonewilds:itemtypes/food/bisonleg.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/behaviors/0/properties/layoutByType/bisonleg-smoked",
+  "value": "Halves",
+  "file": "feverstonewilds:itemtypes/food/bisonleg.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/bisonleg-smoked",
+  "value": {
+   "satiety": 300,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "feverstonewilds:itemtypes/food/bisonleg.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/*-smoked",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "spoilHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 2
+   }
+  ],
+  "file": "feverstonewilds:itemtypes/food/bisonleg.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/variantgroups/0/states/-",
+  "value": "smoked",
+  "file": "feverstonewilds:itemtypes/food/ribs.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/texturesByType/ribs-smoked",
+  "value": {
+   "ribmeat": {
+    "base": "forgeandfeast:item/smokedmeat"
+   }
+  },
+  "file": "feverstonewilds:itemtypes/food/ribs.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/behaviors/0/properties/layoutByType/ribs-smoked",
+  "value": "Halves",
+  "file": "feverstonewilds:itemtypes/food/ribs.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/ribs-smoked",
+  "value": {
+   "satiety": 250,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "feverstonewilds:itemtypes/food/ribs.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/*-smoked",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "spoilHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 2
+   }
+  ],
+  "file": "feverstonewilds:itemtypes/food/ribs.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/variantgroups/0/states/-",
+  "value": "smoked",
+  "file": "feverstonewilds:itemtypes/food/cockatricetail.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/texturesByType/cockatrice-tail-smoked",
+  "value": {
+   "cockatricemeat": {
+    "base": "forgeandfeast:item/smokedmeat"
+   }
+  },
+  "file": "feverstonewilds:itemtypes/food/cockatricetail.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/behaviors/0/properties/layoutByType/cockatrice-tail-smoked",
+  "value": "Halves",
+  "file": "feverstonewilds:itemtypes/food/cockatricetail.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/cockatrice-tail-smoked",
+  "value": {
+   "satiety": 250,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "feverstonewilds:itemtypes/food/cockatricetail.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/*-smoked",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "spoilHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 2
+   }
+  ],
+  "file": "feverstonewilds:itemtypes/food/cockatricetail.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "feverstonewilds"
+   }
+  ]
+ }
+]
