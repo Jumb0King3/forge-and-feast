@@ -1,3 +1,4 @@
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
@@ -18,10 +19,18 @@ namespace ForgeAndFeast
             api.RegisterBlockClass("PotbellyStoveBlock", typeof(BlockPotbellyStove));
             api.RegisterBlockEntityClass("PotbellyStove", typeof(BEPotbellyStove));
             api.RegisterBlockEntityBehaviorClass("ForgeSmokeVent", typeof(BEBehaviorSmokeVent));
+            api.RegisterBlockBehaviorClass("ForgePitKilnTimeLeft", typeof(BlockBehaviorPitKilnTimeLeft));
             api.RegisterBlockClass("StovePipeBlock", typeof(BlockStovePipe));
             api.RegisterBlockEntityClass("StovePipe", typeof(BEStovePipe));
             api.RegisterBlockClass("CrucibleFurnaceBlock", typeof(BlockCrucibleFurnace));
             api.RegisterBlockEntityClass("CrucibleFurnace", typeof(BECrucibleFurnace));
+        }
+
+        public override void StartClientSide(ICoreClientAPI api)
+        {
+            base.StartClientSide(api);
+            TimeLeftHud hud = new TimeLeftHud(api);
+            api.Event.LevelFinalize += () => hud.TryOpen();
         }
 
         public override void StartServerSide(ICoreServerAPI api)

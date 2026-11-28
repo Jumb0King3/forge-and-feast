@@ -206,6 +206,8 @@ namespace ForgeAndFeast
             return a?.Collectible?.Code + ":" + (a == null ? 0 : a.StackSize / 3) + "," + b?.Collectible?.Code + ":" + (b == null ? 0 : b.StackSize / 4);
         }
 
+        public override string GetTimeLeftText() { return GetStatusText(); }
+
         public string GetStatusText()
         {
             ItemStack input = inventory.InputSlot.Itemstack;

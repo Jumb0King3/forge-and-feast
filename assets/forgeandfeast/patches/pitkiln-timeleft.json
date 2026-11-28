@@ -1,0 +1,9 @@
+[
+ {
+  "op": "add",
+  "path": "/behaviors/-",
+  "value": { "name": "ForgePitKilnTimeLeft" },
+  "file": "game:blocktypes/wood/pitkiln.json",
+  "side": "Universal"
+ }
+]

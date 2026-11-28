@@ -436,6 +436,18 @@ namespace ForgeAndFeast
             return Math.Max(0, RequiredTime(props) - progress[i]) / Math.Max(0.1f, bonus * VentMul);
         }
 
+        public override string GetTimeLeftText()
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            for (int i = 0; i < FiringSlots; i++)
+            {
+                string t = GetSlotText(i);
+                if (t.Length == 0) continue;
+                sb.AppendLine(Lang.Get("forgeandfeast:slot-line", i + 1, t.Replace("\n", " - ")));
+            }
+            return sb.ToString().TrimEnd();
+        }
+
         /// <summary>Status line for one firing slot, shown in the GUI.</summary>
         public string GetSlotText(int i)
         {

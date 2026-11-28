@@ -393,6 +393,17 @@ namespace ForgeAndFeast
 
         #endregion
 
+        public override string GetTimeLeftText()
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            for (int b = 0; b < Burners; b++)
+            {
+                if (inventory.InputSlot(b).Empty && inventory.OutputSlot(b).Empty) continue;
+                sb.AppendLine(Lang.Get("forgeandfeast:burner-line", b + 1, GetBurnerText(b).Replace("\n", " - ")));
+            }
+            return sb.ToString().TrimEnd();
+        }
+
         #region GUI
 
         /// <summary>Status line for one burner, shown in the GUI.</summary>

@@ -379,6 +379,8 @@ namespace ForgeAndFeast
             return rate <= 0 ? worst : worst / rate;
         }
 
+        public override string GetTimeLeftText() { return GetStatusText(); }
+
         public string GetStatusText()
         {
             if (!AnyHanging()) return Lang.Get("forgeandfeast:smoker-empty");

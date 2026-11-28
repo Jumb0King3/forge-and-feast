@@ -519,9 +519,38 @@ namespace ForgeAndFeast
             if (fuelStore != null && worldForResolving != null && !fuelStore.ResolveBlockOrItem(worldForResolving)) fuelStore = null;
         }
 
+        /// <summary>Extra "time left" lines for what this stove is doing, shown when you look at it.</summary>
+        public virtual string GetTimeLeftText() { return ""; }
+
+        float StackBurnSeconds(ItemStack stack)
+        {
+            CombustibleProperties props = stack?.Collectible?.CombustibleProps;
+            if (props == null || props.BurnTemperature <= 0 || props.BurnDuration <= 0) return 0;
+            return props.BurnDuration * BurnMul * stack.StackSize;
+        }
+
+        /// <summary>Seconds the fire will keep going: the piece burning now, the fuel slot and the spare store.</summary>
+        public float FuelSecondsLeft()
+        {
+            return fuelBurnTime + StackBurnSeconds(FuelSlot?.Itemstack) + StackBurnSeconds(fuelStore);
+        }
+
+        /// <summary>"45 s", "3 min 20 s" or "1 h 5 min".</summary>
+        public static string FormatSeconds(float seconds)
+        {
+            int s = (int)Math.Ceiling(Math.Max(0, seconds));
+            if (s < 60) return Lang.Get("forgeandfeast:time-seconds", s);
+            int m = s / 60;
+            if (m < 60) return Lang.Get("forgeandfeast:time-minutes", m, s % 60);
+            return Lang.Get("forgeandfeast:time-hours", m / 60, m % 60);
+        }
+
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
         {
             dsc.AppendLine(GetFuelText());
+            if (IsBurning || HasBurnableFuel()) dsc.AppendLine(Lang.Get("forgeandfeast:fuel-left", FormatSeconds(FuelSecondsLeft())));
+            string left = GetTimeLeftText();
+            if (left.Length > 0) dsc.AppendLine(left);
             GetBehavior<BEBehaviorSmokeVent>()?.GetBlockInfo(forPlayer, dsc);
         }
     }
