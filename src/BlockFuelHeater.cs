@@ -12,6 +12,14 @@ namespace ForgeAndFeast
     /// </summary>
     public class BlockFuelHeater : Block, IIgnitable, ISmokeEmitter
     {
+        public override void OnLoaded(ICoreAPI api)
+        {
+            base.OnLoaded(api);
+            // The game skips a block's own right-click while the player is sneaking unless the block asks for it;
+            // shift + right-click with fuel has to reach the stove
+            PlacedPriorityInteract = true;
+        }
+
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
             if (blockSel == null) return false;
@@ -36,15 +44,16 @@ namespace ForgeAndFeast
                 CombustibleProperties props = stack.Collectible.CombustibleProps;
                 if (props != null && props.BurnTemperature > 0)
                 {
-                    ItemStackMoveOperation op = new ItemStackMoveOperation(world, EnumMouseButton.Left, 0, EnumMergePriority.DirectMerge, 1);
-                    hotbar.TryPutInto(be.FuelSlot, ref op);
-                    if (op.MovedQuantity > 0)
+                    // The whole stack: the fuel slot, then the fuel store on bronze, iron and steel tiers
+                    if (be.AddFuel(hotbar, world) > 0)
                     {
                         (byPlayer as IClientPlayer)?.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
                         return true;
                     }
                 }
             }
+            // Anything else while sneaking (placing a block against the stove) goes on as normal
+            if (byPlayer.Entity.Controls.ShiftKey) return false;
 
             return be.OnPlayerRightClick(byPlayer, blockSel);
         }

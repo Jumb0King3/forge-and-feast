@@ -513,5 +513,91 @@
    "type": "block",
    "code": "forgeandfeast:smoker-steel-cold-closed-north"
   }
+ },
+ {
+  "ingredientPattern": "PIP,BBB,BBB",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-copper"
+   },
+   "I": {
+    "type": "item",
+    "code": "game:ingot-copper"
+   },
+   "B": {
+    "type": "item",
+    "code": "game:burnedbrick-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:cruciblefurnace-copper-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "PFP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-tinbronze",
+    "name": "metal",
+    "allowedVariants": [
+     "tinbronze",
+     "bismuthbronze",
+     "blackbronze"
+    ]
+   },
+   "F": {
+    "type": "block",
+    "code": "forgeandfeast:cruciblefurnace-copper-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:cruciblefurnace-tinbronze-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "PFP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-iron"
+   },
+   "F": {
+    "type": "block",
+    "code": "forgeandfeast:cruciblefurnace-tinbronze-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:cruciblefurnace-iron-cold-north"
+  }
+ },
+ {
+  "ingredientPattern": "PFP",
+  "width": 3,
+  "height": 1,
+  "ingredients": {
+   "P": {
+    "type": "item",
+    "code": "game:metalplate-steel"
+   },
+   "F": {
+    "type": "block",
+    "code": "forgeandfeast:cruciblefurnace-iron-*"
+   }
+  },
+  "output": {
+   "type": "block",
+   "code": "forgeandfeast:cruciblefurnace-steel-cold-north"
+  }
  }
 ]

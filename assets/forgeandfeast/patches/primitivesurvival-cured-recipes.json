@@ -1832,5 +1832,29 @@
     "modid": "primitivesurvival"
    }
   ]
+ },
+ {
+  "op": "replace",
+  "path": "/0/enabled",
+  "value": true,
+  "file": "forgeandfeast:recipes/barrel/primitivesurvival-cured.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "replace",
+  "path": "/1/enabled",
+  "value": true,
+  "file": "forgeandfeast:recipes/barrel/primitivesurvival-cured.json",
+  "side": "Server",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
  }
 ]

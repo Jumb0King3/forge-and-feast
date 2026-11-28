@@ -21,7 +21,6 @@ namespace ForgeAndFeast
         public int ActiveSlots = MaxFiringSlots;
         /// <summary>True on tiers that can smelt metal in crucibles.</summary>
         public bool Smelting;
-        public BlockPos Pos;
 
         public InventoryKiln(string inventoryID, ICoreAPI api) : base(inventoryID, api)
         {
@@ -36,7 +35,7 @@ namespace ForgeAndFeast
             for (int i = 0; i < MaxFiringSlots; i++)
             {
                 int c = CookingSlotId(i, 0);
-                providers[i] = new BurnerSlots(new ItemSlot[] { slots[c], slots[c + 1], slots[c + 2], slots[c + 3] });
+                providers[i] = new BurnerSlots(this, new ItemSlot[] { slots[c], slots[c + 1], slots[c + 2], slots[c + 3] });
             }
         }
 
@@ -189,6 +188,41 @@ namespace ForgeAndFeast
 
         public override InventoryBase Inventory => inventory;
         public override string InventoryClassName => "kilnoven";
+
+        public override void Initialize(ICoreAPI api)
+        {
+            base.Initialize(api);
+            // Kilns fire pottery only now; metal is melted in the Crucible Furnace.
+            // Hand back any crucible (and what's in it) left in a kiln from before.
+            if (api.Side == EnumAppSide.Server && !CanSmelt) RegisterDelayedCallback(dt => HandBackCrucibles(), 1000);
+        }
+
+        void HandBackCrucibles()
+        {
+            Vec3d drop = Pos.ToVec3d().Add(0.5, 1.1, 0.5);
+            bool changed = false;
+            for (int i = 0; i < InventoryKiln.MaxFiringSlots; i++)
+            {
+                for (int j = 0; j < InventoryKiln.PerCrucible; j++)
+                {
+                    ItemSlot c = inventory[InventoryKiln.CookingSlotId(i, j)];
+                    if (c.Empty) continue;
+                    Api.World.SpawnItemEntity(c.Itemstack, drop);
+                    c.Itemstack = null;
+                    c.MarkDirty();
+                    changed = true;
+                }
+                ItemSlot s = inventory.FiringSlot(i);
+                if (s.Itemstack?.Collectible is BlockSmeltingContainer || s.Itemstack?.Collectible is BlockSmeltedContainer)
+                {
+                    Api.World.SpawnItemEntity(s.Itemstack, drop);
+                    s.Itemstack = null;
+                    s.MarkDirty();
+                    changed = true;
+                }
+            }
+            if (changed) MarkDirty(true);
+        }
         public override ItemSlot FuelSlot => inventory.FuelSlot;
 
         protected override void ReadTierStats()

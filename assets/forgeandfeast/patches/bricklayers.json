@@ -1,0 +1,159 @@
+[
+ {
+  "op": "add",
+  "path": "/-",
+  "value": {
+   "ingredientPattern": "BPB,BIB,BBB",
+   "width": 3,
+   "height": 3,
+   "ingredients": {
+    "P": {
+     "type": "item",
+     "code": "game:metalplate-copper"
+    },
+    "B": {
+     "type": "item",
+     "code": "bricklayers:glazedbrick-burnt-*"
+    },
+    "I": {
+     "type": "item",
+     "code": "game:ingot-copper"
+    }
+   },
+   "output": {
+    "type": "block",
+    "code": "forgeandfeast:kitchenrange-copper-cold-closed-north"
+   }
+  },
+  "file": "forgeandfeast:recipes/grid/forgeandfeast.json",
+  "dependsOn": [
+   {
+    "modid": "bricklayers"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/-",
+  "value": {
+   "ingredientPattern": "BBB,BPB,BBB",
+   "width": 3,
+   "height": 3,
+   "ingredients": {
+    "P": {
+     "type": "item",
+     "code": "game:metalplate-copper"
+    },
+    "B": {
+     "type": "item",
+     "code": "bricklayers:glazedbrick-burnt-*"
+    }
+   },
+   "output": {
+    "type": "block",
+    "code": "forgeandfeast:kilnoven-copper-cold-closed-north"
+   }
+  },
+  "file": "forgeandfeast:recipes/grid/forgeandfeast.json",
+  "dependsOn": [
+   {
+    "modid": "bricklayers"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/-",
+  "value": {
+   "ingredientPattern": "BPB,B_B,BPB",
+   "width": 3,
+   "height": 3,
+   "ingredients": {
+    "P": {
+     "type": "item",
+     "code": "game:metalplate-copper"
+    },
+    "B": {
+     "type": "item",
+     "code": "bricklayers:glazedbrick-burnt-*"
+    }
+   },
+   "output": {
+    "type": "block",
+    "code": "forgeandfeast:retort-copper-cold-closed-north"
+   }
+  },
+  "file": "forgeandfeast:recipes/grid/forgeandfeast.json",
+  "dependsOn": [
+   {
+    "modid": "bricklayers"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/-",
+  "value": {
+   "ingredientPattern": "_P_,BIB,B_B",
+   "width": 3,
+   "height": 3,
+   "ingredients": {
+    "P": {
+     "type": "item",
+     "code": "game:metalplate-copper"
+    },
+    "I": {
+     "type": "item",
+     "code": "game:ingot-copper"
+    },
+    "B": {
+     "type": "item",
+     "code": "bricklayers:glazedbrick-burnt-*"
+    }
+   },
+   "output": {
+    "type": "block",
+    "code": "forgeandfeast:potbellystove-copper-north-cold"
+   }
+  },
+  "file": "forgeandfeast:recipes/grid/forgeandfeast.json",
+  "dependsOn": [
+   {
+    "modid": "bricklayers"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/-",
+  "value": {
+   "ingredientPattern": "PIP,BBB,BBB",
+   "width": 3,
+   "height": 3,
+   "ingredients": {
+    "P": {
+     "type": "item",
+     "code": "game:metalplate-copper"
+    },
+    "I": {
+     "type": "item",
+     "code": "game:ingot-copper"
+    },
+    "B": {
+     "type": "item",
+     "code": "bricklayers:glazedbrick-burnt-*"
+    }
+   },
+   "output": {
+    "type": "block",
+    "code": "forgeandfeast:cruciblefurnace-copper-cold-north"
+   }
+  },
+  "file": "forgeandfeast:recipes/grid/forgeandfeast.json",
+  "dependsOn": [
+   {
+    "modid": "bricklayers"
+   }
+  ]
+ }
+]

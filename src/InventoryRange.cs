@@ -22,12 +22,41 @@ namespace ForgeAndFeast
         }
     }
 
-    /// <summary>The four ingredient slots of one burner, handed to the pot's cooking code.</summary>
-    public class BurnerSlots : ISlotProvider
+    /// <summary>
+    /// The four ingredient slots of one burner (or crucible), handed to the pot's cooking code. It is an inventory
+    /// in its own right, carrying the stove's position, because mods such as xSkills look up who is cooking
+    /// from the cooking slots' inventory, as they do for the base game firepit.
+    /// </summary>
+    public class BurnerSlots : InventoryBase, ISlotProvider
     {
         readonly ItemSlot[] slots;
-        public BurnerSlots(ItemSlot[] slots) { this.slots = slots; }
-        public ItemSlot[] Slots => slots;
+        readonly InventoryBase parent;
+
+        public BurnerSlots(InventoryBase parent, ItemSlot[] slots) : base("forgeandfeastburner", "0", null)
+        {
+            this.parent = parent;
+            this.slots = slots;
+        }
+
+        public ItemSlot[] Slots
+        {
+            get
+            {
+                if (parent != null) { Pos = parent.Pos; Api = parent.Api; }
+                return slots;
+            }
+        }
+
+        public override int Count => slots.Length;
+
+        public override ItemSlot this[int slotId]
+        {
+            get { return slotId < 0 || slotId >= slots.Length ? null : slots[slotId]; }
+            set { if (slotId >= 0 && slotId < slots.Length && value != null) slots[slotId] = value; }
+        }
+
+        public override void FromTreeAttributes(ITreeAttribute tree) { }
+        public override void ToTreeAttributes(ITreeAttribute tree) { }
     }
 
     /// <summary>
@@ -46,7 +75,6 @@ namespace ForgeAndFeast
         ItemSlot[] slots;
         BurnerSlots[] providers;
 
-        public BlockPos Pos;
         public int ActiveBurners = MaxBurners;
         public int ActiveOvens = MaxOvens;
 
@@ -80,7 +108,7 @@ namespace ForgeAndFeast
             for (int b = 0; b < MaxUnits; b++)
             {
                 int c = CookingSlotId(b, 0);
-                providers[b] = new BurnerSlots(new ItemSlot[] { slots[c], slots[c + 1], slots[c + 2], slots[c + 3] });
+                providers[b] = new BurnerSlots(this, new ItemSlot[] { slots[c], slots[c + 1], slots[c + 2], slots[c + 3] });
             }
         }
 

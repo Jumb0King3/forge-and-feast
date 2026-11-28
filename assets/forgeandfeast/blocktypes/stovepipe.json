@@ -19,6 +19,12 @@
   },
   "black": {
    "base": "game:block/coal/bituminous"
+  },
+  "brick": {
+   "base": "game:block/clay/brick/four/running/cream1",
+   "overlays": [
+    "game:block/clay/brick/four/running/red1"
+   ]
   }
  },
  "creativeinventory": {

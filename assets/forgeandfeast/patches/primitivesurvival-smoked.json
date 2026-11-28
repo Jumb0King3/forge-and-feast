@@ -1,0 +1,306 @@
+[
+ {
+  "op": "addeach",
+  "path": "/variantgroups/0/states/-",
+  "value": [
+   "smoked",
+   "cured-smoked"
+  ],
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "replace",
+  "path": "/texturesbytype",
+  "value": {
+   "*-smoked": {
+    "normal": {
+     "base": "forgeandfeast:item/smokedmeat"
+    }
+   },
+   "*": {
+    "normal": {
+     "base": "item/crab/crabmeat-{state}"
+    }
+   }
+  },
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/crabmeat-smoked",
+  "value": {
+   "satiety": 100,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/crabmeat-cured-smoked",
+  "value": {
+   "satiety": 95,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/crabmeat-smoked",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "spoilHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 1
+   }
+  ],
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/inPiePropertiesByType/crabmeat-smoked",
+  "value": {
+   "texture": "game:block/food/pie/fill-crab",
+   "partType": "Filling",
+   "mixingCodes": [
+    "potpie"
+   ]
+  },
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/crabmeat-cured-smoked",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 10920
+    },
+    "spoilHours": {
+     "avg": 5460
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 1
+   }
+  ],
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/inPiePropertiesByType/crabmeat-cured-smoked",
+  "value": {
+   "texture": "game:block/food/pie/fill-crab",
+   "partType": "Filling",
+   "mixingCodes": [
+    "potpie"
+   ]
+  },
+  "file": "primitivesurvival:itemtypes/food/crabmeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "addeach",
+  "path": "/variantgroups/0/states/-",
+  "value": [
+   "smoked",
+   "cured-smoked"
+  ],
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "replace",
+  "path": "/texturesbytype",
+  "value": {
+   "*-smoked": {
+    "normal": {
+     "base": "forgeandfeast:item/smokedmeat"
+    }
+   },
+   "*": {
+    "normal": {
+     "base": "item/snake/snakemeat-{state}"
+    }
+   }
+  },
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/snakemeat-smoked",
+  "value": {
+   "satiety": 120,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/nutritionPropsByType/snakemeat-cured-smoked",
+  "value": {
+   "satiety": 115,
+   "health": 0,
+   "foodcategory": "Protein"
+  },
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/snakemeat-smoked",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 8760
+    },
+    "spoilHours": {
+     "avg": 4380
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 1
+   }
+  ],
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/inPiePropertiesByType/snakemeat-smoked",
+  "value": {
+   "texture": "game:block/food/pie/fill-snake",
+   "partType": "Filling",
+   "mixingCodes": [
+    "potpie"
+   ]
+  },
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/transitionablePropsByType/snakemeat-cured-smoked",
+  "value": [
+   {
+    "type": "Perish",
+    "freshHours": {
+     "avg": 10920
+    },
+    "spoilHours": {
+     "avg": 5460
+    },
+    "transitionedStack": {
+     "type": "item",
+     "code": "game:rot"
+    },
+    "transitionRatio": 1
+   }
+  ],
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ },
+ {
+  "op": "add",
+  "path": "/attributes/inPiePropertiesByType/snakemeat-cured-smoked",
+  "value": {
+   "texture": "game:block/food/pie/fill-snake",
+   "partType": "Filling",
+   "mixingCodes": [
+    "potpie"
+   ]
+  },
+  "file": "primitivesurvival:itemtypes/food/snakemeat.json",
+  "dependsOn": [
+   {
+    "modid": "primitivesurvival"
+   }
+  ]
+ }
+]

@@ -322,6 +322,7 @@ namespace ForgeAndFeast
     public class GuiDialogRetort : GuiDialogBlockEntity
     {
         readonly BERetort be;
+        FuelStoreView fuelStoreView;
         long tickId;
 
         public GuiDialogRetort(string title, InventoryBase inventory, BlockPos pos, ICoreClientAPI capi, BERetort be)
@@ -334,11 +335,12 @@ namespace ForgeAndFeast
         void Compose()
         {
             ElementBounds fuelBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, 30, 1, 1);
-            ElementBounds fuelTextBounds = ElementBounds.Fixed(60, 40, 400, 30);
+            fuelStoreView = new FuelStoreView(capi, be);
+            ElementBounds fuelTextBounds = ElementBounds.Fixed(60 + fuelStoreView.Width, 34, 440 - fuelStoreView.Width, 44);
             ElementBounds inBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, 100, 1, 1);
             ElementBounds outBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 200, 100, 1, 1);
             ElementBounds statusBounds = ElementBounds.Fixed(0, 160, 440, 30);
-            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, 440, 190);
+            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, 500, 190);
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -354,6 +356,7 @@ namespace ForgeAndFeast
                 .AddDialogTitleBar(DialogTitle, OnTitleBarClose)
                 .BeginChildElements(bgBounds)
                     .AddItemSlotGrid(Inventory, DoSendPacket, 1, new int[] { 0 }, fuelBounds, "fuelslot")
+                    .AddFuelStore(fuelStoreView, fuelBounds.fixedX, fuelBounds.fixedY)
                     .AddDynamicText("", CairoFont.WhiteDetailText(), fuelTextBounds, "fueltext")
                     .AddItemSlotGrid(Inventory, DoSendPacket, 1, new int[] { 1 }, inBounds, "inslot")
                     .AddStaticText("→", CairoFont.WhiteMediumText(), ElementBounds.Fixed(110, 110, 40, 30))
@@ -368,6 +371,7 @@ namespace ForgeAndFeast
         {
             if (SingleComposer == null || be == null) return;
             SingleComposer.GetDynamicText("fueltext")?.SetNewText(be.GetFuelText());
+            fuelStoreView?.Refresh();
             SingleComposer.GetDynamicText("status")?.SetNewText(be.GetStatusText());
         }
 

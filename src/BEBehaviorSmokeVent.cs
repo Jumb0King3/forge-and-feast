@@ -12,42 +12,65 @@ namespace ForgeAndFeast
 {
     /// <summary>
     /// Smoke and ventilation for fires: the Kitchen Range, Kiln Oven, Retort, Smoker, Potbelly Stove,
-    /// vanilla firepit and vanilla clay oven.
+    /// vanilla firepit and vanilla clay oven. The room and chimney sums are done by <see cref="SmokeSystem"/>;
+    /// this works out where one fire's smoke goes, keeps what the client needs and draws the smoke.
     ///
-    /// - Chimney: a Clay Brick Chimney within 8 blocks above (nothing solid in between), or one reached
-    ///   through a run of stovepipes, gives a draft: the fire works 25% faster.
+    /// - Chimney: a chimney within 8 blocks above (nothing solid in between), or one reached through
+    ///   stovepipes, gives a draft: up to 25% faster, more in wind, less in rain or still air, and less
+    ///   when too many fires share one chimney for its height.
     /// - Stovepipes that lead out of the room into open air vent the smoke (no draft bonus).
-    /// - Smoky room: burning in a fully enclosed room (the game's own room check - doors shut, no gaps,
-    ///   up to about 14 blocks across) with no chimney fills the room with smoke. The fire smoulders
-    ///   and works 40% slower.
-    /// - Once the smoke has built up (15 seconds), anyone in that room chokes: 0.5 damage every second
-    ///   until they leave, open the room up or put the fire out. Smoke clears 3x faster than it builds.
+    /// - Smoke that can't get out collects under the ceiling of a closed room and builds down. Choking
+    ///   starts when it reaches your head; the fire smoulders (40% slower) when it reaches the fire.
     /// </summary>
     public class BEBehaviorSmokeVent : BlockEntityBehavior
     {
-        public const float ChimneyBonus = 1.25f;
-        public const float SmokyPenalty = 0.6f;
-        const float SmokeBuildSeconds = 15f;
-        const float MaxSmoke = 60f;
-        const float DamagePerSecond = 0.5f;
+        public enum Vent { None, Outside, Chimney }
 
+        // Worked out on the server each second
+        public bool Burning;
+        public float Production;
+        public Vent VentKind;
+        public BlockPos ChimneyPos;
+        public long ChimneyKey;
+        public Room FireRoom;
+        public string RoomKey;
+        public float DraftRatio = 1f, WeatherMul = 1f, Backed, Spare;
+        public SmokeSystem.Weather WeatherKind;
+        public int ChimneyShare = 1;
+
+        /// <summary>Smoke this fire puts into the room (in fires' worth, not blocks).</summary>
+        public float Unvented => !Burning ? 0 : (VentKind == Vent.None ? Production : (VentKind == Vent.Chimney ? Backed : 0));
+
+        // Synced to the client
         public bool HasChimney;
         public bool Smoky;
-        public float SmokeSeconds;
+        public bool Smouldering;
+        public bool HeadHigh;
+        public bool Leaky;
+        public bool Lead;
+        public float RoomVolume;
+        public float RoomFrac;
+        public float Mul = 1f;
+        public float SmokeBottom, SmokeTop;
+        int minX, minZ, maxX, maxZ;
 
         float lastCookTime;
-        long lastWarnMs;
-        RoomRegistry rooms;
+        float lastFuelSmoke = 1f;
+        float sentBottom, sentVolume;
+        int sentState = -1;
+        SmokeSystem system;
+        bool realSmoke;
 
         public BEBehaviorSmokeVent(BlockEntity blockentity) : base(blockentity) { }
 
         public override void Initialize(ICoreAPI api, JsonObject properties)
         {
             base.Initialize(api, properties);
-            rooms = api.ModLoader.GetModSystem<RoomRegistry>();
+            realSmoke = StovePipes.RealSmoke(api);
             if (api.Side == EnumAppSide.Server)
             {
-                Blockentity.RegisterGameTickListener(OnServerTick, 1000, api.World.Rand.Next(500));
+                system = api.ModLoader.GetModSystem<SmokeSystem>();
+                system?.Add(this);
                 Blockentity.RegisterGameTickListener(OnFastServerTick, 100);
             }
             else
@@ -55,6 +78,9 @@ namespace ForgeAndFeast
                 Blockentity.RegisterGameTickListener(OnClientTick, 200);
             }
         }
+
+        public override void OnBlockRemoved() { base.OnBlockRemoved(); system?.Remove(this); }
+        public override void OnBlockUnloaded() { base.OnBlockUnloaded(); system?.Remove(this); }
 
         public bool IsBurning()
         {
@@ -65,10 +91,21 @@ namespace ForgeAndFeast
             return false;
         }
 
-        /// <summary>Same rule as the vanilla chimney, looking up instead of down.</summary>
-        bool FindChimney()
+        float FuelSmoke()
         {
-            IBlockAccessor ba = Api.World.BlockAccessor;
+            if (Blockentity is BEFuelHeater heater) return heater.FuelSmoke;
+            if (Blockentity is BlockEntityFirepit firepit)
+            {
+                CollectibleObject fuel = firepit.fuelSlot?.Itemstack?.Collectible;
+                if (fuel != null) lastFuelSmoke = SmokeSystem.FuelSmoke(fuel);
+                return lastFuelSmoke;
+            }
+            return 1f;
+        }
+
+        /// <summary>Same rule as the vanilla chimney, looking up instead of down. Returns the chimney or null.</summary>
+        BlockPos FindChimney(IBlockAccessor ba)
+        {
             BlockPos tmp = Pos.Copy();
             for (int i = 1; i <= 8; i++)
             {
@@ -77,62 +114,87 @@ namespace ForgeAndFeast
                 if (block.Id == 0) continue;
                 // The upper part of a tall station (the Smoker) is its own block: look through it
                 if (block is BlockMultiblock mb && tmp.AddCopy(mb.OffsetInv.X, mb.OffsetInv.Y, mb.OffsetInv.Z).Equals(Pos)) continue;
-                if (block.HasBehavior<BlockBehaviorChimney>()) return true;
-                if (block.SideIsSolid(tmp, BlockFacing.DOWN.Index) || block.SideIsSolid(tmp, BlockFacing.UP.Index)) return false;
+                if (StovePipes.IsChimney(block)) return tmp.Copy();
+                if (block.SideIsSolid(tmp, BlockFacing.DOWN.Index) || block.SideIsSolid(tmp, BlockFacing.UP.Index)) return null;
             }
-            return false;
+            return null;
         }
 
-        Room EnclosedRoom()
+        public void ResetVent()
         {
+            Burning = false; Production = 0; VentKind = Vent.None; ChimneyPos = null; FireRoom = null; RoomKey = null;
+        }
+
+        /// <summary>Server, once a second: is this fire burning, how much smoke, where does it go.</summary>
+        public void ComputeVent(IBlockAccessor ba, RoomRegistry rooms)
+        {
+            Burning = IsBurning();
+            float stationMul = (Blockentity as BEFuelHeater)?.CurrentSmokeMul ?? 1f;
+            Production = Burning ? stationMul * FuelSmoke() : 0;
+            DraftRatio = 1f; WeatherMul = 1f; Backed = 0; Spare = 0; ChimneyShare = 1;
+            WeatherKind = SmokeSystem.Weather.Normal;
+            VentKind = Vent.None;
+            ChimneyPos = null;
+            FireRoom = null;
+
+            // A cold fire only matters while its room still has smoke to clear
+            if (!Burning && RoomVolume <= 0) return;
+
             Room room = rooms?.GetRoomForPosition(Pos);
-            if (room == null || room.ExitCount != 0) return null;
-            return room;
+            if (room != null && (room.ExitCount != 0 || room.AnyChunkUnloaded != 0)) room = null;
+            FireRoom = room;
+
+            ChimneyPos = FindChimney(ba);
+            if (ChimneyPos != null) VentKind = Vent.Chimney;
+            else if (StovePipes.IsSource(Blockentity.Block))
+            {
+                BlockPos chimney;
+                StovePipes.VentResult vent = StovePipes.FollowFromSource(ba, Pos, room, out chimney);
+                if (vent == StovePipes.VentResult.Chimney && chimney != null) { VentKind = Vent.Chimney; ChimneyPos = chimney; }
+                else if (vent == StovePipes.VentResult.Outside) VentKind = Vent.Outside;
+            }
         }
 
-        void OnServerTick(float dt)
+        public void ApplyRoom(SmokeSystem.RoomSmoke rs, bool lead)
         {
-            bool wasChimney = HasChimney, wasSmoky = Smoky;
-            float wasSmoke = SmokeSeconds;
+            RoomVolume = rs.Volume;
+            RoomFrac = rs.Total > 0 ? rs.Volume / rs.Total : 0;
+            SmokeBottom = rs.Bottom;
+            SmokeTop = rs.MinY + rs.Layer.Length;
+            Leaky = rs.LeakTotal > 0;
+            Lead = lead;
+            Smoky = rs.Volume >= 0.5f;
+            // Fire sits on the floor: smoke at its top smothers it; about 1.6 blocks up is head height
+            Smouldering = Smoky && rs.Bottom <= Pos.Y + 1;
+            HeadHigh = Smoky && rs.Bottom <= Pos.Y + 1.6f;
+            minX = Math.Max(rs.Loc.X1, Pos.X - 7); maxX = Math.Min(rs.Loc.X2, Pos.X + 7);
+            minZ = Math.Max(rs.Loc.Z1, Pos.Z - 7); maxZ = Math.Min(rs.Loc.Z2, Pos.Z + 7);
+        }
 
-            Room room = null;
-            if (IsBurning())
-            {
-                room = EnclosedRoom();
-                HasChimney = FindChimney();
-                bool ventedOutside = false;
-                if (!HasChimney && StovePipes.IsSource(Blockentity.Block))
-                {
-                    StovePipes.VentResult vent = StovePipes.FollowFromSource(Api.World.BlockAccessor, Pos, room);
-                    HasChimney = vent == StovePipes.VentResult.Chimney;
-                    ventedOutside = vent == StovePipes.VentResult.Outside;
-                }
-                Smoky = room != null && !HasChimney && !ventedOutside;
-                if (!Smoky) room = null;
-            }
-            else
-            {
-                Smoky = false;
-            }
+        /// <summary>Not in a closed room (or Real Smoke is doing rooms): whatever smoke there was clears fast.</summary>
+        public void ApplyNoRoom(float dt)
+        {
+            RoomVolume = Math.Max(0, RoomVolume * 0.7f - 2 * dt);
+            if (RoomVolume < 0.5f) RoomVolume = 0;
+            Smoky = Smouldering = HeadHigh = Leaky = Lead = false;
+            RoomFrac = 0;
+        }
 
-            float smokeRate = (Blockentity as BEFuelHeater)?.CurrentSmokeMul ?? 1f;
-            if (Smoky) SmokeSeconds = Math.Min(MaxSmoke, SmokeSeconds + dt * smokeRate);
-            else SmokeSeconds = Math.Max(0, SmokeSeconds - 3 * dt);
+        public void FinishTick()
+        {
+            HasChimney = Burning && VentKind == Vent.Chimney;
+            float draft = HasChimney ? 1f + SmokeSystem.DraftBonus * WeatherMul * DraftRatio : 1f;
+            Mul = !Burning ? 1f : draft * (Smouldering ? SmokeSystem.SmokyPenalty : 1f);
 
-            BEFuelHeater heater = Blockentity as BEFuelHeater;
-            if (heater != null)
-            {
-                heater.VentMul = !IsBurning() ? 1f : (HasChimney ? ChimneyBonus : (Smoky ? SmokyPenalty : 1f));
-            }
+            if (Blockentity is BEFuelHeater heater) heater.VentMul = Mul;
 
-            if (SmokeSeconds >= SmokeBuildSeconds)
+            int state = (HasChimney ? 1 : 0) | (Smoky ? 2 : 0) | (Smouldering ? 4 : 0) | (HeadHigh ? 8 : 0) | (Leaky ? 16 : 0)
+                | (Lead ? 32 : 0) | ((int)WeatherKind << 6) | (Math.Min(ChimneyShare, 15) << 8) | ((int)(Mul * 20) << 12);
+            if (state != sentState || Math.Abs(sentBottom - SmokeBottom) >= 0.25f || Math.Abs(sentVolume - RoomVolume) >= 5 || (RoomVolume == 0) != (sentVolume == 0))
             {
-                if (room == null) room = EnclosedRoom();
-                if (room != null) HurtPlayersIn(room, dt);
-            }
-
-            if (wasChimney != HasChimney || wasSmoky != Smoky || (wasSmoke >= SmokeBuildSeconds) != (SmokeSeconds >= SmokeBuildSeconds) || Math.Abs(wasSmoke - SmokeSeconds) >= 5)
-            {
+                sentState = state;
+                sentBottom = SmokeBottom;
+                sentVolume = RoomVolume;
                 Blockentity.MarkDirty();
             }
         }
@@ -145,54 +207,11 @@ namespace ForgeAndFeast
 
             float now = firepit.inputStackCookingTime;
             float delta = now - lastCookTime;
-            if (delta > 0 && firepit.IsBurning)
+            if (delta > 0 && firepit.IsBurning && Mul != 1f)
             {
-                float mul = HasChimney ? ChimneyBonus : (Smoky ? SmokyPenalty : 1f);
-                if (mul != 1f)
-                {
-                    firepit.inputStackCookingTime = Math.Max(0, now + delta * (mul - 1f));
-                }
+                firepit.inputStackCookingTime = Math.Max(0, now + delta * (Mul - 1f));
             }
             lastCookTime = firepit.inputStackCookingTime;
-        }
-
-        void HurtPlayersIn(Room room, float dt)
-        {
-            ICoreServerAPI sapi = Api as ICoreServerAPI;
-            if (sapi == null) return;
-
-            BlockPos ppos = Pos.Copy();
-            foreach (IPlayer player in Api.World.AllOnlinePlayers)
-            {
-                EntityPlayer entity = player.Entity;
-                if (entity == null || !entity.Alive) continue;
-                if (player.WorldData?.CurrentGameMode == EnumGameMode.Creative || player.WorldData?.CurrentGameMode == EnumGameMode.Spectator) continue;
-                if (entity.Pos.DistanceTo(Pos.ToVec3d().Add(0.5, 0.5, 0.5)) > 20) continue;
-
-                ppos.Set((int)entity.Pos.X, (int)(entity.Pos.Y + entity.LocalEyePos.Y), (int)entity.Pos.Z);
-                bool inside = room.Contains(ppos);
-                if (!inside)
-                {
-                    ppos.Set((int)entity.Pos.X, (int)entity.Pos.Y, (int)entity.Pos.Z);
-                    inside = room.Contains(ppos);
-                }
-                if (!inside) continue;
-
-                entity.ReceiveDamage(new DamageSource()
-                {
-                    Source = EnumDamageSource.Block,
-                    SourceBlock = Blockentity.Block,
-                    SourcePos = Pos.ToVec3d(),
-                    Type = EnumDamageType.Suffocation
-                }, DamagePerSecond * dt);
-
-                IServerPlayer sp = player as IServerPlayer;
-                if (sp != null && sapi.World.ElapsedMilliseconds - lastWarnMs > 4000)
-                {
-                    sp.SendIngameError("forgeandfeast-smoke", Lang.Get("forgeandfeast:smoke-choking"));
-                }
-            }
-            if (sapi.World.ElapsedMilliseconds - lastWarnMs > 4000) lastWarnMs = sapi.World.ElapsedMilliseconds;
         }
 
         /// <summary>A thin wisp from the stove's own rear stub, only while no pipe is fitted on top of it.</summary>
@@ -201,10 +220,15 @@ namespace ForgeAndFeast
             BEFuelHeater heater = Blockentity as BEFuelHeater;
             if (heater == null || !heater.IsBurning) return;
             if (StovePipes.PipeOnTop(Api.World.BlockAccessor, Pos)) return;
-            if (Api.World.Rand.NextDouble() > 0.5) return;
+            if (Api.World.Rand.NextDouble() > 0.5 * GameMath.Clamp(heater.FuelSmoke, 0.3f, 1.5f)) return;
 
             double dx = 0, dz = -0.06;   // stub sits just behind the middle on a north-facing stove
             if (heater is BESmoker) dz = 0;   // the Smoker's vent is in the middle of its ridge
+            else if (heater is BECrucibleFurnace)
+            {
+                int[] o = StovePipes.FurnaceFlue(Blockentity.Block);
+                dx = o[0] / 16.0; dz = o[1] / 16.0;
+            }
             else switch (Blockentity.Block?.Variant?["side"])
             {
                 case "east": dx = 0.06; dz = 0; break;
@@ -224,21 +248,22 @@ namespace ForgeAndFeast
             Api.World.SpawnParticles(wisp);
         }
 
+        /// <summary>Room smoke: a layer of haze from the ceiling down to where the smoke has reached.</summary>
         void OnClientTick(float dt)
         {
+            if (realSmoke) return;
             StubWisp();
-            if (!Smoky || SmokeSeconds <= 0) return;
+            if (!Smoky || !Lead || SmokeTop <= SmokeBottom) return;
 
-            float level = GameMath.Clamp(SmokeSeconds / SmokeBuildSeconds, 0.15f, 1.5f);
-            float smokeMul = (Blockentity as BEFuelHeater)?.SmokeMul ?? 1f;
-            int alpha = (int)GameMath.Clamp(60 + 80 * level, 60, 180);
-            Vec3d min = new Vec3d(Pos.X - 2.5, Pos.Y + 1.2, Pos.Z - 2.5);
-            Vec3d max = new Vec3d(Pos.X + 3.5, Pos.Y + 2.6, Pos.Z + 3.5);
+            float thick = SmokeTop - SmokeBottom;
+            int area = (maxX - minX + 1) * (maxZ - minZ + 1);
+            float amount = GameMath.Clamp(thick * area / 30f, 0.5f, 6f);
+            int alpha = (int)GameMath.Clamp(70 + 120 * RoomFrac, 70, 190);
             SimpleParticleProperties props = new SimpleParticleProperties(
-                1 * level * smokeMul, 3 * level * smokeMul,
+                amount, amount * 2,
                 ColorUtil.ColorFromRgba(110, 110, 110, alpha),
-                min, max,
-                new Vec3f(-0.08f, -0.02f, -0.08f), new Vec3f(0.08f, 0.05f, 0.08f),
+                new Vec3d(minX, SmokeBottom, minZ), new Vec3d(maxX + 1, SmokeTop - 0.2, maxZ + 1),
+                new Vec3f(-0.06f, -0.015f, -0.06f), new Vec3f(0.06f, 0.015f, 0.06f),
                 6f, 0f, 1.5f, 3f, EnumParticleModel.Quad);
             props.SelfPropelled = true;
             props.WindAffected = false;
@@ -250,7 +275,21 @@ namespace ForgeAndFeast
             base.ToTreeAttributes(tree);
             tree.SetBool("ffChimney", HasChimney);
             tree.SetBool("ffSmoky", Smoky);
-            tree.SetFloat("ffSmoke", SmokeSeconds);
+            tree.SetBool("ffSmoulder", Smouldering);
+            tree.SetBool("ffHead", HeadHigh);
+            tree.SetBool("ffLeaky", Leaky);
+            tree.SetBool("ffLead", Lead);
+            tree.SetFloat("ffRoomSmoke", RoomVolume);
+            tree.SetFloat("ffFrac", RoomFrac);
+            tree.SetFloat("ffMul", Mul);
+            tree.SetFloat("ffBottom", SmokeBottom);
+            tree.SetFloat("ffTop", SmokeTop);
+            tree.SetInt("ffWeather", (int)WeatherKind);
+            tree.SetInt("ffShare", ChimneyShare);
+            tree.SetFloat("ffDraft", DraftRatio);
+            tree.SetFloat("ffWeatherMul", WeatherMul);
+            tree.SetInt("ffMinX", minX); tree.SetInt("ffMaxX", maxX);
+            tree.SetInt("ffMinZ", minZ); tree.SetInt("ffMaxZ", maxZ);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
@@ -258,14 +297,51 @@ namespace ForgeAndFeast
             base.FromTreeAttributes(tree, worldAccessForResolve);
             HasChimney = tree.GetBool("ffChimney");
             Smoky = tree.GetBool("ffSmoky");
-            SmokeSeconds = tree.GetFloat("ffSmoke");
+            Smouldering = tree.GetBool("ffSmoulder");
+            HeadHigh = tree.GetBool("ffHead");
+            Leaky = tree.GetBool("ffLeaky");
+            Lead = tree.GetBool("ffLead");
+            RoomVolume = tree.GetFloat("ffRoomSmoke");
+            RoomFrac = tree.GetFloat("ffFrac");
+            Mul = tree.GetFloat("ffMul", 1f);
+            SmokeBottom = tree.GetFloat("ffBottom");
+            SmokeTop = tree.GetFloat("ffTop");
+            WeatherKind = (SmokeSystem.Weather)tree.GetInt("ffWeather");
+            ChimneyShare = tree.GetInt("ffShare", 1);
+            DraftRatio = tree.GetFloat("ffDraft", 1f);
+            WeatherMul = tree.GetFloat("ffWeatherMul", 1f);
+            minX = tree.GetInt("ffMinX"); maxX = tree.GetInt("ffMaxX");
+            minZ = tree.GetInt("ffMinZ"); maxZ = tree.GetInt("ffMaxZ");
         }
 
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
         {
-            if (!IsBurning() && SmokeSeconds <= 0) return;
-            if (HasChimney) dsc.AppendLine(Lang.Get("forgeandfeast:vent-chimney"));
-            else if (Smoky) dsc.AppendLine(Lang.Get(SmokeSeconds >= SmokeBuildSeconds ? "forgeandfeast:vent-choking" : "forgeandfeast:vent-smoky"));
+            if (Blockentity is BEFuelHeater heater && heater.IsBurning)
+            {
+                if (heater.FuelSmoke <= 0.5f) dsc.AppendLine(Lang.Get("forgeandfeast:fuelsmoke-low"));
+                else if (heater.FuelSmoke >= 1.3f) dsc.AppendLine(Lang.Get("forgeandfeast:fuelsmoke-high"));
+            }
+            if (!IsBurning() && !Smoky) return;
+
+            if (HasChimney)
+            {
+                int pct = (int)Math.Round(100 * SmokeSystem.DraftBonus * WeatherMul * DraftRatio);
+                dsc.AppendLine(Lang.Get("forgeandfeast:vent-chimney", Math.Max(0, pct)));
+                if (DraftRatio < 0.99f) dsc.AppendLine(Lang.Get("forgeandfeast:vent-overloaded", ChimneyShare));
+                switch (WeatherKind)
+                {
+                    case SmokeSystem.Weather.Windy: dsc.AppendLine(Lang.Get("forgeandfeast:vent-windy")); break;
+                    case SmokeSystem.Weather.Rain: dsc.AppendLine(Lang.Get("forgeandfeast:vent-rain")); break;
+                    case SmokeSystem.Weather.Still: dsc.AppendLine(Lang.Get("forgeandfeast:vent-still")); break;
+                }
+            }
+            if (Smoky)
+            {
+                if (Smouldering) dsc.AppendLine(Lang.Get("forgeandfeast:vent-smoky"));
+                if (HeadHigh) dsc.AppendLine(Lang.Get("forgeandfeast:vent-choking"));
+                else dsc.AppendLine(Lang.Get("forgeandfeast:vent-gathering", (int)Math.Round(RoomFrac * 100)));
+                if (Leaky) dsc.AppendLine(Lang.Get("forgeandfeast:vent-leaky"));
+            }
         }
     }
 }

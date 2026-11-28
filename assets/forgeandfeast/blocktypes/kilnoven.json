@@ -121,6 +121,15 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
+   },
+   "brick": {
+    "base": "game:block/clay/brick/four/running/cream1"
+   },
+   "clay": {
+    "base": "game:block/clay/fireclay"
+   },
+   "inside": {
+    "base": "game:block/clay/oven/inside"
    }
   },
   "*-copper-lit-*": {
@@ -138,6 +147,15 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
+   },
+   "brick": {
+    "base": "game:block/clay/brick/four/running/cream1"
+   },
+   "clay": {
+    "base": "game:block/clay/fireclay"
+   },
+   "inside": {
+    "base": "game:block/clay/oven/inside"
    }
   },
   "*-tinbronze-cold-*": {
@@ -155,6 +173,15 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
+   },
+   "brick": {
+    "base": "game:block/clay/brick/four/running/cream1"
+   },
+   "clay": {
+    "base": "game:block/clay/fireclay"
+   },
+   "inside": {
+    "base": "game:block/clay/oven/inside"
    }
   },
   "*-tinbronze-lit-*": {
@@ -172,6 +199,15 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
+   },
+   "brick": {
+    "base": "game:block/clay/brick/four/running/cream1"
+   },
+   "clay": {
+    "base": "game:block/clay/fireclay"
+   },
+   "inside": {
+    "base": "game:block/clay/oven/inside"
    }
   },
   "*-iron-cold-*": {
@@ -189,6 +225,15 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
+   },
+   "brick": {
+    "base": "game:block/clay/brick/four/running/cream1"
+   },
+   "clay": {
+    "base": "game:block/clay/fireclay"
+   },
+   "inside": {
+    "base": "game:block/clay/oven/inside"
    }
   },
   "*-iron-lit-*": {
@@ -206,6 +251,15 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
+   },
+   "brick": {
+    "base": "game:block/clay/brick/four/running/cream1"
+   },
+   "clay": {
+    "base": "game:block/clay/fireclay"
+   },
+   "inside": {
+    "base": "game:block/clay/oven/inside"
    }
   },
   "*-steel-cold-*": {
@@ -223,6 +277,15 @@
    },
    "fire": {
     "base": "game:block/coal/charcoal"
+   },
+   "brick": {
+    "base": "game:block/clay/brick/four/running/cream1"
+   },
+   "clay": {
+    "base": "game:block/clay/fireclay"
+   },
+   "inside": {
+    "base": "game:block/clay/oven/inside"
    }
   },
   "*-steel-lit-*": {
@@ -240,6 +303,15 @@
    },
    "fire": {
     "base": "game:block/coal/ember"
+   },
+   "brick": {
+    "base": "game:block/clay/brick/four/running/cream1"
+   },
+   "clay": {
+    "base": "game:block/clay/fireclay"
+   },
+   "inside": {
+    "base": "game:block/clay/oven/inside"
    }
   }
  },
@@ -256,7 +328,7 @@
      "kilnoven-*"
     ]
    },
-   "smelting": true,
+   "smelting": false,
    "firingHours": 12,
    "fuelTempMul": 1.0
   },
@@ -272,12 +344,12 @@
      "kilnoven-*"
     ]
    },
-   "smelting": true,
+   "smelting": false,
    "firingHours": 10,
    "fuelTempMul": 1.1
   },
   "*-iron-*": {
-   "smelting": true,
+   "smelting": false,
    "firingSlots": 4,
    "speedMul": 1.4,
    "burnMul": 3.6,
@@ -293,7 +365,7 @@
    "fuelTempMul": 1.25
   },
   "*-steel-*": {
-   "smelting": true,
+   "smelting": false,
    "firingSlots": 5,
    "speedMul": 1.6,
    "burnMul": 4.0,

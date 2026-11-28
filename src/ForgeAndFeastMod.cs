@@ -1,4 +1,5 @@
 using Vintagestory.API.Common;
+using Vintagestory.API.Server;
 
 namespace ForgeAndFeast
 {
@@ -19,6 +20,14 @@ namespace ForgeAndFeast
             api.RegisterBlockEntityBehaviorClass("ForgeSmokeVent", typeof(BEBehaviorSmokeVent));
             api.RegisterBlockClass("StovePipeBlock", typeof(BlockStovePipe));
             api.RegisterBlockEntityClass("StovePipe", typeof(BEStovePipe));
+            api.RegisterBlockClass("CrucibleFurnaceBlock", typeof(BlockCrucibleFurnace));
+            api.RegisterBlockEntityClass("CrucibleFurnace", typeof(BECrucibleFurnace));
+        }
+
+        public override void StartServerSide(ICoreServerAPI api)
+        {
+            base.StartServerSide(api);
+            ForgeAndFeastConfig.Load(api);
         }
     }
 }

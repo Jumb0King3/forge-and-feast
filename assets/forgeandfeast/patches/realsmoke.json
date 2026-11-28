@@ -1,0 +1,183 @@
+[
+ {
+  "file": "forgeandfeast:blocktypes/kitchenrange.json",
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "BlockEntityBehaviorRealSmokeEmitter",
+    "properties": {
+     "smokeProduction": 5,
+     "isSmoking": "IsBurning",
+     "temperature": 400,
+     "ventAbove": 1,
+     "canVentSideways": false,
+     "canVentFront": false,
+     "emitFrom": {
+      "x": 8,
+      "y": 16,
+      "z": 15
+     },
+     "facingVariant": "side"
+    }
+   }
+  ],
+  "dependsOn": [
+   {
+    "modid": "realsmoke"
+   }
+  ],
+  "side": "Universal"
+ },
+ {
+  "file": "forgeandfeast:blocktypes/kilnoven.json",
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "BlockEntityBehaviorRealSmokeEmitter",
+    "properties": {
+     "smokeProduction": 6,
+     "isSmoking": "IsBurning",
+     "temperature": 1100,
+     "ventAbove": 1,
+     "canVentSideways": false,
+     "canVentFront": false,
+     "emitFrom": {
+      "x": 8,
+      "y": 16,
+      "z": 15
+     },
+     "facingVariant": "side"
+    }
+   }
+  ],
+  "dependsOn": [
+   {
+    "modid": "realsmoke"
+   }
+  ],
+  "side": "Universal"
+ },
+ {
+  "file": "forgeandfeast:blocktypes/retort.json",
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "BlockEntityBehaviorRealSmokeEmitter",
+    "properties": {
+     "smokeProduction": 12,
+     "isSmoking": "IsBurning",
+     "temperature": 600,
+     "ventAbove": 1,
+     "canVentSideways": false,
+     "canVentFront": false,
+     "emitFrom": {
+      "x": 8,
+      "y": 16,
+      "z": 15
+     },
+     "facingVariant": "side"
+    }
+   }
+  ],
+  "dependsOn": [
+   {
+    "modid": "realsmoke"
+   }
+  ],
+  "side": "Universal"
+ },
+ {
+  "file": "forgeandfeast:blocktypes/smoker.json",
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "BlockEntityBehaviorRealSmokeEmitter",
+    "properties": {
+     "smokeProduction": 8,
+     "isSmoking": "IsBurning",
+     "temperature": 150,
+     "ventAbove": 2,
+     "canVentSideways": false,
+     "canVentFront": false,
+     "emitFrom": {
+      "x": 8,
+      "y": 32,
+      "z": 8
+     },
+     "facingVariant": "side"
+    }
+   }
+  ],
+  "dependsOn": [
+   {
+    "modid": "realsmoke"
+   }
+  ],
+  "side": "Universal"
+ },
+ {
+  "file": "forgeandfeast:blocktypes/potbellystove.json",
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "BlockEntityBehaviorRealSmokeEmitter",
+    "properties": {
+     "smokeProduction": 4,
+     "isSmoking": "IsBurning",
+     "ventAbove": 1,
+     "canVentSideways": false,
+     "canVentFront": false,
+     "emitFrom": {
+      "x": 8,
+      "y": 16,
+      "z": 15
+     },
+     "facingVariant": "side",
+     "temperatureFunction": "furnaceTemperature",
+     "extinguishFunction": "CoolNow"
+    }
+   }
+  ],
+  "dependsOn": [
+   {
+    "modid": "realsmoke"
+   }
+  ],
+  "side": "Universal"
+ },
+ {
+  "file": "forgeandfeast:blocktypes/cruciblefurnace.json",
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "BlockEntityBehaviorRealSmokeEmitter",
+    "properties": {
+     "smokeProduction": 6,
+     "isSmoking": "IsBurning",
+     "temperature": 1300,
+     "ventAbove": 1,
+     "canVentSideways": false,
+     "canVentFront": false,
+     "emitFrom": {
+      "x": 8,
+      "y": 16,
+      "z": 15
+     },
+     "facingVariant": "side"
+    }
+   }
+  ],
+  "dependsOn": [
+   {
+    "modid": "realsmoke"
+   }
+  ],
+  "side": "Universal"
+ }
+]

@@ -1,0 +1,46 @@
+[
+ {
+  "code": "ff-cured-crabmeat",
+  "enabled": false,
+  "sealHours": 480,
+  "ingredients": [
+   {
+    "type": "item",
+    "code": "game:salt",
+    "quantity": 2
+   },
+   {
+    "type": "item",
+    "code": "primitivesurvival:crabmeat-raw",
+    "quantity": 1
+   }
+  ],
+  "output": {
+   "type": "item",
+   "code": "primitivesurvival:crabmeat-cured",
+   "stackSize": 1
+  }
+ },
+ {
+  "code": "ff-cured-snakemeat",
+  "enabled": false,
+  "sealHours": 480,
+  "ingredients": [
+   {
+    "type": "item",
+    "code": "game:salt",
+    "quantity": 2
+   },
+   {
+    "type": "item",
+    "code": "primitivesurvival:snakemeat-raw",
+    "quantity": 1
+   }
+  ],
+  "output": {
+   "type": "item",
+   "code": "primitivesurvival:snakemeat-cured",
+   "stackSize": 1
+  }
+ }
+]

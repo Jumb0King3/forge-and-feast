@@ -12,6 +12,7 @@ namespace ForgeAndFeast
     public class GuiDialogKitchenRange : GuiDialogBlockEntity
     {
         readonly BEKitchenRange be;
+        FuelStoreView fuelStoreView;
         long tickId;
 
         public GuiDialogKitchenRange(string title, InventoryBase inventory, BlockPos pos, ICoreClientAPI capi, BEKitchenRange be)
@@ -30,7 +31,8 @@ namespace ForgeAndFeast
             double ovenTop = top + rowH * burners + (ovens > 0 ? 34 : 0);
 
             ElementBounds fuelBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, 32, 1, 1);
-            ElementBounds fuelTextBounds = ElementBounds.Fixed(68, 46, 480, 30);
+            fuelStoreView = new FuelStoreView(capi, be);
+            ElementBounds fuelTextBounds = ElementBounds.Fixed(68 + fuelStoreView.Width, 40, 480 - fuelStoreView.Width, 44);
 
             ElementBounds contentBounds = ElementBounds.Fixed(0, 0, 580, ovenTop + rowH * ovens);
 
@@ -48,6 +50,7 @@ namespace ForgeAndFeast
                 .AddDialogTitleBar(DialogTitle, OnTitleBarClose)
                 .BeginChildElements(bgBounds)
                     .AddItemSlotGrid(Inventory, DoSendPacket, 1, new int[] { 0 }, fuelBounds, "fuelslot")
+                    .AddFuelStore(fuelStoreView, fuelBounds.fixedX, fuelBounds.fixedY)
                     .AddDynamicText("", CairoFont.WhiteDetailText(), fuelTextBounds, "fueltext")
                     .AddStaticText(Lang.Get("forgeandfeast:range-burners"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, top - 26, 300, 22));
 
@@ -93,6 +96,7 @@ namespace ForgeAndFeast
         {
             if (SingleComposer == null || be == null) return;
             SingleComposer.GetDynamicText("fueltext")?.SetNewText(be.GetFuelText());
+            fuelStoreView?.Refresh();
             for (int b = 0; b < be.Burners; b++)
             {
                 SingleComposer.GetDynamicText("status" + b)?.SetNewText(be.GetBurnerText(b));
@@ -136,6 +140,7 @@ namespace ForgeAndFeast
     public class GuiDialogKilnOven : GuiDialogBlockEntity
     {
         readonly BEKilnOven be;
+        FuelStoreView fuelStoreView;
         long tickId;
 
         public GuiDialogKilnOven(string title, InventoryBase inventory, BlockPos pos, ICoreClientAPI capi, BEKilnOven be)
@@ -155,8 +160,9 @@ namespace ForgeAndFeast
             int rows = (count + cols - 1) / cols;
 
             ElementBounds fuelBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, 32, 1, 1);
-            ElementBounds fuelTextBounds = ElementBounds.Fixed(68, 46, 400, 30);
-            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, smelt ? 540 : 450, top + rowH * rows);
+            fuelStoreView = new FuelStoreView(capi, be);
+            ElementBounds fuelTextBounds = ElementBounds.Fixed(68 + fuelStoreView.Width, 40, 430 - fuelStoreView.Width, 44);
+            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, smelt ? 540 : 500, top + rowH * rows);
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -172,6 +178,7 @@ namespace ForgeAndFeast
                 .AddDialogTitleBar(DialogTitle, OnTitleBarClose)
                 .BeginChildElements(bgBounds)
                     .AddItemSlotGrid(Inventory, DoSendPacket, 1, new int[] { 0 }, fuelBounds, "fuelslot")
+                    .AddFuelStore(fuelStoreView, fuelBounds.fixedX, fuelBounds.fixedY)
                     .AddDynamicText("", CairoFont.WhiteDetailText(), fuelTextBounds, "fueltext")
                     .AddStaticText(Lang.Get("forgeandfeast:kiln-firing-slots"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, top - 26, 240, 22));
             if (smelt) composer.AddStaticText(Lang.Get("forgeandfeast:kiln-crucible-ingredients"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(265, top - 26, 260, 22));
@@ -203,6 +210,7 @@ namespace ForgeAndFeast
         {
             if (SingleComposer == null || be == null) return;
             SingleComposer.GetDynamicText("fueltext")?.SetNewText(be.GetFuelText());
+            fuelStoreView?.Refresh();
             for (int i = 0; i < be.FiringSlots; i++)
             {
                 SingleComposer.GetDynamicText("status" + i)?.SetNewText(be.GetSlotText(i));

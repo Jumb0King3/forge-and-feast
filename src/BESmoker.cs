@@ -14,8 +14,11 @@ namespace ForgeAndFeast
     /// What the smoker turns things into. Works by item code, so Forge and Feast needs no other mod to load:
     /// - anything ending in "-raw" becomes the same code ending in "-smoked" if that item exists
     ///   (Rustic Cookery's meat slabs, and the smoked red meat and bushmeat it adds to the base game);
-    /// - otherwise the "-cured" version if that exists (the base game's cured meat: smoking cures it);
-    /// - a whole base game fish becomes Rustic Cookery's smoked fish when that mod is installed.
+    /// - cured meat ("-cured") becomes "-cured-smoked". Smoking never cures: curing is salting, done in a barrel;
+    /// - a whole base game fish becomes Rustic Cookery's smoked fish when that mod is installed;
+    /// - with Primitive Survival installed, raw red meat, bush meat, poultry and fish, and its trussed meat
+    ///   (four pieces tied up, so four come out), become Primitive Survival's smoked meat, the same as its
+    ///   own smoker made.
     /// </summary>
     public static class Smoking
     {
@@ -36,27 +39,54 @@ namespace ForgeAndFeast
         }
 
         /// <summary>
-        /// Raw meats from other mods that have no smoked or cured version of their own. They smoke into the
-        /// base game's cured meat of the same kind, one for one. Only used when the mod has no "-smoked"
+        /// Raw meats from other mods that have no smoked version of their own. They smoke into the
+        /// smoked meat of the same kind, one for one. Only used when the mod has no "-smoked"
         /// version (Forge and Feast adds one for Feverstone Wilds when that mod is installed).
         /// </summary>
         static readonly Dictionary<string, string> Equivalents = new Dictionary<string, string>
         {
-            { "feverstonewilds:bisonleg-raw", "game:redmeat-cured" },
-            { "feverstonewilds:ribs-raw", "game:redmeat-cured" },
-            { "feverstonewilds:cockatrice-tail-raw", "game:poultry-cured" },
+            { "feverstonewilds:bisonleg-raw", "game:redmeat-smoked" },
+            { "feverstonewilds:ribs-raw", "game:redmeat-smoked" },
+            { "feverstonewilds:cockatrice-tail-raw", "game:poultry-smoked" },
         };
 
         static AssetLocation Find(IWorldAccessor world, AssetLocation code)
         {
+            // Mods that say what an item smokes into (Butchering and its add-ons use "transformsWhenSmoked"):
+            // that comes first, so the Smoker makes the same thing their own smoking racks would
+            string declared = null;
+            try { declared = world.GetItem(code)?.Attributes?["transformsWhenSmoked"].AsString(null); }
+            catch (System.Exception) { declared = null; }
+            if (!string.IsNullOrEmpty(declared))
+            {
+                AssetLocation target = AssetLocation.Create(declared, code.Domain);
+                if (world.GetItem(target) != null) return target;
+            }
+
             string path = code.Path;
+
+            // Primitive Survival: its smoked meat, so its pies, meals and cured smoked meat (salt in a barrel) work
+            if (world.GetItem(new AssetLocation("primitivesurvival", "smokedmeat-redmeat-raw")) != null)
+            {
+                string kind = PsKind(code);
+                if (kind != null)
+                {
+                    AssetLocation ps = new AssetLocation("primitivesurvival", "smokedmeat-" + kind + "-raw");
+                    if (world.GetItem(ps) != null) return ps;
+                }
+                // Its raw jerky dries in the smoke the way it would hung up to cure: it comes out cured
+                if (code.Domain == "primitivesurvival" && path.StartsWith("jerky-") && path.EndsWith("-raw"))
+                {
+                    AssetLocation jerky = new AssetLocation("primitivesurvival", path.Substring(0, path.Length - 4) + "-cured");
+                    if (world.GetItem(jerky) != null) return jerky;
+                }
+            }
+
             if (path.EndsWith("-raw"))
             {
                 string stem = path.Substring(0, path.Length - 4);
                 AssetLocation smoked = new AssetLocation(code.Domain, stem + "-smoked");
                 if (world.GetItem(smoked) != null) return smoked;
-                AssetLocation cured = new AssetLocation(code.Domain, stem + "-cured");
-                if (world.GetItem(cured) != null) return cured;
 
                 string mapped;
                 if (Equivalents.TryGetValue(code.ToString(), out mapped))
@@ -66,6 +96,13 @@ namespace ForgeAndFeast
                 }
                 return null;
             }
+            // Cured meat smokes into cured-smoked (the base game's fish, and Forge and Feast's red meat, bush meat and poultry)
+            if (path.EndsWith("-cured"))
+            {
+                AssetLocation curedSmoked = new AssetLocation(code.Domain, path + "-smoked");
+                if (world.GetItem(curedSmoked) != null) return curedSmoked;
+                return null;
+            }
             // Whole fish from the base game: fish-{habitat}-{type}-{species}-{age}
             if (code.Domain == "game" && path.StartsWith("fish-") && path.Split('-').Length >= 4)
             {
@@ -73,6 +110,29 @@ namespace ForgeAndFeast
                 if (world.GetItem(smokedFish) != null) return smokedFish;
             }
             return null;
+        }
+
+        static readonly string[] PsKinds = { "redmeat", "bushmeat", "poultry", "fish" };
+
+        /// <summary>The kind of meat for Primitive Survival's smoked meat: base game raw meat, or its trussed meat.</summary>
+        static string PsKind(AssetLocation code)
+        {
+            foreach (string k in PsKinds)
+            {
+                if (code.Domain == "game" && code.Path == k + "-raw") return k;
+                if (code.Domain == "primitivesurvival" && code.Path == "trussedmeat-" + k + "-raw") return k;
+            }
+            // Primitive Survival's own fish fillet
+            if (code.Domain == "primitivesurvival" && code.Path == "fishfillet-raw") return "fish";
+            return null;
+        }
+
+        /// <summary>How many come out for each one put in: Primitive Survival's trussed meat is four pieces tied up.</summary>
+        public static int OutputPerItem(ItemStack stack)
+        {
+            AssetLocation code = stack?.Collectible?.Code;
+            if (code != null && code.Domain == "primitivesurvival" && code.Path.StartsWith("trussedmeat-") && code.Path.EndsWith("-raw")) return 4;
+            return 1;
         }
 
         public static bool CanSmoke(IWorldAccessor world, ItemStack stack) => ResultCode(world, stack) != null;
@@ -89,7 +149,7 @@ namespace ForgeAndFeast
             AssetLocation code = ResultCode(world, stack);
             Item item = code == null ? null : world.GetItem(code);
             if (item == null) return null;
-            ItemStack result = new ItemStack(item, stack.StackSize);
+            ItemStack result = new ItemStack(item, stack.StackSize * OutputPerItem(stack));
             if (stack.Attributes != null)
             {
                 result.Attributes = stack.Attributes.Clone();
@@ -247,9 +307,30 @@ namespace ForgeAndFeast
 
         protected override bool HasActiveWork() => AnyHanging();
 
+        double lastHours = -1;
+
         protected override void ProcessContents(float dt)
         {
-            float add = Working ? GameHours(dt) * SpeedMul * VentMul * (CleanFuel ? 0.25f : 1f) : 0f;
+            // Time that jumped forward (/time add, sleeping) counts too, as long as the fuel lasts through it
+            float hours = GameHours(dt);
+            IGameCalendar cal = Api?.World?.Calendar;
+            if (cal != null)
+            {
+                double now = cal.TotalHours;
+                if (lastHours >= 0 && Working && AnyHanging())
+                {
+                    double gap = now - lastHours - hours;
+                    float rate = cal.SpeedOfTime * cal.CalendarSpeedMul;
+                    if (gap > 0.25 && rate > 0)
+                    {
+                        float secs = (float)(gap * 3600 / rate);
+                        float covered = BurnFor(secs);
+                        hours += (float)(gap * covered / secs);
+                    }
+                }
+                lastHours = now;
+            }
+            float add = Working || hours > GameHours(dt) ? hours * SpeedMul * VentMul * (CleanFuel ? 0.25f : 1f) : 0f;
             for (int i = 0; i < InventorySmoker.MaxHooks; i++)
             {
                 ItemSlot slot = inventory.Hook(i);
@@ -282,7 +363,7 @@ namespace ForgeAndFeast
             return dt * cal.SpeedOfTime * cal.CalendarSpeedMul / 3600f;
         }
 
-        /// <summary>Real-time hours left for the slowest piece, for the status line.</summary>
+        /// <summary>In-game hours left for the slowest piece, for the status line.</summary>
         float HoursLeft(out int pct)
         {
             float worst = 0; float lowest = BaseHours;
@@ -439,18 +520,21 @@ namespace ForgeAndFeast
         {
             base.ToTreeAttributes(tree);
             for (int i = 0; i < InventorySmoker.MaxHooks; i++) tree.SetFloat("pkSmoke" + i, progress[i]);
+            tree.SetDouble("ffLastHours", lastHours);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
             for (int i = 0; i < InventorySmoker.MaxHooks; i++) progress[i] = tree.GetFloat("pkSmoke" + i);
+            lastHours = tree.GetDouble("ffLastHours", -1);
         }
     }
 
     public class GuiDialogSmoker : GuiDialogBlockEntity
     {
         readonly BESmoker be;
+        FuelStoreView fuelStoreView;
         long tickId;
 
         public GuiDialogSmoker(string title, InventoryBase inventory, BlockPos pos, ICoreClientAPI capi, BESmoker be)
@@ -468,12 +552,13 @@ namespace ForgeAndFeast
             for (int i = 0; i < hooks; i++) hookIds[i] = 1 + i;
 
             ElementBounds fuelBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, 30, 1, 1);
-            ElementBounds fuelTextBounds = ElementBounds.Fixed(60, 40, 400, 30);
+            fuelStoreView = new FuelStoreView(capi, be);
+            ElementBounds fuelTextBounds = ElementBounds.Fixed(60 + fuelStoreView.Width, 34, 440 - fuelStoreView.Width, 44);
             ElementBounds hookLabel = ElementBounds.Fixed(0, 88, 300, 22);
             ElementBounds hookBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0, 112, cols, (hooks + cols - 1) / cols);
             double statusY = 112 + 54 * ((hooks + cols - 1) / cols) + 10;
             ElementBounds statusBounds = ElementBounds.Fixed(0, statusY, 440, 44);
-            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, 440, statusY + 48);
+            ElementBounds contentBounds = ElementBounds.Fixed(0, 0, 500, statusY + 48);
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -489,6 +574,7 @@ namespace ForgeAndFeast
                 .AddDialogTitleBar(DialogTitle, OnTitleBarClose)
                 .BeginChildElements(bgBounds)
                     .AddItemSlotGrid(Inventory, DoSendPacket, 1, new int[] { 0 }, fuelBounds, "fuelslot")
+                    .AddFuelStore(fuelStoreView, fuelBounds.fixedX, fuelBounds.fixedY)
                     .AddDynamicText("", CairoFont.WhiteDetailText(), fuelTextBounds, "fueltext")
                     .AddStaticText(Lang.Get("forgeandfeast:smoker-hooks"), CairoFont.WhiteSmallishText(), hookLabel)
                     .AddItemSlotGrid(Inventory, DoSendPacket, cols, hookIds, hookBounds, "hookslots")
@@ -502,6 +588,7 @@ namespace ForgeAndFeast
         {
             if (SingleComposer == null || be == null) return;
             SingleComposer.GetDynamicText("fueltext")?.SetNewText(be.GetFuelText());
+            fuelStoreView?.Refresh();
             SingleComposer.GetDynamicText("status")?.SetNewText(be.GetStatusText());
         }
 

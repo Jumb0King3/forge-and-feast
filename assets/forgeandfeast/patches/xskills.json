@@ -1,0 +1,98 @@
+[
+ {
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "XskillsOwnable"
+   }
+  ],
+  "file": "forgeandfeast:blocktypes/kitchenrange.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "xskillsfork"
+   }
+  ]
+ },
+ {
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "XskillsOwnable"
+   }
+  ],
+  "file": "forgeandfeast:blocktypes/potbellystove.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "xskillsfork"
+   }
+  ]
+ },
+ {
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "XskillsOwnable"
+   }
+  ],
+  "file": "forgeandfeast:blocktypes/cruciblefurnace.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "xskillsfork"
+   }
+  ]
+ },
+ {
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "XskillsOwnable"
+   }
+  ],
+  "file": "forgeandfeast:blocktypes/kitchenrange.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "xskills"
+   }
+  ]
+ },
+ {
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "XskillsOwnable"
+   }
+  ],
+  "file": "forgeandfeast:blocktypes/potbellystove.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "xskills"
+   }
+  ]
+ },
+ {
+  "op": "addmerge",
+  "path": "/entityBehaviors",
+  "value": [
+   {
+    "name": "XskillsOwnable"
+   }
+  ],
+  "file": "forgeandfeast:blocktypes/cruciblefurnace.json",
+  "side": "Universal",
+  "dependsOn": [
+   {
+    "modid": "xskills"
+   }
+  ]
+ }
+]
